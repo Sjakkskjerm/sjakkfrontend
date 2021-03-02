@@ -32,57 +32,48 @@
                 dropOffBoard: 'trash'
             }
 
-    //         let pgns = [['[Event "Casual Game"]',
-    // '[Site "Berlin GER"]',
-    // '[Date "1852.??.??"]',
-    // '[EventDate "?"]',
-    // '[Round "?"]',
-    // '[Result "1-0"]',
-    // '[White "Adolf Anderssen"]',
-    // '[Black "Jean Dufresne"]',
-    // '[ECO "C52"]',
-    // '[WhiteElo "?"]',
-    // '[BlackElo "?"]',
-    // '[PlyCount "47"]',
-    // ''],
-    // ['[Event "Casual Game"]',
-    // '[Site "Berlin GER"]',
-    // '[Date "1852.??.??"]',
-    // '[EventDate "?"]',
-    // '[Round "?"]',
-    // '[Result "1-0"]',
-    // '[White "Adolf Anderssen"]',
-    // '[Black "Jean Dufresne"]',
-    // '[ECO "C52"]',
-    // '[WhiteElo "?"]',
-    // '[BlackElo "?"]',
-    // '[PlyCount "47"]',
-    // '',
-    // '1.e4 e5']]
+                let pgns = [['[Event "Casual Game"]',
+    '[Site "Berlin GER"]',
+    '[Date "1852.??.??"]',
+    '[EventDate "?"]',
+    '[Round "?"]',
+    '[Result "1-0"]',
+    '[White "Adolf Anderssen"]',
+    '[Black "Jean Dufresne"]',
+    '[ECO "C52"]',
+    '[WhiteElo "?"]',
+    '[BlackElo "?"]',
+    '[PlyCount "47"]',
+    '',
+    '1.e4'],
+    ['[Event "Casual Game"]',
+    '[Site "Berlin GER"]',
+    '[Date "1852.??.??"]',
+    '[EventDate "?"]',
+    '[Round "?"]',
+    '[Result "1-0"]',
+    '[White "Adolf Anderssen"]',
+    '[Black "Jean Dufresne"]',
+    '[ECO "C52"]',
+    '[WhiteElo "?"]',
+    '[BlackElo "?"]',
+    '[PlyCount "47"]',
+    '',
+    '1.e4 e5']]
 
-    let pgn = '[Event "Casual Game"][Site "Berlin GER"][Date "1852.??.??"][EventDate "?"][Round "?"][Result "1-0"][White "Adolf Anderssen"][Black "Jean Dufresne"][ECO "C52"][WhiteElo "?"][BlackElo "?"][PlyCount "47"] 1.e4 e5'
-            
+           
             const game = new Chess()
-            //let pgn = pgns[0]
-            game.load_pgn(pgn)
-            //game.load_pgn(pgns[0])
-            let fenString = game.fen()
-            console.log(fenString)
-
             var board1 = Chessboard('myBoard1', config)
-            board1.start()
-
-            board1.position(fenString, false)
-            // pgn = pgns[1]
-            // game.load_pgn(pgn.join('\n'))
-            // fenString = game.fen()
-            // board1.position(fenString, true)
-
-            //board1.clear()
+            let int = 0
 
             function move() {
                 console.log("move")
+                let pgn = pgns[int]
+                game.load_pgn(pgn.join('\n'))
+                let fenString = game.fen()
                 board1.position(fenString, true)
+                // board1.position(fenString, true)
+                int++
                 }
 
             $('#startBtn').on('click', board1.start)
