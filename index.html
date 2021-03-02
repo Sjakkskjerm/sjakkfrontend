@@ -10,67 +10,76 @@
     <script src="libs/chessjs/chess.js"></script>
 </head>
 <body>
-    <div>
-        <div id="myBoard1" style="width: 400px"></div>
-        <button id="startBtn">Startsoppstilling</button>
-        <button id="progressBtn" onclick="move()">Neste trekk</button>
-        <button id="clearBtn">Klarer brettet</button>
+    <main id="content">
+        <div id="boards">
+            <!-- <div id="myBoard1" style="width: 400px"></div>
 
-        <script>
-            var config = {
-                sparePieces: true,
-                draggable: true,
-                dropOffBoard: 'trash'
-            }
-
-                let pgns = [['[Event "Casual Game"]',
-    '[Site "Berlin GER"]',
-    '[Date "1852.??.??"]',
-    '[EventDate "?"]',
-    '[Round "?"]',
-    '[Result "1-0"]',
-    '[White "Adolf Anderssen"]',
-    '[Black "Jean Dufresne"]',
-    '[ECO "C52"]',
-    '[WhiteElo "?"]',
-    '[BlackElo "?"]',
-    '[PlyCount "47"]',
-    '',
-    '1.e4'],
-    ['[Event "Casual Game"]',
-    '[Site "Berlin GER"]',
-    '[Date "1852.??.??"]',
-    '[EventDate "?"]',
-    '[Round "?"]',
-    '[Result "1-0"]',
-    '[White "Adolf Anderssen"]',
-    '[Black "Jean Dufresne"]',
-    '[ECO "C52"]',
-    '[WhiteElo "?"]',
-    '[BlackElo "?"]',
-    '[PlyCount "47"]',
-    '',
-    '1.e4 e5']]
-
-           
-            const game = new Chess()
-            var board1 = Chessboard('myBoard1', config)
-            let int = 0
-
-            function move() {
-                console.log("move")
-                let pgn = pgns[int]
-                game.load_pgn(pgn.join('\n'))
-                let fenString = game.fen()
-                board1.position(fenString, true)
-                // board1.position(fenString, true)
-                int++
+            <script>
+                var config = {
+                    sparePieces: false,
+                    draggable: false,
+                    dropOffBoard: 'trash'
                 }
+            
+                const game = new Chess()
+                var board1 = Chessboard('myBoard1', config)
+                board1.start()
 
-            $('#startBtn').on('click', board1.start)
-            $('#clearBtn').on('click', board1.clear)
+                
+                let pgns = [['[Event "Casual Game"]',
+        '[Site "Berlin GER"]',
+        '[Date "1852.??.??"]',
+        '[EventDate "?"]',
+        '[Round "?"]',
+        '[Result "1-0"]',
+        '[White "Adolf Anderssen"]',
+        '[Black "Jean Dufresne"]',
+        '[ECO "C52"]',
+        '[WhiteElo "?"]',
+        '[BlackElo "?"]',
+        '[PlyCount "47"]',
+        '',
+        '1.e4'],
+        ['[Event "Casual Game"]',
+        '[Site "Berlin GER"]',
+        '[Date "1852.??.??"]',
+        '[EventDate "?"]',
+        '[Round "?"]',
+        '[Result "1-0"]',
+        '[White "Adolf Anderssen"]',
+        '[Black "Jean Dufresne"]',
+        '[ECO "C52"]',
+        '[WhiteElo "?"]',
+        '[BlackElo "?"]',
+        '[PlyCount "47"]',
+        '',
+        '1.e4 e5']]
+                let int = 0
 
-        </script>
-    </div>
+                function move() {
+                    console.log("move")
+                    let pgn = pgns[int]
+                    game.load_pgn(pgn.join('\n'))
+                    let fenString = game.fen()
+                    board1.position(fenString, true)
+                    // board1.position(fenString, true)
+                    int++
+                    }
+
+                $('#startBtn').on('click', board1.start)
+                $('#clearBtn').on('click', board1.clear)
+
+            </script> -->
+
+        </div>
+        <div id="info">
+
+        </div>
+        <div id="messages">
+
+        </div>
+
+        <script type="module" src="boardappender.js"></script>
+    </main>
 </body>
 </html> 
