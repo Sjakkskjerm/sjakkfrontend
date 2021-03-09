@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/">Turneringer</router-link> |
-    <router-link to="/about">Om</router-link>
+    <router-link to="/about">Om</router-link> |
+    <router-link to="/live">Live</router-link>
   </div>
   <router-view />
 </template>
