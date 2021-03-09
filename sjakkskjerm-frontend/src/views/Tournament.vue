@@ -1,5 +1,4 @@
 <template>
-    <h1>Turneringsskjerm...</h1>
     <div class="tournament">
         <ChessBoards/>
         <MessageBoard/>
