@@ -1,7 +1,6 @@
 <template>
   <div class="tournaments">
     <h1> Velkommen til Sjakk Skjerm</h1>
-    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <TournamentList/>
   </div>
 </template>
