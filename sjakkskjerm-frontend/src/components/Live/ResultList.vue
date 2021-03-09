@@ -1,5 +1,5 @@
 <template>
-    <div class="results">
+    <div class="resultlist">
         <h1>Her kommer resultater...</h1>
     </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
+    <h1>Turneringsskjerm...</h1>
     <div class="tournament">
-        <h1>Turneringsskjerm...</h1>
         <ChessBoards/>
         <MessageBoard/>
         <ResultList/>

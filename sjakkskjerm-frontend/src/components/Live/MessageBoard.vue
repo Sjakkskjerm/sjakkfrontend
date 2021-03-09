@@ -1,5 +1,5 @@
 <template>
-    <div class="messages">
+    <div class="messageboard">
         <h1>Her kommer beskjeder...</h1>
     </div>
 </template>
