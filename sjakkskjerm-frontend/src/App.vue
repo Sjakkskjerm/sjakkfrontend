@@ -1,7 +1,9 @@
 <template>
   <div id="nav">
     <router-link to="/">Turneringer</router-link> |
-    <router-link to="/about">Om</router-link>
+    <router-link to="/about">Om</router-link> |
+    <router-link to="/send">Send</router-link> | 
+    <router-link to="/view">Meldinger</router-link>
   </div>
   <router-view />
 </template>
