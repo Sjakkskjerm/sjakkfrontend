@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import ChessBoards from "@/components/Live/ChessBoards.vue";
-import MessageBoard from "@/components/Live/MessageBoard.vue";
-import ResultList from "@/components/Live/ResultList.vue";
+import ChessBoards from "@/components/live/ChessBoards.vue";
+import MessageBoard from "@/components/live/MessageBoard.vue";
+import ResultList from "@/components/live/ResultList.vue";
 
 export default {
     name: "tournament",

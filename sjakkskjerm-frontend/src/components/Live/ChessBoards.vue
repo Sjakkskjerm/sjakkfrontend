@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ChessBoardView from "@/components/Live/ChessBoardView.vue";
+import ChessBoardView from "@/components/live/ChessBoardView.vue";
 
 export default {
     name: "ChessBoards",

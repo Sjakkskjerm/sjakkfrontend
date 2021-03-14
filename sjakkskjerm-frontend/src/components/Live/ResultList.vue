@@ -1,11 +1,16 @@
 <template>
-    <div class="resultlist">
+    <div v-if="show" class="resultlist">
         <h1>Her kommer resultater...</h1>
     </div>
 </template>
 
 <script>
 export default {
-    name: "ResultList"
+    name: "ResultList",
+    data () {
+        return {
+            show: false
+        }
+    }
 }
 </script>
