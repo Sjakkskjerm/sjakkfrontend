@@ -75,12 +75,13 @@ export default {
     // ---------------------------------------------------------------------------
 
     function uuid() {
-      return "xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx".replace(/x/g, function(
-        c
-      ) {
-        var r = (Math.random() * 16) | 0;
-        return r.toString(16);
-      });
+      return "xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx-xxxx".replace(
+        /x/g,
+        function() {
+          var r = (Math.random() * 16) | 0;
+          return r.toString(16);
+        }
+      );
     }
 
     function deepCopy(thing) {
@@ -89,7 +90,7 @@ export default {
 
     function interpolateTemplate(str, obj) {
       for (var key in obj) {
-        if (!obj.hasOwnProperty(key)) continue;
+        if (!Object.prototype.hasOwnProperty.call(obj, key)) continue;
         var keyTemplateStr = "{" + key + "}";
         var value = obj[key];
         while (str.indexOf(keyTemplateStr) !== -1) {
@@ -228,7 +229,7 @@ export default {
       if (!$.isPlainObject(pos)) return false;
 
       for (var i in pos) {
-        if (!pos.hasOwnProperty(i)) continue;
+        if (!Object.prototype.hasOwnProperty.call(pos, i)) continue;
 
         if (!validSquare(i) || !validPieceCode(pos[i])) {
           return false;
@@ -328,7 +329,7 @@ export default {
           var square = COLUMNS[j] + currentRow;
 
           // piece exists
-          if (obj.hasOwnProperty(square)) {
+          if (Object.prototype.hasOwnProperty.call(obj, square)) {
             fen = fen + pieceCodeToFen(obj[square]);
           } else {
             // empty space
@@ -404,7 +405,10 @@ export default {
       for (var i = 0; i < closestSquares.length; i++) {
         var s = closestSquares[i];
 
-        if (position.hasOwnProperty(s) && position[s] === piece) {
+        if (
+          Object.prototype.hasOwnProperty.call(position, s) &&
+          position[s] === piece
+        ) {
           return s;
         }
       }
@@ -451,10 +455,10 @@ export default {
       var newPosition = deepCopy(position);
 
       for (var i in moves) {
-        if (!moves.hasOwnProperty(i)) continue;
+        if (!Object.prototype.hasOwnProperty.call(moves, i)) continue;
 
         // skip the move if the position doesn't have a piece on the source square
-        if (!newPosition.hasOwnProperty(i)) continue;
+        if (!Object.prototype.hasOwnProperty.call(newPosition, i)) continue;
 
         var piece = newPosition[i];
         delete newPosition[i];
@@ -523,7 +527,7 @@ export default {
 
       // default piece theme is wikipedia
       if (
-        !config.hasOwnProperty("pieceTheme") ||
+        !Object.prototype.hasOwnProperty.call(config, "pieceTheme") ||
         (!isString(config.pieceTheme) && !isFunction(config.pieceTheme))
       ) {
         config.pieceTheme = "/static/chesspieces/wikipedia/{piece}.png";
@@ -625,7 +629,7 @@ export default {
       function error(code, msg, obj) {
         // do nothing if showErrors is not set
         if (
-          config.hasOwnProperty("showErrors") !== true ||
+          Object.prototype.hasOwnProperty.call(config, "showErrors") !== true ||
           config.showErrors === false
         ) {
           return;
@@ -665,7 +669,7 @@ export default {
         currentOrientation = config.orientation;
 
         // make sure position is valid
-        if (config.hasOwnProperty("position")) {
+        if (Object.prototype.hasOwnProperty.call(config, "position")) {
           if (config.position === "start") {
             currentPosition = deepCopy(START_POSITION);
           } else if (validFen(config.position)) {
@@ -1019,9 +1023,12 @@ export default {
 
         // remove pieces that are the same in both positions
         for (var i in pos2) {
-          if (!pos2.hasOwnProperty(i)) continue;
+          if (!Object.prototype.hasOwnProperty.call(pos2, i)) continue;
 
-          if (pos1.hasOwnProperty(i) && pos1[i] === pos2[i]) {
+          if (
+            Object.prototype.hasOwnProperty.call(pos1, i) &&
+            pos1[i] === pos2[i]
+          ) {
             delete pos1[i];
             delete pos2[i];
           }
@@ -1029,7 +1036,7 @@ export default {
 
         // find all the "move" animations
         for (i in pos2) {
-          if (!pos2.hasOwnProperty(i)) continue;
+          if (!Object.prototype.hasOwnProperty.call(pos2, i)) continue;
 
           var closestPiece = findClosestPiece(pos1, pos2[i], i);
           if (closestPiece) {
@@ -1048,7 +1055,7 @@ export default {
 
         // "add" animations
         for (i in pos2) {
-          if (!pos2.hasOwnProperty(i)) continue;
+          if (!Object.prototype.hasOwnProperty.call(pos2, i)) continue;
 
           animations.push({
             type: "add",
@@ -1061,11 +1068,11 @@ export default {
 
         // "clear" animations
         for (i in pos1) {
-          if (!pos1.hasOwnProperty(i)) continue;
+          if (!Object.prototype.hasOwnProperty.call(pos1, i)) continue;
 
           // do not clear a piece if it is on a square that is the result
           // of a "move", ie: a piece capture
-          if (squaresMovedTo.hasOwnProperty(i)) continue;
+          if (Object.prototype.hasOwnProperty.call(squaresMovedTo, i)) continue;
 
           animations.push({
             type: "clear",
@@ -1089,7 +1096,8 @@ export default {
 
         // add the pieces
         for (var i in currentPosition) {
-          if (!currentPosition.hasOwnProperty(i)) continue;
+          if (!Object.prototype.hasOwnProperty.call(currentPosition, i))
+            continue;
 
           $("#" + squareElsIds[i]).append(buildPieceHTML(currentPosition[i]));
         }
