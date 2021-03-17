@@ -1,8 +1,7 @@
 <template>
   <div class="tournaments">
-    <h1> Velkommen til Sjakk Skjerm</h1>
-    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <TournamentList/>
+    <h1>Velkommen til Sjakk Skjerm</h1>
+    <TournamentList />
   </div>
 </template>
 
@@ -11,7 +10,7 @@
 import TournamentList from "@/components/TournamentList.vue";
 
 export default {
-  name: "tournaments",
+  name: "Tournaments",
   components: {
     TournamentList
   }
