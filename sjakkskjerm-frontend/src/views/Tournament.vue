@@ -1,9 +1,9 @@
 <template>
-    <div class="tournament">
-        <ChessBoards/>
-        <MessageBoard/>
-        <ResultList/>
-    </div>
+  <div class="tournament">
+    <ChessBoards />
+    <MessageBoard />
+    <ResultList />
+  </div>
 </template>
 
 <script>
@@ -12,9 +12,11 @@ import MessageBoard from "@/components/live/MessageBoard.vue";
 import ResultList from "@/components/live/ResultList.vue";
 
 export default {
-    name: "tournament",
-    components: {
-        ChessBoards, MessageBoard, ResultList
-    }
-}
+  name: "Tournament",
+  components: {
+    ChessBoards,
+    MessageBoard,
+    ResultList
+  }
+};
 </script>
