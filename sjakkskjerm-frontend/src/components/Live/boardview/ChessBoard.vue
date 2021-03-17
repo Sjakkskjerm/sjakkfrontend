@@ -6,7 +6,15 @@
 import JQuery from "jquery";
 
 export default {
-  props: ["fen"],
+  //Receives a FEN-string as a prop, and updates the position of
+  //the pieces of a chessboard. FEN-string will go trough validation.
+  //If FEN-string is not valid, board-position will not be updated.
+  props: {
+    fen: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       loaded: false,
