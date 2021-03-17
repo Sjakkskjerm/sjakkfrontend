@@ -1,8 +1,6 @@
 <template>
   <div class="chessboardview">
-    <!-- <h1>Første brett...</h1> -->
     <ChessBoard ref="board" fen="start" />
-    <!-- <button @click="updateBoardState()">Test</button> -->
   </div>
 </template>
 
@@ -33,11 +31,10 @@ export default {
   },
   mounted() {
     this.game = new Chess();
-    //first board position could be latest state of board. Could use setPGN.
-    this.$refs.board.position("start");
+    this.fetchBoardPgn();
     this.interval = setInterval(() => {
       this.fetchBoardPgn();
-    }, 10000);
+    }, 5000);
   },
   unmounted() {
     clearInterval(this.interval);
@@ -49,6 +46,7 @@ export default {
       this.$refs.board.position(this.fen);
     },
     fetchBoardPgn() {
+      console.log("fetching pgn...");
       GameService.getPgn(this.boardId)
         .then(response => {
           this.pgn = response.data.pgn;
