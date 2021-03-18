@@ -538,7 +538,7 @@ export default {
         !Object.prototype.hasOwnProperty.call(config, "pieceTheme") ||
         (!isString(config.pieceTheme) && !isFunction(config.pieceTheme))
       ) {
-        config.pieceTheme = "/static/chesspieces/wikipedia/{piece}.png";
+        config.pieceTheme = "/chesspieces/wikipedia/{piece}.png";
       }
 
       // animation speeds
