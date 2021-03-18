@@ -10,52 +10,66 @@ import Chess from "chess.js";
 import GameService from "@/services/GameService.js";
 
 export default {
+  //Asks GameService for PGN, generates FEN-String from that PGN Array and feeds it to
+  //ChessBoard component.
   name: "ChessBoardView",
   components: {
     ChessBoard
   },
   props: {
-    boardIdentifier: {
+    boardId: {
       type: String,
-      required: true
+      required: true,
+      default: "123" //default value for development.
     }
   },
   data() {
     return {
-      boardId: "123",
-      fen: null,
+      fetchInterval: 0,
       game: {},
-      interval: 0,
       pgn: []
     };
   },
   mounted() {
     this.game = new Chess();
+    this.setBoard("start"); //temporary for development.
     this.fetchBoardPgn();
-    this.interval = setInterval(() => {
-      this.fetchBoardPgn();
-    }, 5000);
+    this.startFetchInterval(4000);
   },
   unmounted() {
-    clearInterval(this.interval);
+    clearInterval(this.fetchInterval);
   },
   methods: {
+    setBoard(fen) {
+      this.$refs.board.position(fen);
+    },
     updateBoard() {
-      this.game.load_pgn(this.pgn.join("\n"));
-      this.fen = this.game.fen();
-      this.$refs.board.position(this.fen);
+      let newFen = this.generateFenFromPgn();
+      this.setBoard(newFen);
     },
     fetchBoardPgn() {
-      console.log("fetching pgn...");
+      console.log("FetchBoardPgn: fetching pgn...");
       GameService.getPgn(this.boardId)
         .then(response => {
           this.pgn = response.data.pgn;
           this.updateBoard();
         })
         .catch(error => {
-          console.log("Unable to set PGN for board: " + this.boardId);
+          console.log(
+            "FetchBoardPGN: Error - Unable to set PGN for board: " +
+              this.boardId
+          );
           console.log(error);
         });
+    },
+    generateFenFromPgn() {
+      this.game.load_pgn(this.pgn.join("\n"));
+      return this.game.fen();
+    },
+    startFetchInterval(fetchInterval) {
+      this.fetchInterval = setInterval(() => {
+        this.fetchBoardPgn();
+      }, fetchInterval);
     }
   }
 };
