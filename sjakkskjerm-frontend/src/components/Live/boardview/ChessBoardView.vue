@@ -17,7 +17,7 @@ export default {
     ChessBoard
   },
   props: {
-    boardId: {
+    gameId: {
       type: String,
       required: true,
       default: "123" //default value for development.
@@ -49,15 +49,14 @@ export default {
     },
     fetchBoardPgn() {
       console.log("FetchBoardPgn: fetching pgn...");
-      GameService.getPgn(this.boardId)
+      GameService.getPgn(this.gameId)
         .then(response => {
           this.pgn = response.data.pgn;
           this.updateBoard();
         })
         .catch(error => {
           console.log(
-            "FetchBoardPGN: Error - Unable to set PGN for board: " +
-              this.boardId
+            "FetchBoardPGN: Error - Unable to set PGN for board: " + this.gameId
           );
           console.log(error);
         });
