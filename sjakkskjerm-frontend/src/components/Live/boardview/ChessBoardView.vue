@@ -10,6 +10,7 @@ import Chess from "chess.js";
 import GameService from "@/services/GameService.js";
 
 export default {
+  //Author: Martin Håhjem Årdal
   //Asks GameService for PGN, generates FEN-String from that PGN Array and feeds it to
   //ChessBoard component.
   name: "ChessBoardView",

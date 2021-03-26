@@ -6,6 +6,7 @@
 import JQuery from "jquery";
 
 export default {
+  //Author: Martin Håhjem Årdal
   //Receives a FEN-string as a prop, and updates the position of
   //the pieces of a chessboard. FEN-string will go trough validation.
   //If FEN-string is not valid, board-position will not be updated.
@@ -17,9 +18,6 @@ export default {
   },
   data() {
     return {
-      loaded: false,
-      isError: false,
-      errorText: "",
       board: null,
       boardId: Math.random()
         .toString(36)
