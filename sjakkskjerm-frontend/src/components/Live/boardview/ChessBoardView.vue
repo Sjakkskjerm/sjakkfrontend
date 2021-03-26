@@ -19,9 +19,9 @@ export default {
   },
   props: {
     gameId: {
-      type: String,
+      type: Number,
       required: true,
-      default: "123" //default value for development.
+      default: 123 //default value for development.
     }
   },
   data() {
@@ -60,6 +60,7 @@ export default {
             "FetchBoardPGN: Error - Unable to set PGN for board: " + this.gameId
           );
           console.log(error);
+          clearInterval(this.fetchInterval);
         });
     },
     generateFenFromPgn() {
