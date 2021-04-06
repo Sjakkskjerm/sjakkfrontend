@@ -1,6 +1,11 @@
 <template>
   <div v-if="error == false" class="tournamentlist">
     <h2>Her kommer en liste av turneringer...</h2>
+    <TournamentItem
+    v-for="tournament in tournaments"
+    :key="tournament"
+    :tournament="tournament"
+    />
   </div>
   <div v-if="error" class="yeye">
     <p>"hello"</p>
@@ -9,10 +14,13 @@
 
 <script>
 import GameService from "@/services/GameService.js";
+import TournamentItem from "@/components/tournaments/TournamentItem.vue";
 
 export default {
   name: "TournamentList",
-  components: {},
+  components: {
+    TournamentItem,
+  },
   data() {
     return {
       error: false,
