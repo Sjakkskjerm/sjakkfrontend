@@ -1,7 +1,7 @@
 <template>
   <div v-if="error == false" class="boardmanager">
-    <div v-if="gamesFectched" class="boards">
-      <div v-if="hasGames">
+    <div v-if="gamesFectched">
+      <div v-if="hasGames" class="boards">
         <ChessBoardView
           v-for="game in games"
           :key="game"
@@ -104,7 +104,7 @@ export default {
           console.log(error.response.headers);
         }
       } else if (error.request) {
-        //There may be other errors. Hard to assess.
+        //There may be other errors. Hard to assess from error.request.
         this.errorUserFeedbackText +=
           "Unable to connect to server. There may be an issue with your internet connection.";
         console.log(error.request);
