@@ -7,7 +7,7 @@
 
 <script>
 // @ is an alias to /src
-import TournamentList from "@/components/TournamentList.vue";
+import TournamentList from "@/components/tournaments/TournamentList.vue";
 
 export default {
   name: "Tournaments",
