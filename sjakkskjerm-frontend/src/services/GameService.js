@@ -1,12 +1,14 @@
 import axios from "axios";
 
-const baseTestUrl = "https://my-json-server.typicode.com/maardal";
+// const baseTestUrl = "https://my-json-server.typicode.com/maardal";
 const tournamentUrl = "/fake-tournaments/tournaments/";
 const gameUrl = "/mockdatabase/games/";
+const baseBackendUrl = "http://localhost:8080";
+const backendTournaments = "/api/tournaments/"
 // const tournamentList = "/fake-tournaments/";
 
 const apiClient = axios.create({
-  baseURL: baseTestUrl,
+  baseURL: baseBackendUrl,
   withCredentials: false,
   headers: {
     Accept: "application/json",
@@ -22,6 +24,6 @@ export default {
     return apiClient.get(tournamentUrl + tournamentId);
   },
   getTournaments() {
-    return apiClient.get(tournamentUrl);
+    return apiClient.get(backendTournaments);
   }
 };
