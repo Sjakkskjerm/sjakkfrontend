@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p> {{tournament}} </p>
+        <p> {{ tournament.id + ", " + tournament.startDate + ", " + tournament.endDate }} </p>
     </div>
 </template>
 <script>
