@@ -1,18 +1,18 @@
 <template>
   <div class="tournaments">
     <h1>Velkommen til Sjakk Skjerm</h1>
-    <TournamentList />
+    <TournamentManager />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import TournamentList from "@/components/tournaments/TournamentList.vue";
+import TournamentManager from "@/components/tournaments/TournamentManager.vue";
 
 export default {
   name: "Tournaments",
   components: {
-    TournamentList
+    TournamentManager,
   }
 };
 </script>
