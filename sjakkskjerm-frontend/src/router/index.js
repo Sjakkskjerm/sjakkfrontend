@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Tournament from "../views/Tournament.vue";
 import Tournaments from "../views/Tournaments.vue";
+import SendMessage from "../components/admin/SendMessage.vue";
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: "/live",
     name: "Tournament",
     component: Tournament
+  },
+  {
+    path: "/admin/sendmessage",
+    name: "Send Melding",
+    component: SendMessage
   }
 ];
 

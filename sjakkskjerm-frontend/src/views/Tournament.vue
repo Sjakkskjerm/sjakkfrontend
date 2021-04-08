@@ -1,7 +1,7 @@
 <template>
   <div class="tournament">
     <ChessBoards />
-    <MessageBoard />
+    <MessageBoard class="messageboard"/>
     <ResultList />
   </div>
 </template>
@@ -24,3 +24,8 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.messageboard {
+}
+</style>
