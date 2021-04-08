@@ -4,7 +4,7 @@ import axios from "axios";
 const tournamentUrl = "/fake-tournaments/tournaments/";
 const gameUrl = "/mockdatabase/games/";
 const baseBackendUrl = "http://localhost:8080";
-const backendTournaments = "/api/tournaments/"
+const backendTournaments = "/api/tournaments/";
 // const tournamentList = "/fake-tournaments/";
 
 const apiClient = axios.create({
