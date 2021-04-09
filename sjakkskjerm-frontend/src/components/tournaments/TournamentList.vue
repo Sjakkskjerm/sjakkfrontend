@@ -3,11 +3,18 @@
     <h1>
       {{ title }}
     </h1>
-    <TournamentItem
-    v-for="tournament in tournaments"
-    :key="tournament"
-    :tournament="tournament"
-    />
+    <table class="bord">
+      <tr>
+          <th>Tournament Name</th> 
+          <th>Start Date</th>
+          <th>End Date</th>
+      </tr>
+        <TournamentItem
+        v-for="tournament in tournaments"
+        :key="tournament"
+        :tournament="tournament"
+        />
+    </table>
   </div>
 </template>
 
@@ -32,3 +39,18 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .bord{
+    /* border: 1px solid rgb(75, 75, 75);  */
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    font-size: 24;
+    /* border-radius: 120px 90px 60px 30px/30px 60px 90px 120px; */
+  }
+  th{
+    border-bottom: 1px solid black;
+  }
+</style>
