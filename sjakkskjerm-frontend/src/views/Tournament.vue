@@ -1,6 +1,6 @@
 <template>
-  <div class="tournament">
-    <ChessBoards />
+  <div v-if="id" class="tournament">
+    <ChessBoards :tournament-id="id" />
     <MessageBoard />
     <ResultList />
   </div>
@@ -21,6 +21,13 @@ export default {
     ChessBoards,
     MessageBoard,
     ResultList
+  },
+  props: {
+    id: {
+      type: String,
+      required: true,
+      default: "123"
+    }
   }
 };
 </script>

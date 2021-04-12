@@ -1,6 +1,6 @@
 <template>
   <div class="chessboards">
-    <BoardManager />
+    <BoardManager :tournament-id="tournamentId" />
   </div>
 </template>
 
@@ -11,6 +11,13 @@ export default {
   name: "ChessBoards",
   components: {
     BoardManager
+  },
+  props: {
+    tournamentId: {
+      type: String,
+      required: true,
+      default: "123"
+    }
   }
 };
 </script>

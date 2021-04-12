@@ -19,7 +19,13 @@ const routes = [
   },
   {
     path: "/live",
+    name: "Live",
+    component: Tournament
+  },
+  {
+    path: "/tournament/:id",
     name: "Tournament",
+    props: true,
     component: Tournament
   }
 ];
