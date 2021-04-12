@@ -16,6 +16,8 @@
     replication, modification and extention of forms. Designed to keep 
     all forms consistent in the system. (Works as an abstraction layer 
     for a form. See CreateTournament component for an example of use.)
+    Implements an input listener that already emits so you only have
+    to catch it.
 */
 
 export default {
