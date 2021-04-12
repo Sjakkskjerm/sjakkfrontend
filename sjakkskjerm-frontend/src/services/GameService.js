@@ -40,5 +40,8 @@ export default {
   },
   getMessages() {
     return apiClient_messages.get(messagesURL);
+  },
+  sendMessages(data) {
+    return apiClient_messages.post(messagesURL, data);
   }
 };

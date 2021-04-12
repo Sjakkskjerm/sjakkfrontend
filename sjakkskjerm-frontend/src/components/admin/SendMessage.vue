@@ -1,24 +1,28 @@
 <template>
-    <h1>Send Melding</h1>
-    <hr>
-    <form>
-        <label>Turnerings ID</label>
-        <input type="text" required v-model="meldingData.turneringsId">
+    <div>
+        <h1>Send Melding</h1>
+        <hr>
+        <form>
+            <label>Turnerings ID</label>
+            <input type="text" required v-model="meldingData.turneringsId">
 
-        <label>Melding</label>
-        <input type="text" required v-model="meldingData.melding">
+            <label>Melding</label>
+            <input type="text" required v-model="meldingData.melding">
 
-        <label>Viktighet</label>
-        <select v-model="meldingData.viktighet">
-            <option
-            v-for="option in viktigheter"
-            :value="option"
-            :key="option"
-            :selected="option === meldingData.viktighet">
-            {{ option }}
-            </option>
-        </select>
-    </form>
+            <label>Viktighet</label>
+            <select v-model="meldingData.viktighet">
+                <option
+                v-for="option in viktigheter"
+                :value="option"
+                :key="option"
+                :selected="option === meldingData.viktighet">
+                {{ option }}
+                </option>
+            </select>
+        </form>
+    </div>
+    <button v-on:click="sendMessages">Send</button>
+    <p> {{ this.svarlol }} </p>
 
     <p>Turnerings ID: {{ meldingData.turneringsId }}</p>
     <p>Melding: {{ meldingData.melding }}</p>
@@ -26,9 +30,13 @@
 </template>
 
 <script>
+
+import GameService from "@/services/GameService.js";
+
 export default {
     data: function() {
     return {
+        svarlol: [],
         viktigheter: [
             'viktig',
             'ikke viktig'
@@ -40,7 +48,26 @@ export default {
       }
     }
     },
-    methods: {}
+    methods: {
+        sendMessages() {
+            var data = {
+                turneringsId: this.meldingData.turneringsId,
+                melding:this.meldingData.melding,
+                viktighet: this.meldingData.viktighet
+            };
+
+            console.log("log lol+ " + data);
+
+            GameService.sendMessages(data)
+                .then(response => {
+                    this.svarlol = this.response.data;
+                    console.log("Yay: " + response);
+                })
+                .catch(error => {
+                    console.log("Not yay: " + error);
+                })
+        }
+    }
 }
 </script>
 
