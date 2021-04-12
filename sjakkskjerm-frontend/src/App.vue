@@ -2,7 +2,8 @@
   <div id="nav">
     <router-link to="/">Turneringer</router-link> |
     <router-link to="/about">Om</router-link> |
-    <router-link to="/live">Live</router-link>
+    <router-link to="/live">Live</router-link> |
+    <router-link to="/createtournament">Create tournament</router-link>
   </div>
   <router-view />
 </template>
