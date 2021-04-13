@@ -29,7 +29,7 @@
       />
 
       <BaseInput
-        v-model.number="tournament.numberOfGames"
+        v-model.number="tournament.gamesPerRound"
         label="Number of games per round"
         type="number"
       />
