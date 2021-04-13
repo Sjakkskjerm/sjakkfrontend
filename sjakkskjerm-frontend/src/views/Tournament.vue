@@ -1,7 +1,7 @@
 <template>
   <div v-if="id" class="tournament">
     <ChessBoards :tournament-id="id" />
-    <MessageBoard />
+    <MessageBoard :tournament-id="id"/>
     <ResultList />
   </div>
 </template>

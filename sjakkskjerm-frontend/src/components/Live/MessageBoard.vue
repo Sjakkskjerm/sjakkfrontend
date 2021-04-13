@@ -20,6 +20,13 @@ export default {
   components: {
     MessageView
   },
+  props: {
+    tournamentId: {
+      type: String,
+      required: true,
+      default: "123"
+    }
+  },
   data() {
     return {
       messages: [],
@@ -27,11 +34,22 @@ export default {
     };
   },
   mounted() {
-    this.fetchMessages();
+    this.fetchMessage();
   },
   methods: {
     fetchMessages() {
       GameService.getMessages()
+        .then(response => {
+          this.messages = response.data;
+          console.log("Yay: " + response);
+          console.log(this.messages);
+        })
+        .catch(error => {
+          console.log("Not yay: " + error);
+        })
+    },
+    fetchMessage() {
+      GameService.getMessage(this.tournamentId)
         .then(response => {
           this.messages = response.data;
           console.log("Yay: " + response);

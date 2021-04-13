@@ -18,6 +18,7 @@ const apiClient = axios.create({
 
 const baseURL_API = "http://localhost:8080/api";
 const messagesURL = "/message";
+const messageSpecificURL = "/message/specific"
 
 const apiClient_messages = axios.create({
   baseURL: baseURL_API,
@@ -50,6 +51,10 @@ export default {
   getMessages() {
     return apiClient_messages.get(messagesURL);
   },
+  getMessage(tournamentId) {
+    return apiClient_messages.get(messageSpecificURL + "?tournamentId=" + tournamentId)
+  }
+  ,
   sendMessages(data) {
     return apiClient_messages.post(messagesURL, data);
   }
