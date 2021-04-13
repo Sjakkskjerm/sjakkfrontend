@@ -12,7 +12,7 @@ import TournamentManager from "@/components/tournaments/TournamentManager.vue";
 export default {
   name: "Tournaments",
   components: {
-    TournamentManager,
+    TournamentManager
   }
 };
 </script>
