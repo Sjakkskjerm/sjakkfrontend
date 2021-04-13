@@ -30,6 +30,7 @@ export default {
       type: [String, Number],
       default: ""
     }
-  }
+  },
+  emits: ["update:modelValue"]
 };
 </script>
