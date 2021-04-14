@@ -6,7 +6,7 @@
           v-for="game in games"
           :key="game"
           class="board"
-          :game-id="game"
+          :game-id="game.id"
         />
       </div>
       <div v-else>
@@ -70,10 +70,15 @@ export default {
       );
       GameService.getGames(this.tournamentId)
         .then(response => {
-          this.games = response.data.games;
-          this.gamesFectched = true;
-          this.userFeedbackText = "Tournament has no games";
-          console.log("FetchGames: Succesfully fetched games");
+          if (Array.isArray(response.data)){
+            this.games = response.data;
+            this.gamesFectched = true;
+            this.userFeedbackText = "Tournament has no games";
+            console.log("FetchGames: Succesfully fetched games");
+          } else {
+            this.error = true;
+            this.errorUserFeedbackText += "We done fucked up, sry";
+          }
         })
         .catch(error => {
           this.error = true;
