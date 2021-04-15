@@ -1,5 +1,10 @@
 <template>
   <div v-if="error == false" class="tournamentlist">
+    <router-link to="/createtournament">
+      <button id="createTournamentButton">
+        Create tournament
+      </button>
+    </router-link>
     <TournamentList 
     :tournaments="ongoingTournaments"
     title="Ongoing tournaments"
