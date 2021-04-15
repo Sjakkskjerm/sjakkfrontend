@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Create a tournament</h1>
-    <form @submit.prevent="sendForm">
+    <form ref="tournamentForm" @submit.prevent="sendForm">
       <h3>Name your tournament</h3>
 
       <BaseInput v-model="tournament.tournamentName" label="Name" type="text" />
@@ -34,7 +34,15 @@
         type="number"
       />
 
-      <button type="submit">Create</button>
+      <div id="regretButtons">
+        <button type="button" @click="back()">Back</button>
+
+        <button type="button" @click="resetForms()">Reset</button>
+      </div>
+
+      <div id="submitButton">
+        <button type="submit">Create</button>
+      </div>
     </form>
   </div>
 </template>
@@ -63,7 +71,7 @@ export default {
   },
   methods: {
     sendForm() {
-      console.log("yoyoyoy" + this.tournament)
+      console.log("yoyoyoy" + this.tournament);
       axios
         .post(
           "http://localhost:8080/api/tournaments/createtournament",
@@ -75,6 +83,14 @@ export default {
         .catch(function(err) {
           console.log("Error", err);
         });
+      this.resetForms();
+    },
+    back() {
+      this.$router.go(-1);
+    },
+    resetForms() {
+      const refForm = this.$refs.tournamentForm;
+      refForm.reset();
     }
   }
 };
