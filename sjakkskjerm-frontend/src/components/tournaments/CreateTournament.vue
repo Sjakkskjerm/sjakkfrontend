@@ -48,6 +48,13 @@
 </template>
 
 <script>
+/*
+    Author: Lasse Kregnes Hansen
+    Allows user to fill out information about a tournament
+    and submit the info to the backend where it will be stored.
+    Also allows user to return to the previous page they were on,
+    and allows for resetting of the input fields, aswell.
+*/
 import BaseInput from "../forms/BaseInput.vue";
 import Datepicker from "vue3-datepicker";
 import axios from "axios";
