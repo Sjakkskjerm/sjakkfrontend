@@ -12,12 +12,10 @@
 <script>
 /*
     Author: Lasse Kregnes Hansen
-    A reusable form component for each specific input type, for easier 
-    replication, modification and extention of forms. Designed to keep 
-    all forms consistent in the system. (Works as an abstraction layer 
-    for a form. See CreateTournament component for an example of use.)
-    Implements an input listener that already emits so you only have
-    to catch it.
+    A reusable form component for text input fields (Allows for text and numbers usage). 
+    It is designed to keep all text field forms consistent in the system. 
+    (See CreateTournament component for an example of use.) Implements an input listener 
+    that already emits out the model value.
 */
 
 export default {
