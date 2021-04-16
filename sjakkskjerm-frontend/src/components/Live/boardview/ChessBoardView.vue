@@ -55,7 +55,7 @@ export default {
       console.log("FetchBoardPgn: fetching pgn...");
       GameService.getPgn(this.gameId)
         .then(response => {
-          this.pgn = response.data.pgn;
+          this.pgn = response.data.pgn.lines;
           this.updateBoard();
         })
         .catch(error => {
