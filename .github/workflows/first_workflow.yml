@@ -1,7 +1,5 @@
 name: Deployment Workflow
-on:
-  push:
-    branches: test-deploy-frontend
+on: [push]
 
 jobs:
   job_one:
