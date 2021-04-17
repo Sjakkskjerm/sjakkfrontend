@@ -2,6 +2,7 @@
   <div class="tournaments">
     <h1>Velkommen til Sjakk Skjerm</h1>
     <h2>Added just to test github actions.</h2>
+    <h3>Going agains...</h3>
     <TournamentManager />
   </div>
 </template>
