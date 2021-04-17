@@ -1,7 +1,7 @@
 name: Deployment Workflow
 on:
   push:
-    branches: [ develop ]
+    branches: [feature/test-deploy-frontend]
 
 jobs:
   job_one:
@@ -11,11 +11,10 @@ jobs:
       - name: testing sjakkfrontend server ssh connection
         uses: appleboy/ssh-action@master
         with:
-          host: 158.38.101.92
-          username: martaard
+          host: ${{ secrets.SJAKKFRONTEND_HOST }}
+          username: ${{ secrets.SJAKKFRONTEND_USER }}
           key: ${{ secrets.SJAKKFRONTEND_SSH_SECRET }}
           port: 22
           script: |
             cd sjakkskjerm/sjakkfrontend/
-            git pull origin develop
             git status
