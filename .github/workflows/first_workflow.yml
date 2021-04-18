@@ -15,5 +15,6 @@ jobs:
           port: 22
           script: |
             cd sjakkskjerm/sjakkfrontend/
+            git fetch
             git checkout origin test-deploy-frontend
             git status
