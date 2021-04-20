@@ -1,56 +1,58 @@
 <template>
   <div>
-    <h1>Create a tournament</h1>
+    <h1>Opprett en turnering</h1>
     <form ref="tournamentForm" @submit.prevent="sendForm">
-      <h3>Name your tournament</h3>
+      <h3>Navngi din turnering</h3>
 
-      <label>Name</label>
+      <label>Tittel</label>
       <div>
         <BaseInput
           v-model="tournament.tournamentName"
-          placeholder="Name"
+          placeholder="Tittel"
           type="text"
         />
       </div>
 
-      <h3>Set the duration of the tournament</h3>
+      <h3>Bestem start- og sluttdato for turneringen</h3>
 
       <div class="startDate">
-        <label>Start date</label>
+        <label>Startdato</label>
         <datepicker
           v-model="tournament.startDate"
-          placeholder="Start date (Click to choose)"
+          placeholder="Startdato (Klikk for å velge)"
         />
       </div>
 
-      <label>End date</label>
+      <label>Sluttdato</label>
       <datepicker
         v-model="tournament.endDate"
-        placeholder="End date (Click to choose)"
+        placeholder="Sluttdato (Klikk for å velge)"
       />
 
-      <h3>How many rounds, and games per round will be played?</h3>
+      <h3>Hvor mange runder, og kamper per runde skal spilles?</h3>
 
-      <label>Number of rounds</label>
+      <label>Antall runder</label>
       <div class="numberOfRounds">
         <BaseInput
           v-model.number="tournament.numberOfRounds"
-          placeholder="Number of rounds"
+          placeholder="Antall runder"
           type="number"
         />
       </div>
 
-      <label>Number of games per round</label>
+      <label>Antall kamper per runde</label>
       <div>
         <BaseInput
           v-model.number="tournament.gamesPerRound"
-          placeholder="Number of games per round"
+          placeholder="Antall kamper per runde"
           type="number"
         />
       </div>
 
       <div class="regretButtons">
-        <button class="backButton" type="button" @click="back()">Back</button>
+        <button class="backButton" type="button" @click="back()">
+          Tilbake
+        </button>
 
         <button class="resetButton" type="button" @click="resetForms()">
           Reset
@@ -58,7 +60,7 @@
       </div>
 
       <div class="submitButton">
-        <button type="submit">Create</button>
+        <button type="submit">Opprett</button>
       </div>
     </form>
   </div>
