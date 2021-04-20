@@ -1,5 +1,4 @@
 <template>
-  <label>{{ label }}</label>
   <input
     v-bind="$attrs"
     :placeholder="label"

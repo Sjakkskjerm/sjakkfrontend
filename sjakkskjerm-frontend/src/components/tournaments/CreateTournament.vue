@@ -4,15 +4,24 @@
     <form ref="tournamentForm" @submit.prevent="sendForm">
       <h3>Name your tournament</h3>
 
-      <BaseInput v-model="tournament.tournamentName" label="Name" type="text" />
+      <label>Name</label>
+      <div>
+        <BaseInput
+          v-model="tournament.tournamentName"
+          placeholder="Name"
+          type="text"
+        />
+      </div>
 
       <h3>Set the duration of the tournament</h3>
 
-      <label>Start date</label>
-      <datepicker
-        v-model="tournament.startDate"
-        placeholder="Start date (Click to choose)"
-      />
+      <div class="startDate">
+        <label>Start date</label>
+        <datepicker
+          v-model="tournament.startDate"
+          placeholder="Start date (Click to choose)"
+        />
+      </div>
 
       <label>End date</label>
       <datepicker
@@ -22,25 +31,33 @@
 
       <h3>How many rounds, and games per round will be played?</h3>
 
-      <BaseInput
-        v-model.number="tournament.numberOfRounds"
-        label="Number of rounds"
-        type="number"
-      />
-
-      <BaseInput
-        v-model.number="tournament.gamesPerRound"
-        label="Number of games per round"
-        type="number"
-      />
-
-      <div id="regretButtons">
-        <button type="button" @click="back()">Back</button>
-
-        <button type="button" @click="resetForms()">Reset</button>
+      <label>Number of rounds</label>
+      <div class="numberOfRounds">
+        <BaseInput
+          v-model.number="tournament.numberOfRounds"
+          placeholder="Number of rounds"
+          type="number"
+        />
       </div>
 
-      <div id="submitButton">
+      <label>Number of games per round</label>
+      <div>
+        <BaseInput
+          v-model.number="tournament.gamesPerRound"
+          placeholder="Number of games per round"
+          type="number"
+        />
+      </div>
+
+      <div class="regretButtons">
+        <button class="backButton" type="button" @click="back()">Back</button>
+
+        <button class="resetButton" type="button" @click="resetForms()">
+          Reset
+        </button>
+      </div>
+
+      <div class="submitButton">
         <button type="submit">Create</button>
       </div>
     </form>
@@ -102,3 +119,24 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.regretButtons {
+  margin-top: 1em;
+}
+.submitButton {
+  margin-top: 0.5em;
+}
+.backButton {
+  margin-right: 0.25em;
+}
+.resetButton {
+  margin-left: 0.25em;
+}
+.numberOfRounds {
+  margin-bottom: 0.75em;
+}
+.startDate {
+  margin-bottom: 0.75em;
+}
+</style>
