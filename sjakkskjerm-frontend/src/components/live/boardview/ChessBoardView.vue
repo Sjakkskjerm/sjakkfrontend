@@ -1,6 +1,7 @@
 <template>
   <div class="chessboardview">
     <ChessBoard ref="board" fen="start" />
+    <p v-if="gamesPresent == false">Waiting for moves</p>
   </div>
 </template>
 
@@ -22,21 +23,22 @@ export default {
   },
   props: {
     gameId: {
-      type: Number,
+      type: String,
       required: true,
-      default: 123 //default value for development.
+      default: "123" //default value for development.
     }
   },
   data() {
     return {
       fetchInterval: 0,
       game: {},
-      pgn: []
+      pgn: [],
+      gamesPresent: true
     };
   },
   mounted() {
     this.game = new Chess();
-    this.setBoard("start"); //temporary for development.
+    this.setBoard("start");
     this.fetchBoardPgn();
     this.startFetchInterval(4000);
   },
@@ -55,8 +57,13 @@ export default {
       console.log("FetchBoardPgn: fetching pgn...");
       GameService.getPgn(this.gameId)
         .then(response => {
-          this.pgn = response.data.pgn;
-          this.updateBoard();
+          if(response.data.pgn === null) {
+            this.gamesPresent = false;
+          } else {
+            this.gamesPresent = true;
+            this.pgn = response.data.pgn.lines;
+            this.updateBoard();
+          }
         })
         .catch(error => {
           console.log(
