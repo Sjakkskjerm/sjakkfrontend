@@ -2,6 +2,7 @@
   <div class="chessboardview">
     <ChessBoard ref="board" fen="start" />
     <p v-if="gamesPresent == false">Waiting for moves</p>
+    <p v-if="finished">Game over</p>
   </div>
 </template>
 
@@ -33,7 +34,8 @@ export default {
       fetchInterval: 0,
       game: {},
       pgn: [],
-      gamesPresent: true
+      gamesPresent: true,
+      finished: false
     };
   },
   mounted() {
@@ -52,12 +54,15 @@ export default {
     updateBoard() {
       let newFen = this.generateFenFromPgn();
       this.setBoard(newFen);
+      if (this.gameOver()) {
+        this.finished = true;
+      }
     },
     fetchBoardPgn() {
       console.log("FetchBoardPgn: fetching pgn...");
       GameService.getPgn(this.gameId)
         .then(response => {
-          if(response.data.pgn === null) {
+          if (response.data.pgn === null) {
             this.gamesPresent = false;
           } else {
             this.gamesPresent = true;
@@ -81,6 +86,9 @@ export default {
       this.fetchInterval = setInterval(() => {
         this.fetchBoardPgn();
       }, fetchInterval);
+    },
+    gameOver() {
+      return this.game.game_over();
     }
   }
 };
