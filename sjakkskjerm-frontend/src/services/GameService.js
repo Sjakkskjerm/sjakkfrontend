@@ -19,6 +19,8 @@ const apiClient = axios.create({
 const baseURL_API = "http://localhost:8080/api";
 const messagesURL = "/message";
 const messageSpecificURL = "/message/specific"
+const loginURL = "auth/login";
+const registerURL ="auth/register";
 
 const apiClient_messages = axios.create({
   baseURL: baseURL_API,
@@ -37,6 +39,15 @@ const apiClientBoards = axios.create({
     "Content-Type": "application/json"
   }
 });
+
+const apiClient_auth = axios.create({
+  baseURL: baseURL_API,
+  withCredentials: false,
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json"
+  }
+})
 
 export default {
   getPgn(gameId) {
@@ -57,5 +68,11 @@ export default {
   ,
   sendMessages(data) {
     return apiClient_messages.post(messagesURL, data);
+  },
+  login(data) {
+    return apiClient_auth.post(loginURL, data);
+  },
+  register(data) {
+    return apiClient_auth.post(registerURL, data);
   }
 };

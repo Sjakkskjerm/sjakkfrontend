@@ -10,7 +10,7 @@
             <input type="text" required v-model="meldingData.melding">
 
             <label>Viktighet</label>
-            <select v-model="meldingData.viktighet">
+            <select class="form-select" v-model="meldingData.viktighet">
                 <option
                 v-for="option in viktigheter"
                 :value="option"
@@ -21,12 +21,7 @@
             </select>
         </form>
     </div>
-    <button v-on:click="sendMessages">Send</button>
-    <p> {{ this.svarlol }} </p>
-
-    <p>Turnerings ID: {{ meldingData.turneringsId }}</p>
-    <p>Melding: {{ meldingData.melding }}</p>
-    <p>Viktighet: {{ meldingData.viktighet }}</p>
+    <button class="btn btn-primary" v-on:click="sendMessages">Send</button>
 </template>
 
 <script>

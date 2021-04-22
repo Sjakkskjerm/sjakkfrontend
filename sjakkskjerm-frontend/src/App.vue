@@ -3,7 +3,10 @@
     <router-link to="/">Turneringer</router-link> |
     <router-link to="/about">Om</router-link> |
     <router-link to="/live">Live</router-link> |
-    <router-link to="/admin/sendmessage">Send Melding</router-link>
+    <router-link to="/admin/sendmessage">Send Melding</router-link> |
+    <router-link to="/login">Login</router-link> |
+    <router-link to="/profil">Profil</router-link> |
+    <router-link to="/register">Registrer</router-link>
   </div>
   <router-view />
 </template>
