@@ -23,36 +23,27 @@ const apiClient = axios.create({
 
 const baseURL_API = "http://localhost:8080/api";
 const messagesURL = "/message";
-const messageSpecificURL = "/message/specific"
+const messageSpecificURL = "/message/specific";
 const loginURL = "auth/login";
-const registerURL ="auth/register";
+const registerURL = "auth/register";
 
 const apiClient_messages = axios.create({
-  baseURL: baseURL_API,
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
-});
-
-const apiClientBoards = axios.create({
-  baseURL: baseTestUrl,
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
+	baseURL: baseURL_API,
+	withCredentials: false,
+	headers: {
+		Accept: "application/json",
+		"Content-Type": "application/json",
+	},
 });
 
 const apiClient_auth = axios.create({
-  baseURL: baseURL_API,
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
-})
+	baseURL: baseURL_API,
+	withCredentials: false,
+	headers: {
+		Accept: "application/json",
+		"Content-Type": "application/json",
+	},
+});
 
 export default {
 	getPgn(gameId) {
@@ -65,19 +56,21 @@ export default {
 	getTournaments() {
 		return apiClient.get(localBackendTournaments);
 	},
-  getMessages() {
-    return apiClient_messages.get(messagesURL);
-  },
-  getMessage(tournamentId) {
-    return apiClient_messages.get(messageSpecificURL + "?tournamentId=" + tournamentId)
-  },
-  sendMessages(data) {
-    return apiClient_messages.post(messagesURL, data);
-  },
-  login(data) {
-    return apiClient_auth.post(loginURL, data);
-  },
-  register(data) {
-    return apiClient_auth.post(registerURL, data);
-  }
+	getMessages() {
+		return apiClient_messages.get(messagesURL);
+	},
+	getMessage(tournamentId) {
+		return apiClient_messages.get(
+			messageSpecificURL + "?tournamentId=" + tournamentId
+		);
+	},
+	sendMessages(data) {
+		return apiClient_messages.post(messagesURL, data);
+	},
+	login(data) {
+		return apiClient_auth.post(loginURL, data);
+	},
+	register(data) {
+		return apiClient_auth.post(registerURL, data);
+	},
 };
