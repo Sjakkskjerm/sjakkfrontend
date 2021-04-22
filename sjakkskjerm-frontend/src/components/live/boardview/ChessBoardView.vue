@@ -1,8 +1,10 @@
 <template>
   <div class="chessboardview">
-    <ChessBoard ref="board" fen="start" />
+    <p v-if="playersSet" class="whiteplayer">{{ whitePlayer }}</p>
+    <ChessBoard ref="board" :class="{ active: gameFinished }" fen="start" />
+    <p v-if="playersSet" class="blackplayer">{{ blackPlayer }}</p>
     <p v-if="gamesPresent == false">Waiting for moves</p>
-    <p v-if="finished">Game over</p>
+    <p v-if="gameFinished">Game over - {{ result }}</p>
   </div>
 </template>
 
@@ -35,8 +37,16 @@ export default {
       game: {},
       pgn: [],
       gamesPresent: true,
-      finished: false
+      gameFinished: false,
+      whitePlayer: "",
+      blackPlayer: "",
+      result: ""
     };
+  },
+  computed: {
+    playersSet() {
+      return this.whitePlayer != "" && this.blackPlayer != "";
+    }
   },
   mounted() {
     this.game = new Chess();
@@ -54,8 +64,9 @@ export default {
     updateBoard() {
       let newFen = this.generateFenFromPgn();
       this.setBoard(newFen);
-      if (this.gameOver()) {
-        this.finished = true;
+      this.gameFinished = this.checkIfGameOver();
+      if (this.gameFinished) {
+        this.determineWinner();
       }
     },
     fetchBoardPgn() {
@@ -68,6 +79,10 @@ export default {
             this.gamesPresent = true;
             this.pgn = response.data.pgn.lines;
             this.updateBoard();
+            if (this.whitePlayer == "" || this.blackPlayer == "") {
+              this.findPlayers();
+              this.determineWinner();
+            }
           }
         })
         .catch(error => {
@@ -87,8 +102,37 @@ export default {
         this.fetchBoardPgn();
       }, fetchInterval);
     },
-    gameOver() {
+    checkIfGameOver() {
       return this.game.game_over();
+    },
+    findPlayers() {
+      let pgnArray = this.pgn;
+      pgnArray.forEach(line => {
+        if (line.startsWith("[White ")) {
+          let strArr = line.split("'", 3);
+          this.whitePlayer = strArr[1];
+        }
+        if (line.startsWith("[Black ")) {
+          let strArr = line.split("'", 3);
+          this.blackPlayer = strArr[1];
+        }
+      });
+    },
+    determineWinner() {
+      let pgnArray = this.pgn;
+      pgnArray.forEach(line => {
+        if (line.startsWith("[Result ")) {
+          let strArr = line.split("'", 2);
+          let result = strArr[1];
+          if (result == "1-0") {
+            this.result = "Winner is " + this.whitePlayer;
+          } else if (result == "0-1") {
+            this.result = "Winner is" + this.blackPlayer;
+          } else {
+            this.result = "Remis";
+          }
+        }
+      });
     }
   }
 };
@@ -99,5 +143,17 @@ export default {
   width: 400px;
   padding: 0.5rem;
   margin: 0.1rem;
+}
+
+.active {
+  opacity: 0.5;
+}
+
+.whiteplayer {
+  text-align: left;
+}
+
+.blackplayer {
+  text-align: right;
 }
 </style>
