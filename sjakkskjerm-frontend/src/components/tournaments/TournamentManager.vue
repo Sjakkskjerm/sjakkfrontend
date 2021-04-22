@@ -56,8 +56,8 @@ export default {
       const today = new Date();
       for (let i = 0; i < this.tournaments.length; i++) {
         let tournament = this.tournaments[i];
-        let startDate = new Date(JSON.stringify(tournament.startDate));
-        let endDate = new Date(JSON.stringify(tournament.endDate));
+        let startDate = new Date(tournament.startDate.toString());
+        let endDate = new Date(tournament.endDate.toString());
         if (startDate.getTime() > today.getTime()) {
           this.futureTournaments.push(tournament);
         } else if (
