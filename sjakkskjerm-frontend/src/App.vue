@@ -1,15 +1,27 @@
 <template>
   <div id="nav">
-    <router-link to="/">Turneringer</router-link> |
-    <router-link to="/about">Om</router-link> |
-    <router-link to="/live">Live</router-link> |
-    <router-link to="/admin/sendmessage">Send Melding</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/profil">Profil</router-link> |
-    <router-link to="/register">Registrer</router-link>
+    <router-link to="/">Turneringer | </router-link> 
+    <router-link to="/about">Om | </router-link> 
+    <router-link to="/live">Live | </router-link> 
+    <router-link to="/admin/sendmessage" v-if="getLoginStatus">Send Melding | </router-link> 
+    <router-link to="/profil" v-if="getLoginStatus">Profil | </router-link> 
+    <router-link to="/login" v-if="!getLoginStatus">Login | </router-link> 
+    <router-link to="/register" v-if="!getLoginStatus">Registrer</router-link>
   </div>
   <router-view />
 </template>
+<script>
+//import { mapGetters } from 'vuex';
+import store from "./store/index";
+
+export default {
+  computed: {
+    getLoginStatus() {
+        return store.getters["auth/getLoginStatus"];
+    }
+  }
+}
+</script>
 
 <style>
 #app {

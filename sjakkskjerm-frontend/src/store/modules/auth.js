@@ -27,7 +27,19 @@ const getters = {
             return false
         }
         return tokenAlive(state.authData.tokenExp);
-    }   
+    }   ,
+    isLoggedIn(state) {
+        return state.auth.isLoggedIn
+    },
+    isOrgPlus(state) {
+        if (state.authData.role[0].authority == "ROLE_ORGANIZER" ||
+        state.authData.role[0].authority == "ROLE_ADMIN") {
+            console.log("yeet");
+            return false;
+        } else {
+            return true
+        }
+    }
 };
 
 const actions = {
@@ -70,13 +82,8 @@ const mutations = {
             club: jwtDecodedValue.club,
             */
         };
-        console.log("PRE NTD: " + state.authData.username);
-        console.log("NTD: " + newTokenData);
-
         state.authData = newTokenData;
-
-        console.log("POST NTD: " + state.authData.username);
-        
+    
     },
     setLoginStatu(state, value) {
         state.loginStatus = value;
