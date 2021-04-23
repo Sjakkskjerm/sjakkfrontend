@@ -4,7 +4,8 @@
     <router-link to="/about">Om | </router-link> 
     <router-link to="/profil" v-if="getLoginStatus">Profil | </router-link> 
     <router-link to="/login" v-if="!getLoginStatus">Login | </router-link> 
-    <router-link to="/register" v-if="!getLoginStatus">Registrer</router-link>
+    <router-link to="/register" v-if="!getLoginStatus">Registrer | </router-link>
+    <router-link to="/login" v-if="getLoginStatus" v-on:click="logout()">Logg ut</router-link>
   </div>
   <router-view />
 </template>
@@ -15,20 +16,29 @@ import store from "./store/index";
 export default {
   computed: {
     getLoginStatus() {
-        return store.getters["auth/getLoginStatus"];
+        return store.getters["auth/isTokenActive"];
     },
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push("/login");
+      console.log("logged out");
+      alert("logged out")
+    }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  background-color: #ededed;
 }
 
 #nav {
@@ -41,7 +51,7 @@ export default {
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #b94242;
 }
 
 html,

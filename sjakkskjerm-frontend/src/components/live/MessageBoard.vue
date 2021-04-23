@@ -64,6 +64,4 @@ export default {
 </script>
 
 <style scoped>
-  .messages {
-  }
 </style>
