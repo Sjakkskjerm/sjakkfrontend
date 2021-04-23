@@ -13,7 +13,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import store from "../../store/index";
 
 export default {
   computed: {
@@ -23,15 +22,6 @@ export default {
     ...mapGetters('auth', {
       gettersAuthRole: 'isOrgPlus'
     })
-  },
-  methods: {
-    checkShit() {
-      if (store.getters["auth/isOrgPlus"]) {
-        return true
-      } else {
-        return false
-      }
-    },
   }
 }
 </script>

@@ -63,7 +63,6 @@ export default {
       };
 
       console.log(data);
-
       
       GameService.register(data)
         .then(response => {
