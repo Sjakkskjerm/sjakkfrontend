@@ -1,16 +1,13 @@
 <template>
-  <div v-if="error == false" class="tournamentlist">
-    <TournamentList
-      :tournaments="ongoingTournaments"
-      title="Ongoing tournaments"
-    />
-    <TournamentList
-      :tournaments="futureTournaments"
-      title="Future tournaments"
-    />
-  </div>
-  <div v-if="error" class="yeye">
-    <p>"hello"</p>
+  <div>
+    <div v-if="!error" class="tournamentlist">
+      <TournamentList :tournaments="ongoingTournaments" title="Pågående" />
+      <TournamentList :tournaments="futureTournaments" title="Kommende" />
+      <TournamentList :tournaments="endedTournaments" title="Fullførte" />
+    </div>
+    <div v-if="error" class="yeye">
+      <p>An error is preventing us from showing the tournaments.</p>
+    </div>
   </div>
 </template>
 
