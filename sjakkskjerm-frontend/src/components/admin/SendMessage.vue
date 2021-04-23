@@ -38,7 +38,8 @@
 
 <script>
 
-import GameService from "@/services/GameService.js";
+//import GameService from "@/services/GameService.js";
+import AuthoService from "../../services/AuthoService";
 
 export default {
     data: function() {
@@ -57,24 +58,20 @@ export default {
     },
     methods: {
         sendMessages() {
+            const messagesURL = "/message";
             var data = {
-                turneringsId: this.meldingData.turneringsId,
-                melding:this.meldingData.melding,
-                viktighet: this.meldingData.viktighet
+                tournamentId: this.meldingData.turneringsId,
+                message:this.meldingData.melding,
+                importance: this.meldingData.viktighet
             };
 
-            console.log("log lol+ " + data);
-
-            GameService.sendMessages(data)
+            AuthoService.post(messagesURL, data)
                 .then(response => {
-                    this.svarlol = this.response.data;
-                    console.log("Yay: " + response);
+                    console.log("Yay: " + response)
                 })
-                .catch(error => {
-                    console.log("Not yay: " + error);
+                .catch(reason => {
+                    console.log("Not yay: " + reason);
                 })
-        },
-        påltenkerting() {
         }
     }
 }
