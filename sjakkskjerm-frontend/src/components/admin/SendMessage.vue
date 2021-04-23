@@ -3,30 +3,37 @@
         <h1>Send Melding</h1>
         <hr>
         <form>
-            <label>Turnerings ID</label>
-            <input type="text" required v-model="meldingData.turneringsId">
+            <div class="mb-3">
+                <label>Turnerings ID</label>
+                <input 
+                type="text" 
+                class="form-control"
+                required v-model="meldingData.turneringsId">
+            </div>
 
-            <label>Melding</label>
-            <input type="text" required v-model="meldingData.melding">
+            <div class="mb-3">
+                <label>Melding</label>
+                <input 
+                type="text" 
+                class="form-control"
+                required v-model="meldingData.melding">
+            </div>
 
-            <label>Viktighet</label>
-            <select v-model="meldingData.viktighet">
-                <option
-                v-for="option in viktigheter"
-                :value="option"
-                :key="option"
-                :selected="option === meldingData.viktighet">
-                {{ option }}
-                </option>
-            </select>
+            <div class="mb-3">
+                <label>Viktighet</label>
+                <select class="form-select" v-model="meldingData.viktighet">
+                    <option
+                    v-for="option in viktigheter"
+                    :value="option"
+                    :key="option"
+                    :selected="option === meldingData.viktighet">
+                    {{ option }}
+                    </option>
+                </select>
+            </div>
         </form>
     </div>
-    <button v-on:click="sendMessages">Send</button>
-    <p> {{ this.svarlol }} </p>
-
-    <p>Turnerings ID: {{ meldingData.turneringsId }}</p>
-    <p>Melding: {{ meldingData.melding }}</p>
-    <p>Viktighet: {{ meldingData.viktighet }}</p>
+    <button class="btn btn-primary" v-on:click="sendMessages">Send</button>
 </template>
 
 <script>
@@ -66,6 +73,9 @@ export default {
                 .catch(error => {
                     console.log("Not yay: " + error);
                 })
+        },
+        påltenkerting() {
+            
         }
     }
 }
@@ -96,4 +106,9 @@ input {
 select {
     margin-left: 10px;
 }
+
+.form-select {
+
+}
+
 </style>
