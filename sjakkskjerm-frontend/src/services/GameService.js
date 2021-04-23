@@ -21,7 +21,7 @@ const messageSpecificURL = "/message/specific"
 const loginURL = "auth/login";
 const registerURL ="auth/register";
 
-const apiClient_messages = axios.create({
+const apiClient_1 = axios.create({
   baseURL: baseURL_API,
   withCredentials: false,
   headers: {
@@ -29,15 +29,6 @@ const apiClient_messages = axios.create({
     "Content-Type": "application/json"
   }
 });
-
-const apiClient_auth = axios.create({
-  baseURL: baseURL_API,
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
-})
 
 export default {
 	getPgn(gameId) {
@@ -51,18 +42,18 @@ export default {
 		return apiClient.get(localBackendTournaments);
 	},
   getMessages() {
-    return apiClient_messages.get(messagesURL);
+    return apiClient_1.get(messagesURL);
   },
   getMessage(tournamentId) {
-    return apiClient_messages.get(messageSpecificURL + "?tournamentId=" + tournamentId)
+    return apiClient_1.get(messageSpecificURL + "?tournamentId=" + tournamentId)
   },
   sendMessages(data) {
-    return apiClient_messages.post(messagesURL, data);
+    return apiClient_1.post(messagesURL, data);
   },
   login(data) {
-    return apiClient_auth.post(loginURL, data);
+    return apiClient_1.post(loginURL, data);
   },
   register(data) {
-    return apiClient_auth.post(registerURL, data);
+    return apiClient_1.post(registerURL, data);
   }
 };

@@ -39,8 +39,15 @@ const getters = {
         } else {
             return true
         }
+    },
+    getToken(state) {
+        return state.authData.access_token;
     }
 };
+
+//
+//
+//
 
 const actions = {
     async login({commit}, payload) {

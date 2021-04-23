@@ -8,6 +8,8 @@
     <button @click="$router.push('/admin/sendmessage')" 
     v-if="isOrganizerPlus"
     class="btn btn-primary">Send Melding</button>
+
+    <p> {{gettersAllUserDatas}}</p>
   </div>
 </template>
 
