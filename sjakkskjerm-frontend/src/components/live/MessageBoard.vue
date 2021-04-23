@@ -1,6 +1,6 @@
 <template>
   <div v-if="show" class="messageboard">
-    <h1>Beskjeder:</h1>
+    <h2 class="tittel">Beskjeder fra arrangør:</h2>
     <MessageView
       v-for="message in messages"
       :key="message"
@@ -64,4 +64,7 @@ export default {
 </script>
 
 <style scoped>
+.tittel {
+  color: #b95a42
+}
 </style>
