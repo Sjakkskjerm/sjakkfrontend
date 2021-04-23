@@ -66,8 +66,8 @@ export default {
             };
 
             AuthoService.post(messagesURL, data)
-                .then(res => {
-                    console.log("Yay: " + res)
+                .then(response => {
+                    console.log("Yay: " + response)
                 })
                 .catch(reason => {
                     console.log("Not yay: " + reason);
