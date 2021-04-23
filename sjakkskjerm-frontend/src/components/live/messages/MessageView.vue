@@ -26,20 +26,4 @@ export default {
 </script>
 
 <style scoped>
-.melding_wrap {
-}
-.tittel, .dato, .melding {
-}
-
-.tittel {
-}
-
-.dato {
-    color: green;
-}
-
-.melding {
-    color: blue;
-}
-
 </style>

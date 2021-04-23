@@ -7,6 +7,7 @@ const state = () => ({
         username: "",
         club: "",
         role: "",
+        role1: ""
     },
     loginStatus:"",
 });
@@ -27,18 +28,9 @@ const getters = {
             return false
         }
         return tokenAlive(state.authData.tokenExp);
-    }   ,
+    },
     isLoggedIn(state) {
         return state.auth.isLoggedIn
-    },
-    isOrgPlus(state) {
-        if (state.authData.role[0].authority == "ROLE_ORGANIZER" ||
-        state.authData.role[0].authority == "ROLE_ADMIN") {
-            console.log("yeet");
-            return false;
-        } else {
-            return true
-        }
     },
     getToken(state) {
         return state.authData.access_token;
@@ -65,7 +57,9 @@ const actions = {
                 console.log("failed");
                 commit("setLoginStatu", "failed");
             }    
-        
+    },
+    logout({commit}) {
+        commit("logout");
     }
 };
 
@@ -84,6 +78,7 @@ const mutations = {
             userid: jwtDecodedValue.sub,
             uid: jwtDecodedValue.uid,
             role: jwtDecodedValue.role[0].authority,
+            role1: jwtDecodedValue.role[1].authority
             /*
             username: jwtDecodedValue.username,
             club: jwtDecodedValue.club,
