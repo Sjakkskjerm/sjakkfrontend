@@ -1,6 +1,13 @@
 <template>
   <div>
     <div v-if="!error" class="tournamentlist">
+      <button
+        v-if="getLoginStatus"
+        class="knapp btn btn-primary"
+        @click="$router.push('/createtournament')"
+      >
+        Opprett turnering
+      </button>
       <TournamentList :tournaments="ongoingTournaments" title="Pågående" />
       <TournamentList :tournaments="futureTournaments" title="Kommende" />
       <TournamentList :tournaments="endedTournaments" title="Fullførte" />
@@ -14,6 +21,7 @@
 <script>
 import GameService from "@/services/GameService.js";
 import TournamentList from "@/components/tournaments/TournamentList.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "TournamentManager",
@@ -28,6 +36,11 @@ export default {
       futureTournaments: [],
       endedTournaments: []
     };
+  },
+  computed: {
+    ...mapGetters("auth", {
+      getLoginStatus: "getLoginStatus"
+    })
   },
   mounted() {
     this.fetchTournaments();
@@ -65,3 +78,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.knapp {
+  margin: 1rem;
+}
+</style>
