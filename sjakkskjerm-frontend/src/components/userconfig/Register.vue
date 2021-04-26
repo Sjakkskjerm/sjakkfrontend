@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Registrer</h1>
+    <h2>Registrer</h2>
     <hr>
     <form>
       <div class="mb-3">

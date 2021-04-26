@@ -50,6 +50,6 @@ export default {
   padding: 0%;
 }
 .name {
-  color: #42b983
+  font-weight: bold;
 }
 </style>
