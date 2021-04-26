@@ -5,8 +5,8 @@
   >
     <div class="tournament-card">
       <h4 class="name">{{ tournament.tournamentName }}</h4>
-      <p class="date">From: {{ tournament.startDate }}</p>
-      <p class="date">To: {{ tournament.endDate }}</p>
+      <p class="date">Fra: {{ tournament.startDate }}</p>
+      <p class="date">Til: {{ tournament.endDate }}</p>
     </div>
   </router-link>
 </template>
@@ -42,7 +42,7 @@ export default {
 .tournament-link {
   color: #2c3e50;
   text-decoration: none;
-  width: 50%;
+  width: 30%;
 }
 .date {
   font-style: italic;
@@ -50,6 +50,6 @@ export default {
   padding: 0%;
 }
 .name {
-  color: #42b983
+  color: #42b983;
 }
 </style>
