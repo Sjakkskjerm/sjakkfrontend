@@ -1,12 +1,16 @@
 <template>
-  <div v-if="show" class="messageboard">
+  <div class="messageboard">
     <h2 class="tittel">Beskjeder fra arrangør:</h2>
-    <MessageView
-      v-for="message in messages"
-      :key="message"
-      class="messages"
-      :message="message"
-    />
+    <div class="messagebox" v-if="show">
+      <MessageView
+        v-for="message in messages"
+        :key="message"
+        class="messages"
+        :message="message"
+      />
+    </div>
+    <button class="btn btn-outline-primary" v-on:click="show = false" v-if="show">Skjul meldinger</button>
+    <button class="btn btn-outline-primary" v-on:click="show = true" v-if="!show">Vis meldinger</button>
   </div>
 </template>
 
@@ -37,17 +41,6 @@ export default {
     this.fetchMessage();
   },
   methods: {
-    fetchMessages() {
-      GameService.getMessages()
-        .then(response => {
-          this.messages = response.data;
-          console.log("Yay: " + response);
-          console.log(this.messages);
-        })
-        .catch(error => {
-          console.log("Not yay: " + error);
-        })
-    },
     fetchMessage() {
       GameService.getMessage(this.tournamentId)
         .then(response => {
@@ -58,7 +51,7 @@ export default {
         .catch(error => {
           console.log("Not yay: " + error);
         })
-    }
+    },
   }
 };
 </script>
