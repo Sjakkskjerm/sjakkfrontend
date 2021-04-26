@@ -3,9 +3,10 @@
     <h3>
       {{ title }}
     </h3>
-    <TournamentItem class="tournament-item"
+    <TournamentItem
       v-for="tournament in tournaments"
       :key="tournament"
+      class="tournament-item"
       :tournament="tournament"
     />
   </div>

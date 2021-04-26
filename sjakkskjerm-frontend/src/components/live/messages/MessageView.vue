@@ -1,20 +1,19 @@
 <template>
-    <div class = "message-card">
-        <p class="message">{{message.date}}: {{message.message}}</p>
-    </div>
+  <div class="message-card">
+    <p class="message">{{ message.date }}: {{ message.message }}</p>
+  </div>
 </template>
-
 
 <script>
 export default {
-    name: "MessageView",
-    props: {
-        message: {
-            type: Object,
-            required: true
-        }
+  name: "MessageView",
+  props: {
+    message: {
+      type: Object,
+      required: true
     }
-}
+  }
+};
 </script>
 
 <style scoped>

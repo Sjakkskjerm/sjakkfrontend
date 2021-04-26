@@ -35,7 +35,6 @@ export default {
     return apiClient.get(localBackendGames, { params: { id: gameId } });
   },
   getGames(tournamentId) {
-    console.log(localBackendUrl + localBackendGamesByTournament + tournamentId);
     return apiClient.get(localBackendGamesByTournament, {
       params: { tournamentid: tournamentId }
     });

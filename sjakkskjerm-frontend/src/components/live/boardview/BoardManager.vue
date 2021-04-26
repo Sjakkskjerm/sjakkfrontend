@@ -65,16 +65,12 @@ export default {
   },
   methods: {
     fetchGames() {
-      console.log(
-        "FetchGames: Fetching games for tournament " + this.tournamentId
-      );
       GameService.getGames(this.tournamentId)
         .then(response => {
-          if (Array.isArray(response.data)){
+          if (Array.isArray(response.data)) {
             this.games = response.data;
             this.gamesFectched = true;
             this.userFeedbackText = "Tournament has no games";
-            console.log("FetchGames: Succesfully fetched games");
           } else {
             this.error = true;
             this.errorUserFeedbackText += "We done fucked up, sry";
@@ -86,10 +82,6 @@ export default {
         });
     },
     errorHandler(error) {
-      console.log(
-        "FetchGames: Error - Unable to retrieve games for tournament " +
-          this.tournamentId
-      );
       if (error.response) {
         if (error.response.status == 404) {
           this.errorUserFeedbackText +=
@@ -104,19 +96,12 @@ export default {
         } else {
           this.errorUserFeedbackText +=
             "Unrecoverable error. We done did something stupid, sry. Please try at another time.";
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
         }
       } else if (error.request) {
         //There may be other errors. Hard to assess from error.request.
         this.errorUserFeedbackText +=
           "Unable to connect to server. There may be an issue with your internet connection.";
-        console.log(error.request);
-      } else {
-        console.log("Error", error.message);
       }
-      console.log(error.config);
     }
   }
 };

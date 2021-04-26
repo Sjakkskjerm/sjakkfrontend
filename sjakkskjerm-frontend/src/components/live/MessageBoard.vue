@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
 import GameService from "@/services/GameService.js";
 import MessageView from "@/components/live/messages/MessageView.vue";
 
@@ -30,7 +29,8 @@ export default {
   data() {
     return {
       messages: [],
-      show: true
+      show: true,
+      error: null
     };
   },
   mounted() {
@@ -41,23 +41,19 @@ export default {
       GameService.getMessages()
         .then(response => {
           this.messages = response.data;
-          console.log("Yay: " + response);
-          console.log(this.messages);
         })
         .catch(error => {
-          console.log("Not yay: " + error);
-        })
+          this.error = error;
+        });
     },
     fetchMessage() {
       GameService.getMessage(this.tournamentId)
         .then(response => {
           this.messages = response.data;
-          console.log("Yay: " + response);
-          console.log(this.messages);
         })
         .catch(error => {
-          console.log("Not yay: " + error);
-        })
+          this.error = error;
+        });
     }
   }
 };
@@ -65,6 +61,6 @@ export default {
 
 <style scoped>
 .tittel {
-  color: #b95a42
+  color: #b95a42;
 }
 </style>

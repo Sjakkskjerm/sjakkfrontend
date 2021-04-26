@@ -1,13 +1,19 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Turneringer | </router-link> 
-    <router-link to="/about">Om | </router-link> 
-    <router-link to="/profil" v-if="getLoginStatus">Profil | </router-link> 
-    <router-link to="/login" v-if="!getLoginStatus">Login | </router-link> 
-    <router-link to="/register" v-if="!getLoginStatus">Registrer | </router-link>
-    <router-link to="/login" v-if="getLoginStatus" v-on:click="logout()">Logg ut</router-link>
+  <div>
+    <div id="nav">
+      <router-link to="/">Turneringer | </router-link>
+      <router-link to="/about">Om | </router-link>
+      <router-link v-if="getLoginStatus" to="/profil">Profil | </router-link>
+      <router-link v-if="!getLoginStatus" to="/login">Login | </router-link>
+      <router-link v-if="!getLoginStatus" to="/register"
+        >Registrer |
+      </router-link>
+      <router-link v-if="getLoginStatus" to="/login" @click="logout()"
+        >Logg ut</router-link
+      >
+    </div>
+    <router-view />
   </div>
-  <router-view />
 </template>
 <script>
 //import { mapGetters } from 'vuex';
@@ -16,18 +22,18 @@ import store from "./store/index";
 export default {
   computed: {
     getLoginStatus() {
-        return store.getters["auth/isTokenActive"];
-    },
+      return store.getters["auth/isTokenActive"];
+    }
   },
   methods: {
     logout() {
       localStorage.clear();
       this.$router.push("/login");
       console.log("logged out");
-      alert("logged out")
+      alert("logged out");
     }
   }
-}
+};
 </script>
 
 <style>
@@ -38,7 +44,6 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100%;
-  /* background-color: #ededed; */
 }
 
 #nav {

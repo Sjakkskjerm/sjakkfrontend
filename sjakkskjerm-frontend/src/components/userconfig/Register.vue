@@ -1,69 +1,76 @@
 <template>
   <div>
     <h1>Registrer</h1>
-    <hr>
+    <hr />
     <form>
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>
-        <input 
-        type="text"
-        class="form-control"
-        required v-model="userData.username"/>
+        <input
+          v-model="userData.username"
+          type="text"
+          class="form-control"
+          required
+        />
       </div>
       <div class="mb-3">
         <label>Epost</label>
-        <input 
-        type="text" 
-        class="form-control"
-        required v-model="userData.email"/>
+        <input
+          v-model="userData.email"
+          type="text"
+          class="form-control"
+          required
+        />
       </div>
       <div class="mb-3">
         <label>Klubb</label>
-        <input 
-        type="text"  
-        class="form-control"
-        required v-model="userData.club"/>
+        <input
+          v-model="userData.club"
+          type="text"
+          class="form-control"
+          required
+        />
       </div>
       <div class="mb-3">
         <label>Passord</label>
-        <input 
-        type="password"  
-        class="form-control"
-        required v-model="userData.password"/>
+        <input
+          v-model="userData.password"
+          type="password"
+          class="form-control"
+          required
+        />
       </div>
     </form>
-    <button class="btn btn-primary" v-on:click="sendUserData">Registrer</button>
+    <button class="btn btn-primary" @click="sendUserData">Registrer</button>
   </div>
-  
 </template>
 
 <script>
-import GameService from '../../services/GameService';
+import GameService from "../../services/GameService";
 
 export default {
   data: function() {
     return {
       userData: {
-        username: '',
-        email: '',
-        club: '',
-        password: '',
-        role: ''
+        username: "",
+        email: "",
+        club: "",
+        password: "",
+        role: ""
       }
-    }
+    };
   },
   methods: {
     sendUserData() {
       var data = {
-        "username": this.userData.username,
-        "email": this.userData.email,
-        "club": this.userData.club,
-        "password": this.userData.password,
-        "role": ["user"]
+        username: this.userData.username,
+        email: this.userData.email,
+        club: this.userData.club,
+        password: this.userData.password,
+        role: ["user"]
       };
 
       console.log(data);
-      
+
       GameService.register(data)
         .then(response => {
           console.log("AOKSD: " + response);
@@ -71,11 +78,10 @@ export default {
         })
         .catch(error => {
           console.log("dfsig: " + error);
-        })
+        });
     }
   }
-}
+};
 </script>
 
-<style>
-</style>
+<style></style>
