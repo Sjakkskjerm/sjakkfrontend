@@ -71,8 +71,6 @@ export default {
         role: ["user"]
       };
 
-      console.log(data);
-
       GameService.register(data)
         .then(response => {
           this.response = response;

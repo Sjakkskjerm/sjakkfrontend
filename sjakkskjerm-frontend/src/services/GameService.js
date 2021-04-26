@@ -1,10 +1,10 @@
 import axios from "axios";
 
 //prod
-// const prodBackend = "http://158.38.101.216";
+const backend = "http://158.38.101.216:8080/api";
 
 //local
-const localBackend = "http://localhost:8080/api";
+// const backend = "http://localhost:8080/api";
 
 //paths
 const tournaments = "/tournaments/";
@@ -14,9 +14,10 @@ const message = "/message";
 const specificMessage = "/message/specific";
 const login = "auth/login";
 const register = "auth/register";
+const createTournament = "/tournaments/createtournament";
 
 const apiClient = axios.create({
-  baseURL: localBackend,
+  baseURL: backend,
   withCredentials: false,
   headers: {
     Accept: "application/json",
@@ -50,5 +51,8 @@ export default {
   },
   register(data) {
     return apiClient.post(register, data);
+  },
+  createTournament(tournament) {
+    return apiClient.post(createTournament, tournament);
   }
 };

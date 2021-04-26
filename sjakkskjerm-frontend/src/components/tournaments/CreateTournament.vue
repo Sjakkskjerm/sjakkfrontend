@@ -76,7 +76,7 @@
 */
 import BaseInput from "../forms/BaseInput.vue";
 import Datepicker from "vue3-datepicker";
-import axios from "axios";
+import GameService from "@/services/GameService.js";
 
 export default {
   name: "CreateTournament",
@@ -98,11 +98,7 @@ export default {
   methods: {
     sendForm() {
       console.log("yoyoyoy" + this.tournament);
-      axios
-        .post(
-          "http://localhost:8080/api/tournaments/createtournament",
-          this.tournament
-        )
+      GameService.createTournament(this.tournament)
         .then(function(response) {
           console.log("response", response);
         })
