@@ -40,7 +40,8 @@ export default {
       gameFinished: false,
       whitePlayer: "",
       blackPlayer: "",
-      result: ""
+      result: "",
+      error: null
     };
   },
   computed: {
@@ -52,7 +53,7 @@ export default {
     this.game = new Chess();
     this.setBoard("start");
     this.fetchBoardPgn();
-    this.startFetchInterval(4000);
+    this.startFetchInterval(2000);
   },
   unmounted() {
     clearInterval(this.fetchInterval);
@@ -70,7 +71,6 @@ export default {
       }
     },
     fetchBoardPgn() {
-      console.log("FetchBoardPgn: fetching pgn...");
       GameService.getPgn(this.gameId)
         .then(response => {
           if (response.data.pgn === null) {
@@ -86,10 +86,7 @@ export default {
           }
         })
         .catch(error => {
-          console.log(
-            "FetchBoardPGN: Error - Unable to set PGN for board: " + this.gameId
-          );
-          console.log(error);
+          this.error = error;
           clearInterval(this.fetchInterval);
         });
     },
