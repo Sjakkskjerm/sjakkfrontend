@@ -77,7 +77,7 @@ const mutations = {
             tokenExp: jwtDecodedValue.exp,
             userid: jwtDecodedValue.sub,
             uid: jwtDecodedValue.uid,
-            role: jwtDecodedValue.role
+            role: jwtDecodedValue.role[0].authority
             /*[0].authority,
             role1: jwtDecodedValue.role[1].authority
             /*
