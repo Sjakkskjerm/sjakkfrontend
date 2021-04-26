@@ -56,7 +56,9 @@ export default {
         club: "",
         password: "",
         role: ""
-      }
+      },
+      response: null,
+      error: null
     };
   },
   methods: {
@@ -73,11 +75,11 @@ export default {
 
       GameService.register(data)
         .then(response => {
-          console.log("AOKSD: " + response);
+          this.response = response;
           this.$router.push("/login");
         })
         .catch(error => {
-          console.log("dfsig: " + error);
+          this.error = error;
         });
     }
   }
