@@ -10,6 +10,11 @@
         <p class="date">To: {{ tournament.endDate }}</p>
       </div>
     </router-link>
+    <router-link
+      :to="{ name: 'TournamentDashboard', params: { id: tournament.id } }"
+    >
+      <button class="btn btn-primary">Dashboard</button>
+    </router-link>
   </div>
 </template>
 <script>
@@ -32,6 +37,9 @@ export default {
 
 <style scoped>
 .tournament-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 50%;
 }
 .tournament-card {
