@@ -2,18 +2,19 @@
   <div>
     <h1>Dashboard</h1>
     <p>{{ tournament.tournamentName }}</p>
-    <SendMessage />
+    <DashboardMessage />
   </div>
 </template>
 
 <script>
 import GameService from "@/services/GameService.js";
-import SendMessage from "@/components/dashboard/SendMessage.vue";
+import DashboardMessage from "@/components/dashboard/DashboardMessage.vue";
+
 
 export default {
   name: "TournamentDashboard",
   components: {
-    SendMessage
+    DashboardMessage
   },
   props: {
     id: {

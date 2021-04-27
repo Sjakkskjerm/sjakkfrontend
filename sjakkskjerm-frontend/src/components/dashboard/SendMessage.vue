@@ -42,6 +42,7 @@
 import AuthoService from "../../services/AuthoService";
 
 export default {
+    name: "SendMessage",
     data: function() {
     return {
         svarlol: [],
