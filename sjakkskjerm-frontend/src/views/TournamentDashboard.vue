@@ -2,17 +2,19 @@
   <div>
     <h1>Dashboard</h1>
     <p>{{ tournament.tournamentName }}</p>
-    <!-- <button @click="$router.push('/admin/sendmessage')" 
-    v-if="gettersAuthData.role === 'ROLE_ORGANIZER'"
-    class="btn btn-primary">Send Melding</button> -->
+    <SendMessage />
   </div>
 </template>
 
 <script>
 import GameService from "@/services/GameService.js";
+import SendMessage from "@/components/dashboard/SendMessage.vue";
 
 export default {
   name: "TournamentDashboard",
+  components: {
+    SendMessage
+  },
   props: {
     id: {
       type: String,
