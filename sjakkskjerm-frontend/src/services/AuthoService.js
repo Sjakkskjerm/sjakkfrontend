@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const baseURL_API = "http://localhost:8080/api";
-//const messagesURL = "/message";
 
 const instance = axios.create({
     baseURL: baseURL_API
