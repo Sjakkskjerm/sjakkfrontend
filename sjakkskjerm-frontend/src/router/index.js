@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Tournament from "../views/Tournament.vue";
 import Tournaments from "../views/Tournaments.vue";
 import TournamentDashboard from "../views/TournamentDashboard";
-import SendMessage from "../components/admin/SendMessage.vue";
 import Login from "../components/userconfig/Login";
 import Dashboard from "../components/userconfig/Dashboard";
 import Register from "../components/userconfig/Register";
@@ -53,14 +52,6 @@ const routes = [
 		component: TournamentDashboard,
 		meta: {
 			requiredAuth: false,
-		},
-	},
-	{
-		path: "/admin/sendmessage",
-		name: "Send Melding",
-		component: SendMessage,
-		meta: {
-			requiredAuth: true,
 		},
 	},
 	{
