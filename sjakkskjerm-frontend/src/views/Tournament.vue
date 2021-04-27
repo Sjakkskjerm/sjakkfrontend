@@ -1,7 +1,7 @@
 <template>
   <div v-if="id" class="tournament">
     <ChessBoards :tournament-id="id" />
-    <MessageBoard :tournament-id="id"/>
+    <MessageBoard :tournament-id="id" />
     <ResultList />
   </div>
 </template>
@@ -31,8 +31,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.messageboard {
-}
-</style>
