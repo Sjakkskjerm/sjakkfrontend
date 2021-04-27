@@ -1,20 +1,13 @@
 <template>
-  <div class="tournamentlist">
-    <h1>
+  <div v-if="hasTournaments" class="tournament-list">
+    <h3>
       {{ title }}
-    </h1>
-    <table class="bord">
-      <tr>
-        <th>Tittel</th>
-        <th>Startdato</th>
-        <th>Sluttdato</th>
-      </tr>
-      <TournamentItem
-        v-for="tournament in tournaments"
-        :key="tournament"
-        :tournament="tournament"
-      />
-    </table>
+    </h3>
+    <TournamentItem class="tournament-item"
+      v-for="tournament in tournaments"
+      :key="tournament"
+      :tournament="tournament"
+    />
   </div>
 </template>
 
@@ -36,21 +29,23 @@ export default {
       required: true,
       default: "test"
     }
+  },
+  computed: {
+    hasTournaments() {
+      return this.tournaments.length > 0 ? true : false;
+    }
   }
 };
 </script>
-
 <style scoped>
-.bord {
-  /* border: 1px solid rgb(75, 75, 75);  */
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 5px;
-  font-size: 24;
-  /* border-radius: 120px 90px 60px 30px/30px 60px 90px 120px; */
+.tournament-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
 }
-th {
-  border-bottom: 1px solid black;
+.tournament-item {
+  vertical-align: center;
 }
 </style>

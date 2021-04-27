@@ -1,6 +1,7 @@
 <template>
   <div class="tournaments">
     <h1>Velkommen til Sjakk Skjerm</h1>
+    <hr>
     <TournamentManager />
   </div>
 </template>

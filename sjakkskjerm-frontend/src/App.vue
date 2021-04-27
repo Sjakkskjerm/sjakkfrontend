@@ -1,37 +1,86 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Turneringer</router-link> |
-    <router-link to="/about">Om</router-link> |
-    <router-link to="/live">Live</router-link> |
-    <router-link to="/admin/sendmessage">Send Melding</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/profil">Profil</router-link> |
-    <router-link to="/register">Registrer</router-link>
-  </div>
+  <nav class="navbar navbar-expand-lg">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <router-link to="/" class="nav-link"> Turneringer </router-link> 
+        </li>
+        <li class="nav-item">
+          <router-link to="/about" class="nav-link"> Om </router-link> 
+        </li>
+        <li class="nav-item">
+          <router-link to="/profil" v-if="getLoginStatus" class="nav-link">Profil</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/login" v-if="!getLoginStatus" class="nav-link">Login</router-link> 
+        </li>
+        <li class="nav-item">
+          <router-link to="/register" v-if="!getLoginStatus" class="nav-link">Registrer</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/login" v-if="getLoginStatus" v-on:click="logout()" class="nav-link">Logg ut</router-link>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
   <router-view />
 </template>
+<script>
+//import { mapGetters } from 'vuex';
+import store from "./store/index";
+
+export default {
+  computed: {
+    getLoginStatus() {
+        return store.getters["auth/isTokenActive"];
+    },
+  },
+  methods: {
+    logout() {
+      localStorage.clear();
+      this.$router.push("/login");
+      console.log("logged out");
+      alert("logged out")
+    }
+  }
+}
+</script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   height: 100%;
+  background-color: #ededed;
 }
 
-#nav {
-  padding: 30px;
+.navbar-nav {
+  float:none;
+  margin:0 auto;
+  display: block;
+  text-align: center;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.navbar-nav > li, a {
+  display: inline-block;
+  float:none;
+  color: black;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.navbar-nav .nav-item:hover .nav-link {
+  color: rgb(255, 106, 47);
+}
+
+nav a.router-link-active, nav a.router-link-exact-active {
+  transform: scale(1.1);
+  color: #b94242;
 }
 
 html,

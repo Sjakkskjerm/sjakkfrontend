@@ -3,22 +3,34 @@
         <h1>Send Melding</h1>
         <hr>
         <form>
-            <label>Turnerings ID</label>
-            <input type="text" required v-model="meldingData.turneringsId">
+            <div class="mb-3">
+                <label>Turnerings ID</label>
+                <input 
+                type="text" 
+                class="form-control"
+                required v-model="meldingData.turneringsId">
+            </div>
 
-            <label>Melding</label>
-            <input type="text" required v-model="meldingData.melding">
+            <div class="mb-3">
+                <label>Melding</label>
+                <input 
+                type="text" 
+                class="form-control"
+                required v-model="meldingData.melding">
+            </div>
 
-            <label>Viktighet</label>
-            <select class="form-select" v-model="meldingData.viktighet">
-                <option
-                v-for="option in viktigheter"
-                :value="option"
-                :key="option"
-                :selected="option === meldingData.viktighet">
-                {{ option }}
-                </option>
-            </select>
+            <div class="mb-3">
+                <label>Viktighet</label>
+                <select class="form-select" v-model="meldingData.viktighet">
+                    <option
+                    v-for="option in viktigheter"
+                    :value="option"
+                    :key="option"
+                    :selected="option === meldingData.viktighet">
+                    {{ option }}
+                    </option>
+                </select>
+            </div>
         </form>
     </div>
     <button class="btn btn-primary" v-on:click="sendMessages">Send</button>
@@ -26,7 +38,8 @@
 
 <script>
 
-import GameService from "@/services/GameService.js";
+//import GameService from "@/services/GameService.js";
+import AuthoService from "../../services/AuthoService";
 
 export default {
     data: function() {
@@ -45,21 +58,19 @@ export default {
     },
     methods: {
         sendMessages() {
+            const messagesURL = "/message";
             var data = {
-                turneringsId: this.meldingData.turneringsId,
-                melding:this.meldingData.melding,
-                viktighet: this.meldingData.viktighet
+                tournamentId: this.meldingData.turneringsId,
+                message:this.meldingData.melding,
+                importance: this.meldingData.viktighet
             };
 
-            console.log("log lol+ " + data);
-
-            GameService.sendMessages(data)
+            AuthoService.post(messagesURL, data)
                 .then(response => {
-                    this.svarlol = this.response.data;
-                    console.log("Yay: " + response);
+                    console.log("Yay: " + response)
                 })
-                .catch(error => {
-                    console.log("Not yay: " + error);
+                .catch(reason => {
+                    console.log("Not yay: " + reason);
                 })
         }
     }
@@ -91,4 +102,9 @@ input {
 select {
     margin-left: 10px;
 }
+
+.form-select {
+
+}
+
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h3>Logg inn</h3>
-    <!--<form @submit.prevent="login">-->
+    <h2>Logg inn</h2>
+    <hr>
     <form>
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>

@@ -7,6 +7,7 @@ const state = () => ({
         username: "",
         club: "",
         role: "",
+        role1: ""
     },
     loginStatus:"",
 });
@@ -27,8 +28,18 @@ const getters = {
             return false
         }
         return tokenAlive(state.authData.tokenExp);
-    }   
+    },
+    isLoggedIn(state) {
+        return state.auth.isLoggedIn
+    },
+    getToken(state) {
+        return state.authData.access_token;
+    }
 };
+
+//
+//
+//
 
 const actions = {
     async login({commit}, payload) {
@@ -46,7 +57,9 @@ const actions = {
                 console.log("failed");
                 commit("setLoginStatu", "failed");
             }    
-        
+    },
+    logout({commit}) {
+        commit("logout");
     }
 };
 
@@ -64,19 +77,16 @@ const mutations = {
             tokenExp: jwtDecodedValue.exp,
             userid: jwtDecodedValue.sub,
             uid: jwtDecodedValue.uid,
-            role: jwtDecodedValue.role[0].authority,
+            role: jwtDecodedValue.role[0].authority
+            /*[0].authority,
+            role1: jwtDecodedValue.role[1].authority
             /*
             username: jwtDecodedValue.username,
             club: jwtDecodedValue.club,
             */
         };
-        console.log("PRE NTD: " + state.authData.username);
-        console.log("NTD: " + newTokenData);
-
         state.authData = newTokenData;
-
-        console.log("POST NTD: " + state.authData.username);
-        
+    
     },
     setLoginStatu(state, value) {
         state.loginStatus = value;

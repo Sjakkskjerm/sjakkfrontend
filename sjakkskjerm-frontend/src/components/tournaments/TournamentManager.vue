@@ -1,21 +1,18 @@
 <template>
-  <div v-if="error == false" class="tournamentlist">
+  <div>
     <router-link to="/createtournament">
       <button id="createTournamentButton">
         Opprett en turnering
       </button>
     </router-link>
-    <TournamentList
-      :tournaments="ongoingTournaments"
-      title="Pågående turneringer"
-    />
-    <TournamentList
-      :tournaments="futureTournaments"
-      title="Fremtidige turneringer"
-    />
-  </div>
-  <div v-if="error" class="yeye">
-    <p>"hei hei"</p>
+    <div v-if="!error" class="tournamentlist">
+      <TournamentList :tournaments="ongoingTournaments" title="Pågående" />
+      <TournamentList :tournaments="futureTournaments" title="Kommende" />
+      <TournamentList :tournaments="endedTournaments" title="Fullførte" />
+    </div>
+    <div v-if="error" class="yeye">
+      <p>An error is preventing us from showing the tournaments.</p>
+    </div>
   </div>
 </template>
 

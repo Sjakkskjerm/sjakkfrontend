@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Registrer</h1>
+    <h2>Registrer</h2>
     <hr>
     <form>
       <div class="mb-3">
@@ -63,7 +63,6 @@ export default {
       };
 
       console.log(data);
-
       
       GameService.register(data)
         .then(response => {
