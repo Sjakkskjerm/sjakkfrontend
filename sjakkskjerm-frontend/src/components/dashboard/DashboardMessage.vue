@@ -5,7 +5,7 @@
       :key="message"
       :message="message"
     />
-    <SendMessage />
+    <SendMessage :tournamentid="tournamentid" @messageSentAcknowledged="fetchMessages" />
   </div>
 </template>
 

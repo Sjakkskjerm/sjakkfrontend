@@ -43,7 +43,17 @@ import AuthoService from "../../services/AuthoService";
 
 export default {
     name: "SendMessage",
-    data: function() {
+    props: {
+        tournamentid: {
+            type: String,
+            required: true
+        }
+    },
+    emits: {
+        messageSentAcknowledged: null
+    }
+    ,
+    data() {
     return {
         svarlol: [],
         viktigheter: [
@@ -61,7 +71,7 @@ export default {
         sendMessages() {
             const messagesURL = "/message";
             var data = {
-                tournamentId: this.meldingData.turneringsId,
+                tournamentId: this.tournamentid,
                 message:this.meldingData.melding,
                 importance: this.meldingData.viktighet
             };
@@ -69,6 +79,7 @@ export default {
             AuthoService.post(messagesURL, data)
                 .then(response => {
                     console.log("Yay: " + response)
+                    this.$emit("messageSentAcknowledged");
                 })
                 .catch(reason => {
                     console.log("Not yay: " + reason);
