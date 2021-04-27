@@ -2,13 +2,22 @@
   <div>
     <h1>Opprett en turnering</h1>
     <form ref="tournamentForm" @submit.prevent="sendForm">
-      <h3>Navngi din turnering</h3>
+      <h3>Navngi din turnering og arbiter</h3>
 
       <label>Tittel</label>
       <div>
         <BaseInput
           v-model="tournament.tournamentName"
-          placeholder="Tittel"
+          placeholder="Tittel..."
+          type="text"
+        />
+      </div>
+
+      <label>Navn på arbiter</label>
+      <div class="arbiter">
+        <BaseInput
+          v-model="tournament.arbiter"
+          placeholder="Navn..."
           type="text"
         />
       </div>
@@ -28,26 +37,6 @@
         v-model="tournament.endDate"
         placeholder="Sluttdato (Klikk for å velge)"
       />
-
-      <h3>Hvor mange runder, og kamper per runde skal spilles?</h3>
-
-      <label>Antall runder</label>
-      <div class="numberOfRounds">
-        <BaseInput
-          v-model.number="tournament.numberOfRounds"
-          placeholder="Antall runder"
-          type="number"
-        />
-      </div>
-
-      <label>Antall kamper per runde</label>
-      <div>
-        <BaseInput
-          v-model.number="tournament.gamesPerRound"
-          placeholder="Antall kamper per runde"
-          type="number"
-        />
-      </div>
 
       <div class="regretButtons">
         <button class="backButton" type="button" @click="back()">
@@ -76,7 +65,7 @@
 */
 import BaseInput from "../forms/BaseInput.vue";
 import Datepicker from "vue3-datepicker";
-import axios from "axios";
+import AuthoService from "@/services/AuthoService.js";
 
 export default {
   name: "CreateTournament",
@@ -90,19 +79,17 @@ export default {
         tournamentName: "",
         startDate: new Date(),
         endDate: null,
-        numberOfRounds: "",
-        gamesPerRound: ""
+        arbiter: ""
       }
     };
   },
   methods: {
     sendForm() {
       console.log("yoyoyoy" + this.tournament);
-      axios
-        .post(
-          "http://localhost:8080/api/tournaments/createtournament",
-          this.tournament
-        )
+      AuthoService.post(
+        "http://localhost:8080/api/tournaments/createtournament",
+        this.tournament
+      )
         .then(function(response) {
           console.log("response", response);
         })
@@ -117,6 +104,7 @@ export default {
     resetForms() {
       const refForm = this.$refs.tournamentForm;
       refForm.reset();
+      this.tournament.startDate = new Date();
     }
   }
 };
@@ -135,7 +123,7 @@ export default {
 .resetButton {
   margin-left: 0.25em;
 }
-.numberOfRounds {
+.arbiter {
   margin-bottom: 0.75em;
 }
 .startDate {
