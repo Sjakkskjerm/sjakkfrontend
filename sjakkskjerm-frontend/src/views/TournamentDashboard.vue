@@ -2,14 +2,13 @@
   <div>
     <h1>Dashboard</h1>
     <p>{{ tournament.tournamentName }}</p>
-    <DashboardMessage />
+    <DashboardMessage :tournamentid="id" />
   </div>
 </template>
 
 <script>
 import GameService from "@/services/GameService.js";
 import DashboardMessage from "@/components/dashboard/DashboardMessage.vue";
-
 
 export default {
   name: "TournamentDashboard",

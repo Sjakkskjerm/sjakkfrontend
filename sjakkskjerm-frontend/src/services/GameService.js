@@ -46,7 +46,7 @@ export default {
 	getMessages() {
 		return apiClient.get(messagesURL);
 	},
-	getMessage(tournamentId) {
+	getMessagesForTournament(tournamentId) {
 		return apiClient.get(messageSpecificURL + "?tournamentId=" + tournamentId);
 	},
 	sendMessages(data) {

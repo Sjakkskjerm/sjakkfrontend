@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     fetchMessage() {
-      GameService.getMessage(this.tournamentId)
+      GameService.getMessagesForTournament(this.tournamentId)
         .then(response => {
           this.messages = response.data;
           console.log("Yay: " + response);
