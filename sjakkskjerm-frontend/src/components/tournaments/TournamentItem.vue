@@ -1,14 +1,16 @@
 <template>
-  <router-link
-    class="tournament-link"
-    :to="{ name: 'Tournament', params: { id: tournament.id } }"
-  >
-    <div class="tournament-card">
-      <h4 class="name">{{ tournament.tournamentName }}</h4>
-      <p class="date">From: {{ tournament.startDate }}</p>
-      <p class="date">To: {{ tournament.endDate }}</p>
-    </div>
-  </router-link>
+  <div class="tournament-item">
+    <router-link
+      class="tournament-link"
+      :to="{ name: 'Tournament', params: { id: tournament.id } }"
+    >
+      <div class="tournament-card">
+        <h4 class="name">{{ tournament.tournamentName }}</h4>
+        <p class="date">From: {{ tournament.startDate }}</p>
+        <p class="date">To: {{ tournament.endDate }}</p>
+      </div>
+    </router-link>
+  </div>
 </template>
 <script>
 export default {
@@ -29,6 +31,9 @@ export default {
 </script>
 
 <style scoped>
+.tournament-item {
+  width: 50%;
+}
 .tournament-card {
   padding: 10px;
   cursor: pointer;
