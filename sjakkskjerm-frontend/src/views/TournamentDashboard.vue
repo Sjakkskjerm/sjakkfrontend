@@ -1,7 +1,8 @@
 <template>
   <div>
     <h1>Dashboard</h1>
-    <p>{{ tournament.tournamentName }}</p>
+    <h2>{{ tournament.tournamentName }}</h2>
+    <h3>Sendte meldinger</h3>
     <DashboardMessage :tournamentid="id" />
   </div>
 </template>

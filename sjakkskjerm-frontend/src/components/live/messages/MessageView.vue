@@ -21,12 +21,12 @@ export default {
   padding: 10px;
   cursor: pointer;
   margin-bottom: 1em;
-  margin-right: 35%;
-  margin-left: 35%;
+  margin-right: 5%;
+  margin-left: 5%;
 }
 .message-card:hover {
-  transform: scale(1.01);
-  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
+  /* transform: scale(1.01); */
+  /* box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2); */
 }
 
 .message {

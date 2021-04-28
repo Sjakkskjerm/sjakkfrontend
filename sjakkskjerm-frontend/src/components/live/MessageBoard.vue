@@ -50,8 +50,8 @@ export default {
         })
         .catch(error => {
           console.log("Not yay: " + error);
-        })
-    },
+        });
+    }
   }
 };
 </script>

@@ -1,11 +1,18 @@
 <template>
-  <div>
-    <MessageView
-      v-for="message in messages"
-      :key="message"
-      :message="message"
+  <div class="container">
+    <div class="message-container">
+      <MessageView
+        v-for="message in messages.slice().reverse()"
+        :key="message"
+        class="message"
+        :message="message"
+      />
+    </div>
+    <SendMessage
+      class="send-message-container"
+      :tournamentid="tournamentid"
+      @messageSentAcknowledged="fetchMessages"
     />
-    <SendMessage :tournamentid="tournamentid" @messageSentAcknowledged="fetchMessages" />
   </div>
 </template>
 
@@ -47,3 +54,38 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.container {
+  width: 70%;
+  margin: 0 auto;
+  /* border: solid 1px #ccc; */
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column-reverse;
+  /* max-height: 400px; */
+  height: 400px;
+  overflow: auto;
+  /* transform: rotate(180deg); */
+  direction: rtl;
+}
+
+.message {
+  border-bottom: solid 1px #ccc;
+  padding: 20px;
+  /* transform: rotate(180deg); */
+  direction: ltr;
+}
+/* .send-message-container {
+  input {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+  }
+} */
+</style>
