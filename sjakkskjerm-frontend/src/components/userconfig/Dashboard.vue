@@ -16,9 +16,6 @@ export default {
   computed: {
     ...mapGetters('auth', {
       gettersAuthData:'getAuthData'
-    }),
-    ...mapGetters('auth', {
-      gettersAuthRole: 'isOrgPlus'
     })
   }
 }

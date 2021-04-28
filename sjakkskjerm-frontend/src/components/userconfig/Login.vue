@@ -5,41 +5,47 @@
     <form>
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>
-        <input 
-          type="text"
-          class="form-control"
-          id="txtusername"
-          aria-describedby="emailHelp"
-          v-model="username"
-        />
+        <input type="text" class="form-control" id="txtusername" v-model="v$.username.$model"/>
+        <span v-if="v$.username.$error" class="errortext"> Vennligst fyll inn brukernavn.</span>
+
       </div>
       <div class="mb-3">
         <label for="txtpassword" class="form-label">Passord</label>
-        <input
-          type="password"
-          class="form-control"
-          id="txtpassword"
-          v-model="password"
-          />
+        <input type="password" class="form-control" id="txtpassword" v-model="v$.password.$model"/>
+        <span v-if="v$.password.$error" class="errortext"> Vennligst fyll inn passord.</span>
       </div>
       
     </form>
-    <button type="submit" class="btn btn-primary" @click="login()">Logg Inn</button>
-    <!--<button v-on:click="bajs">Send</button>-->
+    <button type="submit" class="btn btn-dark" @click="sendLogin()">Logg Inn</button>
+    <pre class="bajs">{{v$}}</pre>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
-//import store from "../../store/index";
+import useValidate from '@vuelidate/core'
+import { required, alphaNum } from '@vuelidate/validators'
 
 export default {
   data() {
     return {
+      v$: useValidate(),
       username:'',
       password:''
     }
   }, 
+  validations() {
+    return {
+      username: {
+        required, 
+        alphaNum	
+      },
+      password: {
+        required,
+        alphaNum	
+      }
+    }
+  },
   computed: {
     ...mapGetters('auth', {
       getterLoginStatus:'getLoginStatus'
@@ -49,21 +55,30 @@ export default {
     ...mapActions('auth', {
       actionLogin:'login'
     }),
+    sendLogin() {
+      this.v$.$validate() 
+      if (!this.v$.$error) { 
+        this.login()
+      } else {
+        alert('Kunne ikke sende forespørsel')
+      }
+    },
     async login() {
-      console.log(this.username, this.password);
-      await this.actionLogin({username:this.username, password:this.password});
+      await this.actionLogin({username:this.v$.username.$model, password:this.v$.password.$model});
       if (this.getterLoginStatus == 'success') {
         this.$router.push("/profil");
       } else {
         alert('failed to login')
       }
     },
-    loginx() {
-    }
   }
 };
 </script>
 
 <style>
+
+.bajs {
+  text-align: left;
+}
 
 </style>

@@ -5,72 +5,80 @@ import TournamentDashboard from "../views/TournamentDashboard";
 import Login from "../components/userconfig/Login";
 import Dashboard from "../components/userconfig/Dashboard";
 import Register from "../components/userconfig/Register";
-import store from "../store/index";
+import AdminPanel from "../components/admin/AdminPanel"
+import store from "../store/index"
 
 const routes = [
-	{
-		path: "/",
-		name: "Tournaments",
-		component: Tournaments,
-		meta: {
-			requiredAuth: false,
-		},
-	},
-	{
-		path: "/about",
-		name: "About",
-		// route level code-splitting
-		// this generates a separate chunk (about.[hash].js) for this route
-		// which is lazy-loaded when the route is visited.
-		component: () =>
-			import(/* webpackChunkName: "about" */ "../views/About.vue"),
-		meta: {
-			requiredAuth: false,
-		},
-	},
-	{
-		path: "/live",
-		name: "Live",
-		component: Tournament,
-		meta: {
-			requiredAuth: false,
-		},
-	},
-	{
-		path: "/tournament/:id",
-		name: "Tournament",
-		props: true,
-		component: Tournament,
-		meta: {
-			requiredAuth: false,
-		},
-	},
+  {
+    path: "/",
+    name: "Tournaments",
+    component: Tournaments,
+    meta: {
+      requiredAuth: false
+    }
+  },
+  {
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    meta: {
+      requiredAuth: false
+    }
+  },
+  {
+    path: "/live",
+    name: "Live",
+    component: Tournament,
+    meta: {
+      requiredAuth: false
+    }
+  },
+  {
+    path: "/tournament/:id",
+    name: "Tournament",
+    props: true,
+    component: Tournament,
+    meta: {
+      requiredAuth: false
+    }
+  },
+  {
+    path: "/login",
+    component: Login,
+    meta: {
+      requiredAuth: false
+    }
+  }, 
+  {
+    path: "/profil",
+    component: Dashboard,
+    meta: {
+      requiredAuth: true
+    }
+  },
+  {
+    path: "/register",
+    component: Register,
+    meta: {
+      requiredAuth: false
+    }
+  }, 
+  {
+    path: "/admin/panel",
+    component: AdminPanel,
+    meta: {
+      requiredAuth: true
+    }
+  }
 	{
 		path: "/dashboard/:id",
 		name: "TournamentDashboard",
 		props: true,
 		component: TournamentDashboard,
-		meta: {
-			requiredAuth: false,
-		},
-	},
-	{
-		path: "/login",
-		component: Login,
-		meta: {
-			requiredAuth: false,
-		},
-	},
-	{
-		path: "/profil",
-		component: Dashboard,
-		meta: {
-			requiredAuth: true,
-		},
-	},
-	{
-		path: "/register",
-		component: Register,
 		meta: {
 			requiredAuth: false,
 		},
@@ -81,17 +89,6 @@ const router = createRouter({
 	history: createWebHistory(process.env.BASE_URL),
 	routes,
 });
-
-/*
-router.beforeEach((to,from, next) => {
-  if(to.meta.requiredAuth){
-      const auth = store.getters["auth/isTokenActive"];
-      if(!auth){
-         return next({path: '/login'});
-      }
-  }
-  return next();
-});*/
 
 router.beforeEach((to, from, next) => {
 	//console.log(store.getters["auth/getAuthData"].token);
