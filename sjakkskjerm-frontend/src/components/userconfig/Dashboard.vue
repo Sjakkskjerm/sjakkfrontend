@@ -7,8 +7,8 @@
     <div>Roller: {{gettersAuthData.role}}</div>
     <br>
     <button @click="$router.push('/admin/sendmessage')" 
-    v-if="gettersAuthData.role === 'ROLE_ORGANIZER'"
-    class="btn btn-primary">Send Melding</button>
+    v-if="gettersAuthData.role === 'ROLE_ORGANIZER' || gettersAuthData.role === 'ROLE_ADMIN'"
+    class="btn btn-dark">Send Melding</button>
   </div>
 </template>
 
@@ -19,9 +19,6 @@ export default {
   computed: {
     ...mapGetters('auth', {
       gettersAuthData:'getAuthData'
-    }),
-    ...mapGetters('auth', {
-      gettersAuthRole: 'isOrgPlus'
     })
   }
 }

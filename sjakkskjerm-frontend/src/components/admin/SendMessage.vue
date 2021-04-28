@@ -21,11 +21,11 @@
             {{ option }}
           </option>
         </select>
-          <span v-if="v$.importance.$error" class="errortext">Vennligts velg en viktighetsgrad.</span>
+          <span v-if="v$.importance.$error" class="errortext">Vennligst velg en viktighetsgrad.</span>
       </div>
     </form>
   </div>
-  <button class="btn btn-primary" v-on:click="sendMessages">Send</button>
+  <button class="btn btn-dark" v-on:click="sendMessages">Send</button>
 </template>
 
 <script>
@@ -33,7 +33,7 @@
 //import GameService from "@/services/GameService.js";
 import AuthoService from "../../services/AuthoService";
 import useValidate from '@vuelidate/core'
-import {required} from '@vuelidate/validators'
+import {alphaNum, required} from '@vuelidate/validators'
 
 export default {
     data: function() {
@@ -51,10 +51,12 @@ export default {
     validations() {
       return {
         message: {
-          required
+          required,
+          alphaNum	
         },
         importance: {
-          required
+          required,
+          alphaNum
         }
       }
     },

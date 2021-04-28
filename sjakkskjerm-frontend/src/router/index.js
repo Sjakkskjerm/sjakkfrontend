@@ -5,6 +5,7 @@ import SendMessage from "../components/admin/SendMessage.vue";
 import Login from "../components/userconfig/Login";
 import Dashboard from "../components/userconfig/Dashboard";
 import Register from "../components/userconfig/Register";
+import AdminPanel from "../components/admin/AdminPanel"
 import store from "../store/index"
 
 const routes = [
@@ -73,6 +74,13 @@ const routes = [
     meta: {
       requiredAuth: false
     }
+  }, 
+  {
+    path: "/admin/panel",
+    component: AdminPanel,
+    meta: {
+      requiredAuth: true
+    }
   }
 ];
 
@@ -80,17 +88,6 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 });
-
-/*
-router.beforeEach((to,from, next) => {
-  if(to.meta.requiredAuth){
-      const auth = store.getters["auth/isTokenActive"];
-      if(!auth){
-         return next({path: '/login'});
-      }
-  }
-  return next();
-});*/
 
 router.beforeEach((to, from, next) => {
   //console.log(store.getters["auth/getAuthData"].token);

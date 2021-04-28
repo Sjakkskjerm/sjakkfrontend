@@ -28,6 +28,11 @@ const AuthoService = {
         return instance.post(url, data)
             .then(response => response)
             .catch(reason => Promise.reject(reason));
+    },
+    put(url) {
+        return instance.put(url)
+            .then(response => response)
+            .catch(reason => Promise.reject(reason));
     }
 
 };

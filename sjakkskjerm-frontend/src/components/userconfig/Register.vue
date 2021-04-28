@@ -24,14 +24,14 @@
         <span v-if="v$.password.$error" class="errortext"> Vennligst fyll inn passord på minst 5 tegn.</span>
       </div>
     </form>
-    <button class="btn btn-primary" v-on:click="sendUserData">Registrer</button>
+    <button class="btn btn-dark" v-on:click="sendUserData">Registrer</button>
   </div>
 </template>
 
 <script>
 import GameService from '../../services/GameService';
 import useValidate from '@vuelidate/core'
-import { email, maxLength, minLength, required } from '@vuelidate/validators'
+import { alphaNum, email, maxLength, minLength, required } from '@vuelidate/validators'
 
 
 export default {
@@ -49,6 +49,7 @@ export default {
     return  {
       username: {
         required, 
+        alphaNum,
         minLength: minLength(3), 
         maxLength: maxLength(25)
       },
@@ -58,10 +59,12 @@ export default {
         maxLength: maxLength(50)
       },
       club: {
+        alphaNum,
         required, 
       },
       password: {
-        required, 
+        required,
+        alphaNum, 
         minLength: minLength(5), 
         maxLength: maxLength(75)
       }

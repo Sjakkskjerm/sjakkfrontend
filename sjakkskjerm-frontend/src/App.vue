@@ -15,6 +15,9 @@
           <router-link to="/profil" v-if="getLoginStatus" class="nav-link">Profil</router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/admin/panel" class="nav-link" v-if="gettersAuthData.role === 'ROLE_ADMIN'">Admin</router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/login" v-if="!getLoginStatus" class="nav-link">Login</router-link> 
         </li>
         <li class="nav-item">
@@ -30,6 +33,7 @@
   <router-view />
 </template>
 <script>
+import { mapGetters } from 'vuex';
 //import { mapGetters } from 'vuex';
 import store from "./store/index";
 
@@ -38,6 +42,9 @@ export default {
     getLoginStatus() {
         return store.getters["auth/isTokenActive"];
     },
+    ...mapGetters('auth', {
+      gettersAuthData: 'getAuthData'
+    })
   },
   methods: {
     logout() {

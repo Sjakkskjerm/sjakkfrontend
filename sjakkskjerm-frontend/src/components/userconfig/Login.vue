@@ -16,16 +16,15 @@
       </div>
       
     </form>
-    <button type="submit" class="btn btn-primary" @click="sendLogin()">Logg Inn</button>
+    <button type="submit" class="btn btn-dark" @click="sendLogin()">Logg Inn</button>
+    <pre class="bajs">{{v$}}</pre>
   </div>
-  <pre> {{v$.username.$model}} - {{v$.password.$model}}</pre>
-  <pre class="bajs"> {{v$}}</pre>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
 import useValidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
+import { required, alphaNum } from '@vuelidate/validators'
 
 export default {
   data() {
@@ -38,10 +37,12 @@ export default {
   validations() {
     return {
       username: {
-        required
+        required, 
+        alphaNum	
       },
       password: {
-        required
+        required,
+        alphaNum	
       }
     }
   },
@@ -55,8 +56,8 @@ export default {
       actionLogin:'login'
     }),
     sendLogin() {
-      this.v$.$validate() // checks all inputs
-      if (!this.v$.$error) { // if ANY fail validation
+      this.v$.$validate() 
+      if (!this.v$.$error) { 
         this.login()
       } else {
         alert('Kunne ikke sende forespørsel')
@@ -76,8 +77,8 @@ export default {
 
 <style>
 
-
 .bajs {
   text-align: left;
 }
+
 </style>
