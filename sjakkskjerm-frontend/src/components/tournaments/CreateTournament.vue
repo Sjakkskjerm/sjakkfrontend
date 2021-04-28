@@ -5,7 +5,7 @@
       <h3>Navngi din turnering og arbiter</h3>
 
       <label>Tittel</label>
-      <div>
+      <div class="mb-3">
         <BaseInput
           v-model="tournament.tournamentName"
           placeholder="Tittel..."
@@ -14,7 +14,7 @@
       </div>
 
       <label>Navn på arbiter</label>
-      <div class="arbiter">
+      <div class="arbiter mb-3">
         <BaseInput
           v-model="tournament.arbiter"
           placeholder="Navn..."
@@ -24,7 +24,7 @@
 
       <h3>Bestem start- og sluttdato for turneringen</h3>
 
-      <div class="startDate">
+      <div class="startDate mb-3">
         <label>Startdato</label>
         <datepicker
           v-model="tournament.startDate"
@@ -39,17 +39,17 @@
       />
 
       <div class="regretButtons">
-        <button class="backButton" type="button" @click="back()">
+        <button class="backButton btn btn-outline-dark" type="button" @click="back()">
           Tilbake
         </button>
 
-        <button class="resetButton" type="button" @click="resetForms()">
+        <button class="resetButton btn btn-outline-dark" type="button" @click="resetForms()">
           Reset
         </button>
       </div>
 
       <div class="submitButton">
-        <button type="submit">Opprett</button>
+        <button class="btn btn-outline-dark" type="submit">Opprett</button>
       </div>
     </form>
   </div>
@@ -128,5 +128,11 @@ export default {
 }
 .startDate {
   margin-bottom: 0.75em;
+}
+input {
+  border: 1px solid silver;
+  border-radius: 4px;
+  background: white;
+  padding: 5px 10px;
 }
 </style>
