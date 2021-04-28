@@ -1,63 +1,55 @@
 import axios from "axios";
 
-//local
-const localBackendUrl = "http://localhost:8080";
-const localBackendTournaments = "/api/tournaments/";
-const localBackendGames = "/api/games/";
-const localBackendGamesByTournament = "/api/games/gamesfortournament/";
+//prod URL
+// const backendURL = "http://158.38.101.216:8080/api";
 
-const apiClient = axios.create({
-  baseURL: localBackendUrl,
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
-});
+//local URL
+const backendURL = "http://localhost:8080/api";
 
-const baseURL_API = "http://localhost:8080/api";
+//paths/routes
+const tournaments = "/tournaments/";
+const games = "/games/";
+const gamesByTournament = "/games/gamesfortournament/";
 const messagesURL = "/message";
 const messageSpecificURL = "/message/specific";
 const loginURL = "auth/login";
 const registerURL = "auth/register";
 
-const apiClient_1 = axios.create({
-  baseURL: baseURL_API,
-  withCredentials: false,
-  headers: {
-    Accept: "application/json",
-    "Content-Type": "application/json"
-  }
+const apiClient = axios.create({
+	baseURL: backendURL,
+	withCredentials: false,
+	headers: {
+		Accept: "application/json",
+		"Content-Type": "application/json",
+	},
 });
 
 export default {
-  getPgn(gameId) {
-    return apiClient.get(localBackendGames, { params: { id: gameId } });
-  },
-  getGames(tournamentId) {
-    console.log(localBackendUrl + localBackendGamesByTournament + tournamentId);
-    return apiClient.get(localBackendGamesByTournament, {
-      params: { tournamentid: tournamentId }
-    });
-  },
-  getTournaments() {
-    return apiClient.get(localBackendTournaments);
-  },
-  getMessages() {
-    return apiClient_1.get(messagesURL);
-  },
-  getMessage(tournamentId) {
-    return apiClient_1.get(
-      messageSpecificURL + "?tournamentId=" + tournamentId
-    );
-  },
-  sendMessages(data) {
-    return apiClient_1.post(messagesURL, data);
-  },
-  login(data) {
-    return apiClient_1.post(loginURL, data);
-  },
-  register(data) {
-    return apiClient_1.post(registerURL, data);
-  }
+	getPgn(gameId) {
+		return apiClient.get(games, { params: { id: gameId } });
+	},
+	getGames(tournamentId) {
+		console.log(backendURL + gamesByTournament + tournamentId);
+		return apiClient.get(gamesByTournament, {
+			params: { tournamentid: tournamentId },
+		});
+	},
+	getTournaments() {
+		return apiClient.get(tournaments);
+	},
+	getMessages() {
+		return apiClient.get(messagesURL);
+	},
+	getMessage(tournamentId) {
+		return apiClient.get(messageSpecificURL + "?tournamentId=" + tournamentId);
+	},
+	sendMessages(data) {
+		return apiClient.post(messagesURL, data);
+	},
+	login(data) {
+		return apiClient.post(loginURL, data);
+	},
+	register(data) {
+		return apiClient.post(registerURL, data);
+	},
 };
