@@ -39,11 +39,19 @@
       />
 
       <div class="regretButtons">
-        <button class="backButton btn btn-outline-dark" type="button" @click="back()">
+        <button
+          class="backButton btn btn-outline-dark"
+          type="button"
+          @click="back()"
+        >
           Tilbake
         </button>
 
-        <button class="resetButton btn btn-outline-dark" type="button" @click="resetForms()">
+        <button
+          class="resetButton btn btn-outline-dark"
+          type="button"
+          @click="resetForms()"
+        >
           Reset
         </button>
       </div>
