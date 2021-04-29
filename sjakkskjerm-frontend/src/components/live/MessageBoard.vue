@@ -9,8 +9,8 @@
         :message="message"
       />
     </div>
-    <button class="btn btn-outline-primary" v-on:click="show = false" v-if="show">Skjul meldinger</button>
-    <button class="btn btn-outline-primary" v-on:click="show = true" v-if="!show">Vis meldinger</button>
+    <button class="btn btn-outline-dark" v-on:click="show = false" v-if="show">Skjul meldinger</button>
+    <button class="btn btn-outline-dark" v-on:click="show = true" v-if="!show">Vis meldinger</button>
   </div>
 </template>
 
