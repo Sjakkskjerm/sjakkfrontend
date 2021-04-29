@@ -6,19 +6,24 @@
     <form> 
       <div class="mb-3">
         <label for="txtusername" class="form-label">Bruker ID</label>
-        <input type="text" class="form-control" id="txtusername" v-model="v$.userId.$model">
+        <input type="text" placeholder="Fyll inn Bruker ID - eks. 1" class="form-control" id="txtusername" v-model="v$.userId.$model">
         <span v-if="v$.userId.$error" class="errortext">Vennligst fyll inn en Bruker ID (tall). Eks. 1</span>
       </div>
       <div class="mb-3">
         <label for="txtusername" class="form-label">Rolle ID</label>
-        <input type="number" class="form-control" id="txtusername" v-model.number="v$.roleId.$model">
-        <span v-if="v$.roleId.$error" class="errortext">Vennligst fyll inn rolle Id, 1 = User, 2 = Organizer, 3 = Admin</span>
+        <!--<input type="number" min="1" max="3" placeholder="1 = User, 2 = Organizer, 3 = Admin" class="form-control" id="txtusername" v-model.number="v$.roleId.$model">-->
+        <select class="form-select" v-model.number="v$.roleId.$model">
+          <option value="" disabled selected hidden>Velg rolle...</option>
+          <option value="1">Bruker</option>
+          <option value="2">Arrangør</option>
+          <option value="3">Admin</option>
+        </select>
+        <span v-if="v$.roleId.$error" class="errortext">Vennligst velg inn rolle Id, 1 = User, 2 = Organizer, 3 = Admin</span>
       </div>
     </form>
+    <pre>{{v$.roleId.$model}}</pre>
   </div>
   <button class="btn btn-dark" v-on:click="hei">Endre rolle</button>
-  <pre class="bajs">{{v$}}</pre>
-  <pre>{{v$.userId.$model}}-{{v$.roleId.$model}}</pre>
 </template>
 
 <script>
@@ -72,9 +77,5 @@ export default {
 <style>
 .errortext {
   color: red;
-}
-
-.bajs {
-  text-align: left;
 }
 </style>

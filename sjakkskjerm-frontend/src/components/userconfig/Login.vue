@@ -5,19 +5,18 @@
     <form>
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>
-        <input type="text" class="form-control" id="txtusername" v-model="v$.username.$model"/>
+        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" id="txtusername" v-model="v$.username.$model"/>
         <span v-if="v$.username.$error" class="errortext"> Vennligst fyll inn brukernavn.</span>
 
       </div>
       <div class="mb-3">
         <label for="txtpassword" class="form-label">Passord</label>
-        <input type="password" class="form-control" id="txtpassword" v-model="v$.password.$model"/>
+        <input type="password" placeholder="Fyll inn passord" class="form-control" id="txtpassword" v-model="v$.password.$model"/>
         <span v-if="v$.password.$error" class="errortext"> Vennligst fyll inn passord.</span>
       </div>
       
     </form>
     <button type="submit" class="btn btn-dark" @click="sendLogin()">Logg Inn</button>
-    <pre class="bajs">{{v$}}</pre>
   </div>
 </template>
 
@@ -41,8 +40,7 @@ export default {
         alphaNum	
       },
       password: {
-        required,
-        alphaNum	
+        required
       }
     }
   },
