@@ -15,7 +15,6 @@
 </template>
 
 <script>
-
 import GameService from "@/services/GameService.js";
 import MessageView from "@/components/live/messages/MessageView.vue";
 
@@ -33,12 +32,17 @@ export default {
   },
   data() {
     return {
+      fetchInterval: 0,
       messages: [],
       show: true
     };
   },
   mounted() {
     this.fetchMessage();
+    this.startFetchInterval(4000);
+  },
+  unmounted() {
+    clearInterval(this.fetchInterval);
   },
   methods: {
     fetchMessage() {
@@ -51,6 +55,11 @@ export default {
         .catch(error => {
           console.log("Not yay: " + error);
         });
+    },
+    startFetchInterval(fetchInterval) {
+      this.fetchInterval = setInterval(() => {
+        this.fetchMessage();
+      }, fetchInterval);
     }
   }
 };
