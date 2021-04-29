@@ -7,6 +7,7 @@
         :key="message"
         class="messages"
         :message="message"
+        @deleteMessageAcknowledged="fetchMessage"
       />
     </div>
     <button class="btn btn-outline-dark" v-on:click="show = false" v-if="show">Skjul meldinger</button>

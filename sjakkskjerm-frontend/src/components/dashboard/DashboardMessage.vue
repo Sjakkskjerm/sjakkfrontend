@@ -6,6 +6,7 @@
         :key="message"
         class="message"
         :message="message"
+        @deleteMessageAcknowledged="fetchMessages"
       />
     </div>
     <SendMessage
