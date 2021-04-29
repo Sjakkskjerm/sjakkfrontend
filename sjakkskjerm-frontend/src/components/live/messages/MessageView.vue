@@ -1,11 +1,17 @@
 <template>
     <div class = "message-card">
-        <p class="message">{{message.date}}: {{message.message}}</p>
+        <p class="message">{{ message.date}}: {{message.message}}</p>
+        <button @click="deleteMsg" 
+    v-if="gettersAuthData.role === 'ROLE_ORGANIZER' || gettersAuthData.role === 'ROLE_ADMIN'"
+    class="btn btn-dark">Slett</button>
     </div>
 </template>
 
 
 <script>
+import { mapGetters } from 'vuex';
+import AuthoService from '../../../services/AuthoService';
+
 export default {
     name: "MessageView",
     props: {
@@ -13,7 +19,26 @@ export default {
             type: Object,
             required: true
         }
+    },
+    computed: {
+    ...mapGetters('auth', {
+      gettersAuthData:'getAuthData'
+    })
+  },
+  methods: {
+    deleteMsg() {
+      const messageURL = "/message/delete?messageId=" + this.message.messageId;
+      console.log(messageURL)
+
+      AuthoService.delete(messageURL)
+        .then(response => {
+          console.log("OK: " + response)
+        })
+        .catch(reason => {
+          console.log("Not OK: " + reason);
+        })
     }
+  }
 }
 </script>
 

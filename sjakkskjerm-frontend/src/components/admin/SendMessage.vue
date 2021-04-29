@@ -77,10 +77,10 @@ export default {
 
             AuthoService.post(messagesURL, data)
               .then(response => {
-                console.log("Yay: " + response)
+                console.log("OK: " + response)
               })
               .catch(reason => {
-                console.log("Not yay: " + reason);
+                console.log("Not OK: " + reason);
               })
           } else {
             alert('Melding kunne ikke bli sendt')

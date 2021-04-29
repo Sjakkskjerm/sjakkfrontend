@@ -30,15 +30,23 @@ const AuthoService = {
 	},
 
     post(url, data) {
-        return instance.post(url, data)
-            .then(response => response)
-            .catch(reason => Promise.reject(reason));
+      return instance
+			  .post(url, data)
+          .then(response => response)
+          .catch(reason => Promise.reject(reason));
     },
     put(url) {
-        return instance.put(url)
-            .then(response => response)
-            .catch(reason => Promise.reject(reason));
-    }
+      return instance
+			  .put(url)
+          .then(response => response)
+          .catch(reason => Promise.reject(reason));
+    },
+	delete(urL) {
+		return instance
+			.delete(urL)
+			.then(response => response)
+			.catch(reason => Promise.reject(reason));
+	}
 
 };
 
