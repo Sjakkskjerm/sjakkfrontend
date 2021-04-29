@@ -26,6 +26,9 @@ export default {
       required: true
     }
   },
+  emits: {
+    deleteMessageAcknowledged: null
+  },
   computed: {
     ...mapGetters("auth", {
       gettersAuthData: "getAuthData"
@@ -39,6 +42,7 @@ export default {
       AuthoService.delete(messageURL)
         .then(response => {
           console.log("OK: " + response);
+          this.$emit("deleteMessageAcknowledged");
         })
         .catch(reason => {
           console.log("Not OK: " + reason);
