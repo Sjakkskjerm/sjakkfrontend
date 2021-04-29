@@ -10,11 +10,13 @@
         <p class="date">To: {{ tournament.endDate }}</p>
       </div>
     </router-link>
-    <router-link
-      :to="{ name: 'TournamentDashboard', params: { id: tournament.id } }"
-    >
-      <button class="btn btn-primary">Dashboard</button>
-    </router-link>
+    <div v-if="ownerOfTournament">
+      <router-link
+        :to="{ name: 'TournamentDashboard', params: { id: tournament.id } }"
+      >
+        <button class="btn btn-primary dashboard-button">Dashboard</button>
+      </router-link>
+    </div>
   </div>
 </template>
 <script>
@@ -31,6 +33,13 @@ export default {
       id: null,
       games: []
     };
+  },
+  computed: {
+    ownerOfTournament() {
+      return (
+        this.$store.state.auth.authData.uid == this.tournament.owner.userId
+      );
+    }
   }
 };
 </script>
@@ -40,7 +49,8 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 50%;
+  align-items: center;
+  width: 80%;
 }
 .tournament-card {
   padding: 10px;
@@ -64,5 +74,9 @@ export default {
 }
 .name {
   font-weight: bold;
+}
+
+.dashboard-button {
+  margin: 1rem;
 }
 </style>
