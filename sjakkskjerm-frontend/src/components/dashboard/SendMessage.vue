@@ -1,37 +1,48 @@
 <template>
-  <div>
-    <form v-on:submit.prevent="onSubmit" class="send-container">
-      <div class="mb-3">
+  <div class="send-message-container">
+    <form class="send-container" @submit.prevent="onSubmit">
+      <div class="mb-3 message-input">
         <label>Melding</label>
         <input
-          v-model="meldingData.melding"
+          v-model="v$.message.$model"
           type="text"
           class="form-control"
           required
           autofocus
         />
+        <span v-if="v$.message.$error" class="errortext"
+          >Vennligst fyll inn en melding.</span
+        >
       </div>
-      <div class="mb-3">
+      <div class="mb-3 importance-select">
         <label>Viktighet</label>
-        <select v-model="meldingData.viktighet" class="form-select">
+        <select v-model="v$.importance.$model" class="form-select">
           <option
-            v-for="option in viktigheter"
+            v-for="option in importanceArray"
             :key="option"
             :value="option"
-            :selected="option === meldingData.viktighet"
+            :selected="option === importance"
           >
             {{ option }}
           </option>
         </select>
+        <span v-if="v$.importance.$error" class="errortext"
+          >Vennligst velg en viktighetsgrad.</span
+        >
       </div>
-      <button class="btn btn-primary" @click="sendMessages">Send</button>
+      <div class="send-button">
+        <button :disabled="!message" class="btn btn-dark" @click="sendMessages">
+          Send
+        </button>
+      </div>
     </form>
   </div>
 </template>
 
 <script>
-//import GameService from "@/services/GameService.js";
 import AuthoService from "../../services/AuthoService";
+import useValidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
 
 export default {
   name: "SendMessage",
@@ -46,12 +57,21 @@ export default {
   },
   data() {
     return {
-      svarlol: [],
-      viktigheter: ["Viktig", "Ikke Viktig"],
-      meldingData: {
-        turneringsId: "",
-        melding: "",
-        viktighet: "Ikke Viktig"
+      importanceArray: ["Viktig", "Ikke Viktig"],
+      v$: useValidate(),
+      tournamentId: "",
+      message: "",
+      importance: "Ikke Viktig"
+    };
+  },
+  validations() {
+    return {
+      message: {
+        required
+        // alphaNum
+      },
+      importance: {
+        required
       }
     };
   },
@@ -60,52 +80,61 @@ export default {
       const messagesURL = "/message";
       var data = {
         tournamentId: this.tournamentid,
-        message: this.meldingData.melding,
-        importance: this.meldingData.viktighet
+        message: this.v$.message.$model,
+        importance: this.v$.importance.$model
       };
 
-      AuthoService.post(messagesURL, data)
-        .then(response => {
-          console.log("Yay: " + response);
-          this.$emit("messageSentAcknowledged");
-          this.meldingData.melding = "";
-        })
-        .catch(reason => {
-          console.log("Not yay: " + reason);
-        });
+      this.v$.$validate();
+      if (!this.v$.error) {
+        AuthoService.post(messagesURL, data)
+          .then(response => {
+            console.log("Yay: " + response);
+            this.$emit("messageSentAcknowledged");
+            this.v$.message.$model = "";
+          })
+          .catch(error => {
+            console.log("Not yay: " + error);
+            if (error.response.status == "401") {
+              console.log("User not authorized to send messages to this tournament");
+            }
+          });
+      } else {
+        alert("Melding kunne ikke bli sendt.");
+      }
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+.send-message-container {
+  width: inherit;
+}
+
+.message-input {
+  width: 50%;
+}
+
+.importance-select {
+  width: 25%;
+}
+
+.send-button {
+  width: 10%;
+}
+
 .send-container {
   display: flex;
   flex-direction: row;
+  justify-items: center;
+  align-items: center;
 }
 
-/* form {
-  max-width: 600px;
-  margin: 30px auto;
-  text-align: left;
-  border-radius: 10px;
+.btn {
+  margin-left: 1rem;
 }
-label {
-  display: inline-block;
-  margin-top: 20px;
-  font-size: 10px;
-  text-transform: uppercase;
-  color: grey;
-}
-input {
-  display: block;
-  padding: 10px 6px;
-  width: 100%;
-  box-sizing: border-box;
-  border: none;
-  border-bottom: 1px solid grey;
-}
+
 select {
   margin-left: 10px;
-} */
+}
 </style>
