@@ -1,10 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-lg">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <router-link to="/" class="nav-link"> Turneringer </router-link> 
         </li>
@@ -98,7 +98,36 @@ body {
   padding: 0;
 }
 
+
+
 * {
   box-sizing: border-box;
+}
+
+body {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar-track
+{
+	border-radius: 1px;
+}
+
+::-webkit-scrollbar
+{ 
+  height: 5px;
+	width: 10px;
+  background-color: #ededed;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #555;
+}
+
+::-webkit-scrollbar:hover {
+  background-color: rgb(207, 207, 207);
 }
 </style>

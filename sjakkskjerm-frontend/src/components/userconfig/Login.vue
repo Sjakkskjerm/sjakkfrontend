@@ -5,25 +5,28 @@
     <form>
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>
-        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" id="txtusername" v-model="v$.username.$model"/>
-        <span v-if="v$.username.$error" class="errortext"> Vennligst fyll inn brukernavn.</span>
-
+        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" :class="{ 'is-invalid': v$.username.$invalid, 'is-valid': !v$.username.$invalid }" id="txtusername" v-model="v$.username.$model"/>
+        <div v-if="v$.username.$error">
+          <span v-if="v$.username.required.$invalid" class="errortext"> Vennligst fyll inn brukernavn.</span>
+          <span v-if="v$.username.alphaNum.$invalid" class="errortext"> Symboler ikke godtatt, fyll inn gyldig brukernavn.</span>
+        </div>
       </div>
       <div class="mb-3">
         <label for="txtpassword" class="form-label">Passord</label>
-        <input type="password" placeholder="Fyll inn passord" class="form-control" id="txtpassword" v-model="v$.password.$model"/>
-        <span v-if="v$.password.$error" class="errortext"> Vennligst fyll inn passord.</span>
+        <input type="password" placeholder="Fyll inn passord" class="form-control" :class="{ 'is-invalid': v$.password.$invalid, 'is-valid': !v$.password.$invalid }" id="txtpassword" v-model="v$.password.$model"/>
+        <div v-if="v$.password.$error">
+          <span v-if="v$.password.required.$invalid" class="errortext"> Vennligst fyll inn passord.</span>
+        </div>
       </div>
-      
     </form>
-    <button type="submit" class="btn btn-dark" @click="sendLogin()">Logg Inn</button>
+    <button type="submit" class="btn btn-dark" @click="sendLogin()" :disabled="this.hasErrors">Logg Inn</button>
   </div>
 </template>
 
 <script>
 import {mapActions, mapGetters} from 'vuex';
 import useValidate from '@vuelidate/core'
-import { required, alphaNum } from '@vuelidate/validators'
+import { minLength, required, alphaNum } from '@vuelidate/validators'
 
 export default {
   data() {
@@ -37,7 +40,8 @@ export default {
     return {
       username: {
         required, 
-        alphaNum	
+        alphaNum,
+        minLength: minLength(1)	
       },
       password: {
         required
@@ -47,7 +51,10 @@ export default {
   computed: {
     ...mapGetters('auth', {
       getterLoginStatus:'getLoginStatus'
-    })
+    }),
+    hasErrors() {
+      return this.v$.$invalid
+    }
   },
   methods: {
     ...mapActions('auth', {

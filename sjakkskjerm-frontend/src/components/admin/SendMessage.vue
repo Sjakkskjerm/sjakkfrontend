@@ -9,13 +9,15 @@
       </div>
 
       <div class="mb-3">
-        <label>Melding</label>
-        <input type="text" placeholder="Fyll inn melding" class="form-control" required v-model="v$.message.$model">
-        <span v-if="v$.message.$error" class="errortext">Vennligst fyll inn en melding.</span>
-      </div>
+        <label class="form-label">Melding</label>
+        <input type="text" placeholder="Fyll inn melding" class="form-control" :class="{ 'is-invalid': v$.message.$invalid, 'is-valid': !v$.message.$invalid }" required v-model="v$.message.$model">
+        <div v-if="v$.message.$error">
+          <span v-if="v$.message.required.$invalid" class="errortext"> Vennligst fyll inn melding.</span>
+        </div>
+      </div> 
       <div class="mb-3">
-        <label>Viktighet</label>
-        <select class="form-select" v-model="v$.importance.$model">
+        <label class="form-label">Viktighet</label>
+        <select class="form-select" :class="{ 'is-invalid': v$.importance.$invalid, 'is-valid': !v$.importance.$invalid }" v-model="v$.importance.$model">
           <!--<option v-for="option in importanceArray" :value="option" :key="option" :selected="option === importance">
             {{ option }}
           </option>-->
@@ -23,11 +25,13 @@
           <option value="viktig">Viktig</option>
           <option value="ikke viktig">Ikke Viktig</option>
         </select>
-          <span v-if="v$.importance.$error" class="errortext">Vennligst velg en viktighetsgrad.</span>
+        <div v-if="v$.importance.$error">
+          <span v-if="v$.importance.required.$invalid" class="errortext" >Vennligst velg en viktighetsgrad.</span>
+        </div>
       </div>
     </form>
   </div>
-  <button class="btn btn-dark" v-on:click="sendMessages">Send</button>
+  <button class="btn btn-dark" v-on:click="sendMessages" :disabled="this.hasErrors">Send</button>
 </template>
 
 <script>
@@ -35,7 +39,7 @@
 //import GameService from "@/services/GameService.js";
 import AuthoService from "../../services/AuthoService";
 import useValidate from '@vuelidate/core'
-import {alphaNum, required} from '@vuelidate/validators'
+import {required} from '@vuelidate/validators'
 
 export default {
     data: function() {
@@ -53,12 +57,16 @@ export default {
     validations() {
       return {
         message: {
-          required,
-          alphaNum	
+          required
         },
         importance: {
           required
         }
+      }
+    },
+    computed: {
+      hasErrors() {
+        return this.v$.$invalid
       }
     },
     methods: {

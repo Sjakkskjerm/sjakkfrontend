@@ -5,6 +5,7 @@
     <p v-if="playersSet" class="blackplayer">{{ blackPlayer }}</p>
     <p v-if="gamesPresent == false">Waiting for moves</p>
     <p v-if="gameFinished">Game over - {{ result }}</p>
+    <pre> Trekk: {{ pgn.pop() }}</pre>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
     Asks GameService for PGN, generates FEN-String from that PGN Array and feeds it to
     ChessBoard component.
 */
+
 
 import ChessBoard from "@/components/live/boardview/ChessBoard.vue";
 import Chess from "chess.js";
@@ -156,4 +158,6 @@ export default {
 .blackplayer {
   text-align: right;
 }
+
+
 </style>
