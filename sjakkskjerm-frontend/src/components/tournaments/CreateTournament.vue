@@ -60,6 +60,9 @@
         <button class="btn btn-outline-dark" type="submit">Opprett</button>
       </div>
     </form>
+    <div v-if="error" class="alert alert-primary" role="alert">
+      <p>Får ikke opprettet en turnering, beklager.</p>
+    </div>
   </div>
 </template>
 
@@ -88,7 +91,8 @@ export default {
         startDate: new Date(),
         endDate: null,
         arbiter: ""
-      }
+      },
+      error: false
     };
   },
   methods: {
@@ -99,12 +103,18 @@ export default {
       )
         .then(response => {
           console.log("response", response);
-          const path = "/tournament/" + response.data.id;
-          console.log(path);
-          this.routingToDashboard(path);
+          if (response.data) {
+            const path = "/dashboard/" + response.data.id;
+            console.log(path);
+            this.routingToDashboard(path);
+          } else {
+            console.log("feil");
+            this.error = true;
+          }
         })
         .catch(err => {
           console.log("Error", err);
+          this.error = true;
         });
       this.resetForms();
     },
