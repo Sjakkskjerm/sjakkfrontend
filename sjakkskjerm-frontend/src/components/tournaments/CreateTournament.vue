@@ -93,21 +93,26 @@ export default {
   },
   methods: {
     sendForm() {
-      console.log("yoyoyoy" + this.tournament);
       AuthoService.post(
         "http://localhost:8080/api/tournaments/createtournament",
         this.tournament
       )
-        .then(function(response) {
+        .then(response => {
           console.log("response", response);
+          const path = "/tournament/" + response.data.id;
+          console.log(path);
+          this.routingToDashboard(path);
         })
-        .catch(function(err) {
+        .catch(err => {
           console.log("Error", err);
         });
       this.resetForms();
     },
     back() {
       this.$router.go(-1);
+    },
+    routingToDashboard(routeid) {
+      this.$router.push(routeid);
     },
     resetForms() {
       const refForm = this.$refs.tournamentForm;
