@@ -8,6 +8,8 @@ const backendURL = "http://localhost:8080/api";
 
 //paths/routes
 const tournaments = "/tournaments/";
+const tournament = "/tournaments/tournament";
+const tournamentsByOwner = "/tournaments/tournamentsbyowner?";
 const games = "/games/";
 const gamesByTournament = "/games/gamesfortournament/";
 const messagesURL = "/message";
@@ -34,13 +36,21 @@ export default {
 			params: { tournamentid: tournamentId },
 		});
 	},
+	getTournament(tournamentId) {
+		return apiClient.get(tournament, {
+			params: { tournamentid: tournamentId },
+		});
+	},
 	getTournaments() {
 		return apiClient.get(tournaments);
+	},
+	getTournamentsByOwner(ownerId) {
+		return apiClient.get(tournamentsByOwner, { params: { ownerid: ownerId } });
 	},
 	getMessages() {
 		return apiClient.get(messagesURL);
 	},
-	getMessage(tournamentId) {
+	getMessagesForTournament(tournamentId) {
 		return apiClient.get(messageSpecificURL + "?tournamentId=" + tournamentId);
 	},
 	sendMessages(data) {

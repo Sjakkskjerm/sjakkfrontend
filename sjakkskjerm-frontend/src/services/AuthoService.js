@@ -5,7 +5,6 @@ import axios from "axios";
 
 //local URL
 const baseURL_API = "http://localhost:8080/api";
-//const messagesURL = "/message";
 
 const instance = axios.create({
 	baseURL: baseURL_API,
@@ -30,12 +29,25 @@ const AuthoService = {
 			.catch((reason) => Promise.reject(reason));
 	},
 
-	post(url, data) {
+    post(url, data) {
+      return instance
+			  .post(url, data)
+          .then(response => response)
+          .catch(reason => Promise.reject(reason));
+    },
+    put(url) {
+      return instance
+			  .put(url)
+          .then(response => response)
+          .catch(reason => Promise.reject(reason));
+    },
+	delete(urL) {
 		return instance
-			.post(url, data)
-			.then((response) => response)
-			.catch((reason) => Promise.reject(reason));
-	},
+			.delete(urL)
+			.then(response => response)
+			.catch(reason => Promise.reject(reason));
+	}
+
 };
 
 export default AuthoService;

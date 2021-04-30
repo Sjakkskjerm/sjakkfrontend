@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Tournament from "../views/Tournament.vue";
 import Tournaments from "../views/Tournaments.vue";
-import SendMessage from "../components/admin/SendMessage.vue";
+import TournamentDashboard from "../views/TournamentDashboard";
 import Login from "../components/userconfig/Login";
 import Dashboard from "../components/userconfig/Dashboard";
 import Register from "../components/userconfig/Register";
+import AdminPanel from "../components/admin/AdminPanel";
 import store from "../store/index";
 import CreateTournament from "/src/components/tournaments/CreateTournament.vue";
 
@@ -47,14 +48,6 @@ const routes = [
 		},
 	},
 	{
-		path: "/admin/sendmessage",
-		name: "Send Melding",
-		component: SendMessage,
-		meta: {
-			requiredAuth: true,
-		},
-	},
-	{
 		path: "/login",
 		component: Login,
 		meta: {
@@ -76,6 +69,22 @@ const routes = [
 		},
 	},
 	{
+		path: "/admin/panel",
+		component: AdminPanel,
+		meta: {
+			requiredAuth: true,
+		},
+	},
+	{
+		path: "/dashboard/:id",
+		name: "TournamentDashboard",
+		props: true,
+		component: TournamentDashboard,
+		meta: {
+			requiredAuth: false,
+		},
+	},
+	{
 		path: "/createtournament",
 		name: "Create tournaments",
 		component: CreateTournament,
@@ -89,17 +98,6 @@ const router = createRouter({
 	history: createWebHistory(process.env.BASE_URL),
 	routes,
 });
-
-/*
-router.beforeEach((to,from, next) => {
-  if(to.meta.requiredAuth){
-      const auth = store.getters["auth/isTokenActive"];
-      if(!auth){
-         return next({path: '/login'});
-      }
-  }
-  return next();
-});*/
 
 router.beforeEach((to, from, next) => {
 	//console.log(store.getters["auth/getAuthData"].token);

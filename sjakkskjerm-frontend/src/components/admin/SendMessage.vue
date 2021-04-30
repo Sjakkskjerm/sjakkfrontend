@@ -1,77 +1,95 @@
 <template>
-    <div>
-        <h1>Send Melding</h1>
-        <hr>
-        <form>
-            <div class="mb-3">
-                <label>Turnerings ID</label>
-                <input 
-                type="text" 
-                class="form-control"
-                required v-model="meldingData.turneringsId">
-            </div>
+  <div>
+    <h1>Send Melding</h1>
+    <hr>
+    <form>
+      <div class="mb-3">
+        <label>Turnerings ID</label>
+        <input type="text" class="form-control" required v-model="this.tournamentId">
+      </div>
 
-            <div class="mb-3">
-                <label>Melding</label>
-                <input 
-                type="text" 
-                class="form-control"
-                required v-model="meldingData.melding">
-            </div>
-
-            <div class="mb-3">
-                <label>Viktighet</label>
-                <select class="form-select" v-model="meldingData.viktighet">
-                    <option
-                    v-for="option in viktigheter"
-                    :value="option"
-                    :key="option"
-                    :selected="option === meldingData.viktighet">
-                    {{ option }}
-                    </option>
-                </select>
-            </div>
-        </form>
-    </div>
-    <button class="btn btn-primary" v-on:click="sendMessages">Send</button>
+      <div class="mb-3">
+        <label class="form-label">Melding</label>
+        <input type="text" placeholder="Fyll inn melding" class="form-control" :class="{ 'is-invalid': v$.message.$error, 'is-valid': !v$.message.$invalid }" required v-model="v$.message.$model">
+        <div v-if="v$.message.$error">
+          <span v-if="v$.message.required.$invalid" class="errortext"> Vennligst fyll inn melding.</span>
+        </div>
+      </div> 
+      <div class="mb-3">
+        <label class="form-label">Viktighet</label>
+        <select class="form-select" :class="{ 'is-invalid': v$.importance.$error, 'is-valid': !v$.importance.$invalid }" v-model="v$.importance.$model">
+          <option value="" disabled selected hidden>Velg viktighetsgrad...</option>
+          <option value="viktig">Viktig</option>
+          <option value="ikke viktig">Ikke Viktig</option>
+        </select>
+        <div v-if="v$.importance.$error">
+          <span v-if="v$.importance.required.$invalid" class="errortext" >Vennligst velg en viktighetsgrad.</span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <button class="btn btn-dark" v-on:click="sendMessages" :disabled="this.hasErrors">Send</button>
 </template>
 
 <script>
 
 //import GameService from "@/services/GameService.js";
 import AuthoService from "../../services/AuthoService";
+import useValidate from '@vuelidate/core'
+import {required} from '@vuelidate/validators'
 
 export default {
     data: function() {
     return {
-        svarlol: [],
-        viktigheter: [
-            'viktig',
-            'ikke viktig'
+        importanceArray: [
+          'viktig',
+          'ikkeviktig'
         ],
-      meldingData: {
-        turneringsId: '',
-        melding: '',
-        viktighet: ''
-      }
+      v$: useValidate(),
+      tournamentId: '',
+      message: '',
+      importance: ''
     }
+    },
+    validations() {
+      return {
+        message: {
+          required
+        },
+        importance: {
+          required
+        }
+      }
+    },
+    computed: {
+      hasErrors() {
+        return this.v$.$invalid
+      }
     },
     methods: {
         sendMessages() {
+          var data = {
+            tournamentId: this.tournamentId,
+            message: this.v$.message.$model,
+            importance: this.v$.importance.$model
+          };
+
+          this.v$.$validate() // checks all inputs
+          if (!this.v$.$error) { // if ANY fail validation
+            alert('Melding sendt.')
+
             const messagesURL = "/message";
-            var data = {
-                tournamentId: this.meldingData.turneringsId,
-                message:this.meldingData.melding,
-                importance: this.meldingData.viktighet
-            };
 
             AuthoService.post(messagesURL, data)
-                .then(response => {
-                    console.log("Yay: " + response)
-                })
-                .catch(reason => {
-                    console.log("Not yay: " + reason);
-                })
+              .then(response => {
+                console.log("OK: " + response)
+              })
+              .catch(reason => {
+                console.log("Not OK: " + reason);
+              })
+          } else {
+            alert('Melding kunne ikke bli sendt')
+          }
         }
     }
 }
@@ -98,13 +116,6 @@ input {
     box-sizing: border-box;
     border: none;
     border-bottom: 1px solid grey;
-}
-select {
-    margin-left: 10px;
-}
-
-.form-select {
-
 }
 
 </style>
