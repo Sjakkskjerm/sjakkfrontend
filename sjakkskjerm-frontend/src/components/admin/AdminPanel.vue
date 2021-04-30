@@ -6,7 +6,7 @@
     <form> 
       <div class="mb-3">
         <label for="txtusername" class="form-label">Bruker ID</label>
-        <input type="text" placeholder="Fyll inn Bruker ID - eks. 1" class="form-control" :class="{ 'is-invalid': v$.userId.$invalid, 'is-valid': !v$.userId.$invalid }" id="txtusername" v-model="v$.userId.$model">
+        <input type="text" placeholder="Fyll inn Bruker ID - eks. 1" class="form-control" :class="{ 'is-invalid': v$.userId.$error, 'is-valid': !v$.userId.$invalid }" id="txtusername" v-model="v$.userId.$model">
         <div v-if="v$.userId.$error">
           <span v-if="v$.userId.required.$invalid" class="errortext">Vennligst fyll inn en Bruker ID (tall). Eks. 1</span>
           <span v-if="v$.userId.numeric.$invalid" class="errortext">Bruker ID må være et tall. Eks. 1</span>
@@ -15,7 +15,7 @@
       <div class="mb-3">
         <label for="txtusername" class="form-label">Rolle ID</label>
         <!--<input type="number" min="1" max="3" placeholder="1 = User, 2 = Organizer, 3 = Admin" class="form-control" id="txtusername" v-model.number="v$.roleId.$model">-->
-        <select class="form-select" :class="{ 'is-invalid': v$.roleId.$invalid, 'is-valid': !v$.roleId.$invalid }" v-model.number="v$.roleId.$model">
+        <select class="form-select" :class="{ 'is-invalid': v$.roleId.$invalid, 'is-valid': !v$.roleId.$error }" v-model.number="v$.roleId.$model">
           <option value="" disabled selected hidden>Velg rolle...</option>
           <option value="1">Bruker</option>
           <option value="2">Arrangør</option>

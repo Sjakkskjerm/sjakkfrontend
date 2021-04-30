@@ -2,10 +2,10 @@
   <div>
     <h2>Logg inn</h2>
     <hr>
-    <form>
+    <form class="needs-validation">
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>
-        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" :class="{ 'is-invalid': v$.username.$invalid, 'is-valid': !v$.username.$invalid }" id="txtusername" v-model="v$.username.$model"/>
+        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" :class="{ 'is-invalid': v$.username.$error, 'is-valid': !v$.username.$invalid }" id="txtusername" v-model="v$.username.$model"/>
         <div v-if="v$.username.$error">
           <span v-if="v$.username.required.$invalid" class="errortext"> Vennligst fyll inn brukernavn.</span>
           <span v-if="v$.username.alphaNum.$invalid" class="errortext"> Symboler ikke godtatt, fyll inn gyldig brukernavn.</span>
@@ -13,7 +13,7 @@
       </div>
       <div class="mb-3">
         <label for="txtpassword" class="form-label">Passord</label>
-        <input type="password" placeholder="Fyll inn passord" class="form-control" :class="{ 'is-invalid': v$.password.$invalid, 'is-valid': !v$.password.$invalid }" id="txtpassword" v-model="v$.password.$model"/>
+        <input type="password" placeholder="Fyll inn passord" class="form-control" :class="{ 'is-invalid': v$.password.$error, 'is-valid': !v$.password.$invalid }" id="txtpassword" v-model="v$.password.$model"/>
         <div v-if="v$.password.$error">
           <span v-if="v$.password.required.$invalid" class="errortext"> Vennligst fyll inn passord.</span>
         </div>
