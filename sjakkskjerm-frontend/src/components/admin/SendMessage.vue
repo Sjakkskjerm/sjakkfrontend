@@ -17,7 +17,7 @@
       </div> 
       <div class="mb-3">
         <label class="form-label">Viktighet</label>
-        <select class="form-select" :class="{ 'is-invalid': v$.importance.$invalid, 'is-valid': !v$.importance.$error }" v-model="v$.importance.$model">
+        <select class="form-select" :class="{ 'is-invalid': v$.importance.$error, 'is-valid': !v$.importance.$invalid }" v-model="v$.importance.$model">
           <option value="" disabled selected hidden>Velg viktighetsgrad...</option>
           <option value="viktig">Viktig</option>
           <option value="ikke viktig">Ikke Viktig</option>
