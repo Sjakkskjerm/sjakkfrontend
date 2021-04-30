@@ -6,17 +6,31 @@
         <input
           v-model="v$.message.$model"
           type="text"
+          placeholder="Fyll inn melding"
           class="form-control"
+          :class="{
+            'is-invalid': v$.message.$invalid,
+            'is-valid': !v$.message.$invalid
+          }"
           required
           autofocus
         />
-        <span v-if="v$.message.$error" class="errortext"
-          >Vennligst fyll inn en melding.</span
-        >
+        <div v-if="v$.message.$error">
+          <span v-if="v$.message.required.$invalid" class="errortext">
+            Vennligst fyll inn melding.</span
+          >
+        </div>
       </div>
       <div class="mb-3 importance-select">
-        <label>Viktighet</label>
-        <select v-model="v$.importance.$model" class="form-select">
+        <label class="form-label">Viktighet</label>
+        <select
+          v-model="v$.importance.$model"
+          class="form-select"
+          :class="{
+            'is-invalid': v$.importance.$invalid,
+            'is-valid': !v$.importance.$invalid
+          }"
+        >
           <option
             v-for="option in importanceArray"
             :key="option"
@@ -26,12 +40,18 @@
             {{ option }}
           </option>
         </select>
-        <span v-if="v$.importance.$error" class="errortext"
-          >Vennligst velg en viktighetsgrad.</span
-        >
+        <div v-if="v$.importance.$error">
+          <span v-if="v$.importance.required.$invalid" class="errortext"
+            >Vennligst velg en viktighetsgrad.</span
+          >
+        </div>
       </div>
       <div class="send-button">
-        <button :disabled="!message" class="btn btn-dark" @click="sendMessages">
+        <button
+          :disabled="hasErrors"
+          class="btn btn-dark"
+          @click="sendMessages"
+        >
           Send
         </button>
       </div>
@@ -68,16 +88,19 @@ export default {
     return {
       message: {
         required
-        // alphaNum
       },
       importance: {
         required
       }
     };
   },
+  computed: {
+    hasErrors() {
+      return this.v$.$invalid;
+    }
+  },
   methods: {
     sendMessages() {
-      const messagesURL = "/message";
       var data = {
         tournamentId: this.tournamentid,
         message: this.v$.message.$model,
@@ -86,6 +109,8 @@ export default {
 
       this.v$.$validate();
       if (!this.v$.error) {
+        const messagesURL = "/message";
+
         AuthoService.post(messagesURL, data)
           .then(response => {
             console.log("Yay: " + response);
@@ -95,7 +120,9 @@ export default {
           .catch(error => {
             console.log("Not yay: " + error);
             if (error.response.status == "401") {
-              console.log("User not authorized to send messages to this tournament");
+              console.log(
+                "User not authorized to send messages to this tournament"
+              );
             }
           });
       } else {
@@ -108,7 +135,8 @@ export default {
 
 <style scoped>
 .send-message-container {
-  width: inherit;
+  /* width: inherit; */
+  widows: 100%;
 }
 
 .message-input {
@@ -116,11 +144,11 @@ export default {
 }
 
 .importance-select {
-  width: 25%;
+  width: 30%;
 }
 
 .send-button {
-  width: 10%;
+  width: 20%;
 }
 
 .send-container {
@@ -128,6 +156,7 @@ export default {
   flex-direction: row;
   justify-items: center;
   align-items: center;
+  border-radius: 10px;
 }
 
 .btn {

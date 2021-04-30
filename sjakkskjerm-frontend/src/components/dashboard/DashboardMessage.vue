@@ -58,7 +58,7 @@ export default {
 
 <style scoped>
 .container {
-  width: 70%;
+  width: 50%;
   margin: 0 auto;
   border-radius: 5px;
   overflow: hidden;

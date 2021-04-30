@@ -74,9 +74,29 @@ export default {
 </script>
 
 <style>
+form {
+  max-width: 600px;
+  margin: 30px auto;
+  text-align: left;
+  border-radius: 10px;
+}
+label {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 10px;
+  text-transform: uppercase;
+  color: grey;
+}
+input {
+  display: block;
+  padding: 10px 6px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid grey;
+}
 
 .bajs {
   text-align: left;
 }
-
 </style>
