@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="gettersAuthData.role === 'ROLE_ORGANIZER' && ownerOfTournament">
     <h1>Dashboard</h1>
     <h2>{{ tournament.tournamentName }}</h2>
     <h3>Sendte meldinger</h3>
@@ -11,7 +11,19 @@
       >
         Slett turnering
       </button>
+      <br>
+    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">Tilbake</button>
     </div>
+  </div>
+  <div v-if="gettersAuthData.role !== 'ROLE_ORGANIZER'">
+    <hr>
+    <h2>Du er ikke autorisert for denne tjenesten!</h2>
+    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">Tilbake</button>
+  </div>
+  <div v-if="!ownerOfTournament">
+    <hr>
+    <h2>Du er ikke arrangør for denne turneringen!</h2>
+    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">Tilbake</button>
   </div>
 </template>
 
@@ -19,6 +31,7 @@
 import GameService from "@/services/GameService.js";
 import AuthoService from "@/services/AuthoService.js";
 import DashboardMessage from "@/components/dashboard/DashboardMessage.vue";
+import { mapGetters } from 'vuex';
 
 export default {
   name: "TournamentDashboard",
@@ -47,7 +60,10 @@ export default {
       } else {
         return false;
       }
-    }
+    },
+    ...mapGetters('auth', {
+      gettersAuthData:'getAuthData'
+    })
   },
   mounted() {
     this.fetchTournament();

@@ -3,57 +3,27 @@
     <form class="send-container" @submit.prevent="onSubmit">
       <div class="mb-3 message-input">
         <label>Melding</label>
-        <input
-          v-model="v$.message.$model"
-          type="text"
-          placeholder="Fyll inn melding"
-          class="form-control"
-          :class="{
-            'is-invalid': v$.message.$invalid,
-            'is-valid': !v$.message.$invalid
-          }"
-          required
-          autofocus
-        />
+        <input v-model="v$.message.$model" type="text" placeholder="Fyll inn melding" class="form-control" :class="{ 'is-invalid': v$.message.$error, 'is-valid': !v$.message.$invalid }" required autofocus />
         <div v-if="v$.message.$error">
-          <span v-if="v$.message.required.$invalid" class="errortext">
-            Vennligst fyll inn melding.</span
-          >
+          <span v-if="v$.message.required.$invalid" class="errortext">Vennligst fyll inn melding.</span>
         </div>
       </div>
       <div class="mb-3 importance-select">
         <label class="form-label">Viktighet</label>
-        <select
-          v-model="v$.importance.$model"
-          class="form-select"
-          :class="{
-            'is-invalid': v$.importance.$invalid,
-            'is-valid': !v$.importance.$invalid
-          }"
-        >
-          <option
-            v-for="option in importanceArray"
-            :key="option"
-            :value="option"
-            :selected="option === importance"
-          >
-            {{ option }}
-          </option>
+         <select class="form-select" :class="{ 'is-invalid': v$.importance.$error, 'is-valid': !v$.importance.$invalid }" v-model="v$.importance.$model">
+          <option value="" disabled selected hidden>Velg viktighet...</option>
+          <option value="viktig">Viktig</option>
+          <option value="ikke viktig">Ikke Viktig</option>
         </select>
         <div v-if="v$.importance.$error">
           <span v-if="v$.importance.required.$invalid" class="errortext"
             >Vennligst velg en viktighetsgrad.</span
           >
         </div>
+        
       </div>
       <div class="send-button">
-        <button
-          :disabled="hasErrors"
-          class="btn btn-dark"
-          @click="sendMessages"
-        >
-          Send
-        </button>
+        <button :disabled="hasErrors" class="btn btn-dark" @click="sendMessages"> Send </button>
       </div>
     </form>
   </div>
@@ -81,7 +51,7 @@ export default {
       v$: useValidate(),
       tournamentId: "",
       message: "",
-      importance: "Ikke Viktig"
+      importance: ""
     };
   },
   validations() {

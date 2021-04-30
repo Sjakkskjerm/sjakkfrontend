@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,9 +13,6 @@
         </li>
         <li class="nav-item">
           <router-link to="/profil" v-if="getLoginStatus" class="nav-link">Profil</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/admin/panel" class="nav-link" v-if="gettersAuthData.role === 'ROLE_ADMIN'">Admin</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/login" v-if="!getLoginStatus" class="nav-link">Login</router-link> 
@@ -85,9 +82,14 @@ export default {
   color: rgb(255, 106, 47);
 }
 
+.navbar-collapse > li, a {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
 nav a.router-link-active, nav a.router-link-exact-active {
   transform: scale(1.1);
-  color: #b94242;
+  color: #b94242 !important; 
 }
 
 html,
@@ -129,5 +131,9 @@ body {
 
 ::-webkit-scrollbar:hover {
   background-color: rgb(207, 207, 207);
+}
+
+.tilbakeknapp {
+  margin-top: 5px;
 }
 </style>

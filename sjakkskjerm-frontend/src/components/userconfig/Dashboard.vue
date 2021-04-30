@@ -2,11 +2,15 @@
   <div>
     <h1>Profil</h1>
     <hr>
+    <div v-if="gettersAuthData.role === 'ROLE_ADMIN'">
+      <button class="btn btn-dark" v-if="gettersAuthData.role === 'ROLE_ADMIN'" @click="$router.push('/admin/panel')">Admin Panel </button>
+      <hr>
+    </div>
     <div>Brukernavn: {{gettersAuthData.userid}}</div>
     <div>Bruker ID: {{gettersAuthData.uid}}</div>
     <div>Roller: {{gettersAuthData.role}}</div>
     <br>
-    <div>
+    <div v-if="gettersAuthData.role === 'ROLE_ORGANIZER' || gettersAuthData.role === 'ROLE_ADMIN'">
       <TournamentList :tournaments="tournaments" title="Mine Turneringer" />
     </div>
   </div>
