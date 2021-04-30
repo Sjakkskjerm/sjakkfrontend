@@ -9,6 +9,7 @@ const backendURL = "http://localhost:8080/api";
 //paths/routes
 const tournaments = "/tournaments/";
 const tournament = "/tournaments/tournament";
+const tournamentsByOwner = "/tournaments/tournamentsbyowner?";
 const games = "/games/";
 const gamesByTournament = "/games/gamesfortournament/";
 const messagesURL = "/message";
@@ -42,6 +43,9 @@ export default {
 	},
 	getTournaments() {
 		return apiClient.get(tournaments);
+	},
+	getTournamentsByOwner(ownerId) {
+		return apiClient.get(tournamentsByOwner, { params: { ownerid: ownerId } });
 	},
 	getMessages() {
 		return apiClient.get(messagesURL);
