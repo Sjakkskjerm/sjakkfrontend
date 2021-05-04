@@ -1,3 +1,13 @@
+
+<!-- OUTDATED, NO LONGER IN USE -->
+<!-- OUTDATED, NO LONGER IN USE -->
+<!-- OUTDATED, NO LONGER IN USE -->
+<!-- OUTDATED, NO LONGER IN USE -->
+<!-- OUTDATED, NO LONGER IN USE -->
+<!-- OUTDATED, NO LONGER IN USE -->
+<!-- OUTDATED, NO LONGER IN USE -->
+<!-- OUTDATED, NO LONGER IN USE -->
+
 <template>
   <div>
     <h1>Send Melding</h1>
@@ -7,7 +17,6 @@
         <label>Turnerings ID</label>
         <input type="text" class="form-control" required v-model="this.tournamentId">
       </div>
-
       <div class="mb-3">
         <label class="form-label">Melding</label>
         <input type="text" placeholder="Fyll inn melding" class="form-control" :class="{ 'is-invalid': v$.message.$error, 'is-valid': !v$.message.$invalid }" required v-model="v$.message.$model">
@@ -18,7 +27,7 @@
       <div class="mb-3">
         <label class="form-label">Viktighet</label>
         <select class="form-select" :class="{ 'is-invalid': v$.importance.$error, 'is-valid': !v$.importance.$invalid }" v-model="v$.importance.$model">
-          <option value="" disabled selected hidden>Velg viktighetsgrad...</option>
+          <option disabled selected hidden>Velg viktighetsgrad...</option>
           <option value="viktig">Viktig</option>
           <option value="ikke viktig">Ikke Viktig</option>
         </select>

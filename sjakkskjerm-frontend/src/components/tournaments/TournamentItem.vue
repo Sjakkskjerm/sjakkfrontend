@@ -14,7 +14,7 @@
       <router-link
         :to="{ name: 'TournamentDashboard', params: { id: tournament.id } }"
       >
-        <button class="btn btn-primary dashboard-button">Dashboard</button>
+        <button class="btn btn-dark dashboard-button">Dashboard</button>
       </router-link>
     </div>
   </div>

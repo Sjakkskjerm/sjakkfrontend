@@ -5,7 +5,7 @@
     <form class="needs-validation">
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>
-        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" :class="{ 'is-invalid': v$.username.$error, 'is-valid': !v$.username.$invalid }" id="txtusername" v-model="v$.username.$model"/>
+        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" :class="{ 'is-invalid': v$.username.$error, 'is-valid': !v$.username.$invalid }" id="txtusername" required autofocus  v-model="v$.username.$model"/>
         <div v-if="v$.username.$error">
           <span v-if="v$.username.required.$invalid" class="errortext"> Vennligst fyll inn brukernavn.</span>
           <span v-if="v$.username.alphaNum.$invalid" class="errortext"> Symboler ikke godtatt, fyll inn gyldig brukernavn.</span>
