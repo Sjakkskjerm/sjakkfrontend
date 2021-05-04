@@ -50,9 +50,9 @@ export default {
       games: [],
       gamesFectched: false,
       fetchText: "Fetching games..",
-      noGamesText: "Tournament " + this.tournamentId + " has no games.",
+      noGamesText: "Turneringen har ingen pågående spill.",
       error: false,
-      errorUserFeedbackText: "Error Occured: "
+      errorUserFeedbackText: "En feil intraff: "
     };
   },
   computed: {
@@ -70,10 +70,10 @@ export default {
       );
       GameService.getGames(this.tournamentId)
         .then(response => {
-          if (Array.isArray(response.data)){
+          if (Array.isArray(response.data)) {
             this.games = response.data;
             this.gamesFectched = true;
-            this.userFeedbackText = "Tournament has no games";
+            this.userFeedbackText = "Turneringen har ingen pågående spill";
             console.log("FetchGames: Succesfully fetched games");
           } else {
             this.error = true;
@@ -92,18 +92,17 @@ export default {
       );
       if (error.response) {
         if (error.response.status == 404) {
-          this.errorUserFeedbackText +=
-            "Tournament " + this.tournamentId + " does not exist.";
+          this.errorUserFeedbackText += "Turneringen ekisterer ikke.";
         } else if (error.response.status == 500) {
           this.errorUserFeedbackText +=
-            "Sjakkskjerm server is down. We are unable to give a recovery time estimate.";
+            "Sjakkskjerm serveren er nede. Vi kan ikke gi noen tid for når den er oppe igjen.";
         } else if (error.response.status == 503) {
           //Axios Error does not support accessing Retry-After header field. Can't easily give estimate.
           this.errorUserFeedbackText +=
-            "Sjakkskjerm server is unresponsive. Try again in a few minutes.";
+            "Sjakkskjerm server svarer ikke. Prøv igjen om noen minutter.";
         } else {
           this.errorUserFeedbackText +=
-            "Unrecoverable error. We done did something stupid, sry. Please try at another time.";
+            "Vi har møtt på en feil vi ikke kan fikse her og nå. Vi ha gjort noe dumt, beklager. Prøv igjen en annen tid.";
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
@@ -111,7 +110,7 @@ export default {
       } else if (error.request) {
         //There may be other errors. Hard to assess from error.request.
         this.errorUserFeedbackText +=
-          "Unable to connect to server. There may be an issue with your internet connection.";
+          "Kan ikke koble til serveren. Det kan være en feil med din internettkobling.";
         console.log(error.request);
       } else {
         console.log("Error", error.message);
