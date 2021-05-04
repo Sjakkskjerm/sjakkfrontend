@@ -1,5 +1,10 @@
 <template>
   <div>
+    <button
+      @click="$router.push('/createtournament')"
+      v-if="gettersAuthData.role === 'ROLE_ORGANIZER' || gettersAuthData.role === 'ROLE_ADMIN'"
+      class="btn btn-dark"
+    >Opprett turnering</button>
     <div v-if="!error" class="tournamentlist">
       <TournamentList :tournaments="ongoingTournaments" title="Pågående" />
       <TournamentList :tournaments="futureTournaments" title="Kommende" />
@@ -14,6 +19,7 @@
 <script>
 import GameService from "@/services/GameService.js";
 import TournamentList from "@/components/tournaments/TournamentList.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "TournamentManager",
@@ -29,9 +35,15 @@ export default {
       endedTournaments: []
     };
   },
+  computed: {
+    ...mapGetters("auth", {
+      gettersAuthData: "getAuthData"
+    })
+  },
   mounted() {
     this.fetchTournaments();
   },
+
   methods: {
     fetchTournaments() {
       GameService.getTournaments()

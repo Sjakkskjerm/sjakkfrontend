@@ -7,6 +7,7 @@ import Dashboard from "../components/userconfig/Dashboard";
 import Register from "../components/userconfig/Register";
 import AdminPanel from "../components/admin/AdminPanel";
 import store from "../store/index";
+import CreateTournament from "/src/components/tournaments/CreateTournament.vue";
 
 const routes = [
 	{
@@ -81,6 +82,14 @@ const routes = [
 		component: TournamentDashboard,
 		meta: {
 			requiredAuth: false,
+		},
+	},
+	{
+		path: "/createtournament",
+		name: "Create tournaments",
+		component: CreateTournament,
+		meta: {
+			requiredAuth: true,
 		},
 	},
 ];
