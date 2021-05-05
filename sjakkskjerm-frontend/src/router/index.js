@@ -128,6 +128,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.fullPath == "/register" && auth) {
     return next({ path: "/profil" });
   } else if (!auth && to.meta.requiredAuth) {
+    localStorage.clear();
     return next({ path: "/login" });
   }
 

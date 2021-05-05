@@ -31,7 +31,6 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-//import { mapGetters } from 'vuex';
 import store from "./store/index";
 
 export default {
@@ -49,11 +48,6 @@ export default {
       this.$router.push("/login");
       console.log("logged out");
       alert("logged out")
-    }
-  },
-  created() {
-    if (!this.getLoginStatus) {
-      localStorage.clear();
     }
   }
 }
