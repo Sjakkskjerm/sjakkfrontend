@@ -6,20 +6,19 @@
 
       <label>Tittel</label>
       <div class="mb-3">
-        <BaseInput
-          v-model="tournament.tournamentName"
-          placeholder="Tittel..."
-          type="text"
-        />
+        <BaseInput required autofocus v-model="v$.tournamentName.$model" placeholder="Tittel..." type="text" class="form-control" :class="{ 'is-invalid': v$.tournamentName.$error, 'is-valid': !v$.tournamentName.$invalid }"/>
+        <div v-if="v$.tournamentName.$error">
+          <span v-if="v$.tournamentName.required.$invalid" class="errortext"> Vennligst fyll inn tittel.</span>
+        </div>
       </div>
 
       <label>Navn på arbiter</label>
       <div class="arbiter mb-3">
-        <BaseInput
-          v-model="tournament.arbiter"
-          placeholder="Navn..."
-          type="text"
-        />
+        <BaseInput required v-model="v$.arbiter.$model" placeholder="Navn..." type="text" class="form-control" :class="{ 'is-invalid': v$.arbiter.$error, 'is-valid': !v$.arbiter.$invalid }"/>
+        <div v-if="v$.arbiter.$error">
+          <span v-if="v$.arbiter.required.$invalid" class="errortext"> Vennligst fyll inn arbiter.</span>
+          <span v-if="v$.arbiter.alphaNum.$invalid" class="errortext"> Arbiter kan kun være alphanumerisk, ingen symboler.</span>
+        </div>
       </div>
 
       <h3>Bestem start- og sluttdato for turneringen</h3>
@@ -27,16 +26,26 @@
       <div class="startDate mb-3">
         <label>Startdato</label>
         <datepicker
-          v-model="tournament.startDate"
+          v-model="v$.startDate.$model"
           placeholder="Startdato (Klikk for å velge)"
+          :class="{ 'is-invalid': v$.startDate.$error, 'is-valid': !v$.startDate.$invalid }"
         />
+        <div v-if="v$.startDate.$error">
+          <span v-if="v$.startDate.required.$invalid" class="errortext"> Vennligst fyll inn dato.</span>
+        </div>
       </div>
 
-      <label>Sluttdato</label>
-      <datepicker
-        v-model="tournament.endDate"
-        placeholder="Sluttdato (Klikk for å velge)"
-      />
+      <div class="mb-3">
+        <label>Sluttdato</label>
+        <datepicker
+          v-model="v$.endDate.$model"
+          placeholder="Sluttdato (Klikk for å velge)"
+          :class="{ 'is-invalid': v$.endDate.$error, 'is-valid': !v$.endDate.$invalid }"
+        />
+        <div v-if="v$.endDate.$error">
+          <span v-if="v$.endDate.required.$invalid" class="errortext"> Vennligst fyll inn dato.</span>
+        </div>
+      </div>
 
       <div class="regretButtons">
         <button
@@ -64,6 +73,7 @@
       <p>Får ikke opprettet en turnering, beklager.</p>
     </div>
   </div>
+  <pre class="bajs">{{ v$ }}</pre>
 </template>
 
 <script>
@@ -78,6 +88,9 @@ import BaseInput from "../forms/BaseInput.vue";
 import Datepicker from "vue3-datepicker";
 import AuthoService from "@/services/AuthoService.js";
 
+import useValidate from '@vuelidate/core'
+import { required,alphaNum } from '@vuelidate/validators'
+
 export default {
   name: "CreateTournament",
   components: {
@@ -86,20 +99,50 @@ export default {
   },
   data() {
     return {
-      tournament: {
-        tournamentName: "",
-        startDate: new Date(),
-        endDate: null,
-        arbiter: ""
-      },
+      v$: useValidate(),
+      tournamentName: "",
+      startDate: new Date(),
+      endDate: null,
+      arbiter: "",
       error: false
     };
   },
+  validations() {
+    return {
+      tournamentName: {
+        required
+      },
+      arbiter: {
+        required,
+        alphaNum
+      },
+      startDate: {
+        required
+      },
+      endDate: {
+        required
+      }
+    }
+  },
+  computed: {
+    hasErrors() {
+      return this.v$.$invalid
+    }
+  },
   methods: {
     sendForm() {
+
+      var tournament = {
+        tournamentName: this.v$.tournamentName.$model,
+        startDate: this.v$.startDate.$model,
+        endDate: this.v$.endDate.$model,
+        arbiter: this.v$.arbiter.$model
+      }
+      console.log(tournament);
+
       AuthoService.post(
         "http://localhost:8080/api/tournaments/createtournament",
-        this.tournament
+        tournament
       )
         .then(response => {
           console.log("response", response);
@@ -127,7 +170,7 @@ export default {
     resetForms() {
       const refForm = this.$refs.tournamentForm;
       refForm.reset();
-      this.tournament.startDate = new Date();
+      this.v$.startDate.$model = new Date();
     }
   }
 };
@@ -152,10 +195,8 @@ export default {
 .startDate {
   margin-bottom: 0.75em;
 }
-input {
-  border: 1px solid silver;
-  border-radius: 4px;
-  background: white;
-  padding: 5px 10px;
+
+.bajs {
+  text-align: left;
 }
 </style>
