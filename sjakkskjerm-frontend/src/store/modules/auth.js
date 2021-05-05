@@ -77,12 +77,7 @@ const mutations = {
 			userid: jwtDecodedValue.sub,
 			uid: jwtDecodedValue.uid,
 			role: jwtDecodedValue.role[0].authority,
-			/*[0].authority,
-            role1: jwtDecodedValue.role[1].authority
-            /*
-            username: jwtDecodedValue.username,
-            club: jwtDecodedValue.club,
-            */
+			club: jwtDecodedValue.club,
 		};
 		state.authData = newTokenData;
 	},
