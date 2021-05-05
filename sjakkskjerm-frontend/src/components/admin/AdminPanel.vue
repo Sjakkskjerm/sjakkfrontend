@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="mb-3">
-        <label for="txtusername" class="form-label">Rolle ID</label>
+        <label for="txtusername" class="form-label">Ny Rolle</label>
         <!--<input type="number" min="1" max="3" placeholder="1 = User, 2 = Organizer, 3 = Admin" class="form-control" id="txtusername" v-model.number="v$.roleId.$model">-->
         <select class="form-select" :class="{ 'is-invalid': v$.roleId.$error, 'is-valid': !v$.roleId.$invalid }" v-model.number="v$.roleId.$model">
           <option value="" disabled selected hidden>Velg rolle...</option>
