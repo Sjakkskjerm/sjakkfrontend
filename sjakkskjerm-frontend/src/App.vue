@@ -37,7 +37,7 @@ import store from "./store/index";
 export default {
   computed: {
     getLoginStatus() {
-        return store.getters["auth/isTokenActive"];
+      return store.getters["auth/isTokenActive"];
     },
     ...mapGetters('auth', {
       gettersAuthData: 'getAuthData'
@@ -49,6 +49,11 @@ export default {
       this.$router.push("/login");
       console.log("logged out");
       alert("logged out")
+    }
+  },
+  created() {
+    if (!this.getLoginStatus) {
+      localStorage.clear();
     }
   }
 }
