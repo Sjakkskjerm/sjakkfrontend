@@ -1,8 +1,8 @@
 <template>
-  <div class="tournaments">
+  <div>
     <h1>Velkommen til Sjakk Skjerm</h1>
     <hr>
-    <TournamentManager />
+    <TournamentManager class="tournaments" />
   </div>
 </template>
 
@@ -17,3 +17,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.tournaments {
+  margin: 0 25% 0 25%;
+}
+</style>

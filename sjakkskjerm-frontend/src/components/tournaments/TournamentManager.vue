@@ -3,7 +3,7 @@
     <button
       @click="$router.push('/createtournament')"
       v-if="gettersAuthData.role === 'ROLE_ORGANIZER' || gettersAuthData.role === 'ROLE_ADMIN'"
-      class="btn btn-dark"
+      class="btn btn-dark create-tournament-button"
     >Opprett turnering</button>
     <div v-if="!error" class="tournamentlist">
       <TournamentList :tournaments="ongoingTournaments" title="Pågående" />
@@ -77,3 +77,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.create-tournament-button {
+  margin-bottom: 1.5rem;
+}
+</style>
