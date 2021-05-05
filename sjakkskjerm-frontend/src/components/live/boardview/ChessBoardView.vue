@@ -16,7 +16,6 @@
     ChessBoard component.
 */
 
-
 import ChessBoard from "@/components/live/boardview/ChessBoard.vue";
 import Chess from "chess.js";
 import GameService from "@/services/GameService.js";
@@ -158,6 +157,4 @@ export default {
 .blackplayer {
   text-align: right;
 }
-
-
 </style>
