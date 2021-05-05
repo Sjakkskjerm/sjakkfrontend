@@ -43,8 +43,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 }
 .tournament-item {
+  margin-top: 1.5rem;
   vertical-align: center;
 }
 </style>

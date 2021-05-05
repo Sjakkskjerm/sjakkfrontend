@@ -50,13 +50,13 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 100%;
 }
 .tournament-card {
   padding: 10px;
   cursor: pointer;
   border: 1px solid #39495c;
-  margin-bottom: 1em;
+  /* margin-bottom: 1em; */
 }
 .tournament-card:hover {
   transform: scale(1.01);
@@ -65,7 +65,7 @@ export default {
 .tournament-link {
   color: #2c3e50;
   text-decoration: none;
-  width: 50%;
+  width: 75%;
 }
 .date {
   font-style: italic;
@@ -77,6 +77,6 @@ export default {
 }
 
 .dashboard-button {
-  margin: 1rem;
+  margin: 0.5rem 1rem 0.5rem 1rem;
 }
 </style>
