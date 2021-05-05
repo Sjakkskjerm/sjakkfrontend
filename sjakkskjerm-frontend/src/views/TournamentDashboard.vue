@@ -11,19 +11,25 @@
       >
         Slett turnering
       </button>
-      <br>
-    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">Tilbake</button>
+      <br />
+      <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">
+        Tilbake
+      </button>
     </div>
   </div>
   <div v-if="gettersAuthData.role !== 'ROLE_ORGANIZER'">
-    <hr>
+    <hr />
     <h2>Du er ikke autorisert for denne tjenesten!</h2>
-    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">Tilbake</button>
+    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">
+      Tilbake
+    </button>
   </div>
   <div v-if="!ownerOfTournament">
-    <hr>
+    <hr />
     <h2>Du er ikke arrangør for denne turneringen!</h2>
-    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">Tilbake</button>
+    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">
+      Tilbake
+    </button>
   </div>
 </template>
 
@@ -31,7 +37,7 @@
 import GameService from "@/services/GameService.js";
 import AuthoService from "@/services/AuthoService.js";
 import DashboardMessage from "@/components/dashboard/DashboardMessage.vue";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
   name: "TournamentDashboard",
@@ -61,8 +67,8 @@ export default {
         return false;
       }
     },
-    ...mapGetters('auth', {
-      gettersAuthData:'getAuthData'
+    ...mapGetters("auth", {
+      gettersAuthData: "getAuthData"
     })
   },
   mounted() {
@@ -75,6 +81,9 @@ export default {
           this.tournament = repsonse.data;
         })
         .catch(error => {
+          if (error.response.status == 404) {
+            this.$router.push({ name: "NotFound" });
+          }
           console.log(error);
         });
     },

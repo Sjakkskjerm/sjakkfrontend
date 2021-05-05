@@ -1,7 +1,7 @@
 <template>
   <div class="messageboard">
     <h2 class="tittel">Beskjeder fra arrangør:</h2>
-    <div class="messagebox" v-if="show">
+    <div v-if="show" class="messagebox">
       <MessageView
         v-for="message in messages"
         :key="message"
@@ -10,8 +10,12 @@
         @deleteMessageAcknowledged="fetchMessage"
       />
     </div>
-    <button class="btn btn-outline-dark" v-on:click="show = false" v-if="show">Skjul meldinger</button>
-    <button class="btn btn-outline-dark" v-on:click="show = true" v-if="!show">Vis meldinger</button>
+    <button v-if="show" class="btn btn-outline-dark" @click="show = false">
+      Skjul meldinger
+    </button>
+    <button v-if="!show" class="btn btn-outline-dark" @click="show = true">
+      Vis meldinger
+    </button>
   </div>
 </template>
 
@@ -43,14 +47,16 @@ export default {
     this.startFetchInterval(4000);
   },
   unmounted() {
-    clearInterval(this.fetchInterval);
+    this.stopFetchInterval();
   },
   methods: {
     fetchMessage() {
       GameService.getMessagesForTournament(this.tournamentId)
         .then(response => {
           this.messages = response.data;
-          console.log("Yay: " + response);
+          if (this.messages.length == 0) {
+            this.stopFetchInterval();
+          }
           console.log(this.messages);
         })
         .catch(error => {
@@ -61,6 +67,9 @@ export default {
       this.fetchInterval = setInterval(() => {
         this.fetchMessage();
       }, fetchInterval);
+    },
+    stopFetchInterval() {
+      clearInterval(this.fetchInterval);
     }
   }
 };
@@ -68,6 +77,6 @@ export default {
 
 <style scoped>
 .tittel {
-  color: #b95a42
+  color: #b95a42;
 }
 </style>

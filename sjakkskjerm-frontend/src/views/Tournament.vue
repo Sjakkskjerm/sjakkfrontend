@@ -1,8 +1,7 @@
 <template>
-  <div v-if="id" class="tournament">
-    <ChessBoards :tournament-id="id" />
-    <MessageBoard :tournament-id="id" />
-    <ResultList />
+  <div v-if="tournamentId" class="tournament">
+    <ChessBoards :tournament-id="tournamentId" />
+    <MessageBoard :tournament-id="tournamentId" />
   </div>
 </template>
 
@@ -13,20 +12,40 @@
  */
 import ChessBoards from "@/components/live/ChessBoards.vue";
 import MessageBoard from "@/components/live/MessageBoard.vue";
-import ResultList from "@/components/live/ResultList.vue";
+import GameService from "@/services/GameService.js";
 
 export default {
   name: "Tournament",
   components: {
     ChessBoards,
-    MessageBoard,
-    ResultList
+    MessageBoard
   },
   props: {
     id: {
       type: String,
       required: true,
       default: "123"
+    }
+  },
+  data() {
+    return {
+      tournamentId: undefined
+    };
+  },
+  created() {
+    this.fetchTournament();
+  },
+  methods: {
+    fetchTournament() {
+      GameService.getTournament(this.id)
+        .then(response => {
+          this.tournamentId = response.data.id.toString();
+        })
+        .catch(error => {
+          if (error.response.status == 404) {
+            this.$router.push({ name: "NotFound" });
+          }
+        });
     }
   }
 };
