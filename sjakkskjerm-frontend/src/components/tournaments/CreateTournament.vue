@@ -73,7 +73,6 @@
       <p>Får ikke opprettet en turnering, beklager.</p>
     </div>
   </div>
-  <pre class="bajs">{{ v$ }}</pre>
 </template>
 
 <script>
@@ -194,9 +193,5 @@ export default {
 }
 .startDate {
   margin-bottom: 0.75em;
-}
-
-.bajs {
-  text-align: left;
 }
 </style>
