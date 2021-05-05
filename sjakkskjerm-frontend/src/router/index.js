@@ -3,7 +3,7 @@ import Tournament from "../views/Tournament.vue";
 import Tournaments from "../views/Tournaments.vue";
 import TournamentDashboard from "../views/TournamentDashboard";
 import Login from "../components/userconfig/Login";
-import Dashboard from "../components/userconfig/Dashboard";
+import Profile from "../components/userconfig/Profile";
 import Register from "../components/userconfig/Register";
 import AdminPanel from "../components/admin/AdminPanel";
 import store from "../store/index";
@@ -57,7 +57,7 @@ const routes = [
   },
   {
     path: "/profil",
-    component: Dashboard,
+    component: Profile,
     meta: {
       requiredAuth: true
     }
