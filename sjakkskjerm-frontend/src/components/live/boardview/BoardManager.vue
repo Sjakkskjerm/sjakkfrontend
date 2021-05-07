@@ -10,15 +10,15 @@
         />
       </div>
       <div v-else>
-        <p>{{ noGamesText }}</p>
+        <p class="error-text">{{ noGamesText }}</p>
       </div>
     </div>
     <div v-else-if="gamesFectched == false" class="load-board-text">
       <p>{{ fetchText }}</p>
     </div>
   </div>
-  <div v-else-if="error" class="error-text-boardmanager">
-    <p>{{ errorUserFeedbackText }}</p>
+  <div v-else-if="error" class="error-text-container">
+    <p class="error-text">{{ errorUserFeedbackText }}</p>
   </div>
 </template>
 
@@ -73,7 +73,7 @@ export default {
           if (Array.isArray(response.data)) {
             this.games = response.data;
             this.gamesFectched = true;
-            this.userFeedbackText = "Turneringen har ingen pågående spill";
+            this.errorUserFeedbackText = "Turneringen har ingen pågående spill";
             console.log("FetchGames: Succesfully fetched games");
           } else {
             this.error = true;
@@ -127,5 +127,18 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
+}
+.error-text-container {
+  text-align: center;
+  position: relative;
+}
+
+.error-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #e4e4e4;
+  padding: 2rem;
 }
 </style>
