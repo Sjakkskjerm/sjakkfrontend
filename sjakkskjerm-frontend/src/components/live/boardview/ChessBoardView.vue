@@ -142,7 +142,6 @@ export default {
 <style scoped>
 .chessboardview {
   width: 400px;
-  padding: 0.5rem;
   margin: 0.1rem;
 }
 

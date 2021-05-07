@@ -1,21 +1,27 @@
 <template>
   <div class="messageboard">
-    <h2 class="tittel">Beskjeder fra arrangør:</h2>
-    <div v-if="show" class="messagebox">
-      <MessageView
-        v-for="message in messages"
-        :key="message"
-        class="messages"
-        :message="message"
-        @deleteMessageAcknowledged="fetchMessage"
-      />
+    <h3 class="tittel">Meldinger arrangør</h3>
+    <div v-if="hasMessages">
+      <div v-if="show" class="messagebox">
+        <MessageView
+          v-for="message in messages"
+          :key="message"
+          class="messages"
+          :message="message"
+          :delete-button="false"
+          @deleteMessageAcknowledged="fetchMessage"
+        />
+      </div>
+      <button v-if="show" class="btn btn-outline-dark" @click="show = false">
+        Skjul meldinger
+      </button>
+      <button v-if="!show" class="btn btn-outline-dark" @click="show = true">
+        Vis meldinger
+      </button>
     </div>
-    <button v-if="show" class="btn btn-outline-dark" @click="show = false">
-      Skjul meldinger
-    </button>
-    <button v-if="!show" class="btn btn-outline-dark" @click="show = true">
-      Vis meldinger
-    </button>
+    <div v-else>
+      <p>Ingen meldinger...</p>
+    </div>
   </div>
 </template>
 
@@ -42,6 +48,11 @@ export default {
       show: true
     };
   },
+  computed: {
+    hasMessages() {
+      return this.messages.length > 0;
+    }
+  },
   mounted() {
     this.fetchMessage();
     this.startFetchInterval(4000);
@@ -54,10 +65,6 @@ export default {
       GameService.getMessagesForTournament(this.tournamentId)
         .then(response => {
           this.messages = response.data;
-          if (this.messages.length == 0) {
-            this.stopFetchInterval();
-          }
-          console.log(this.messages);
         })
         .catch(error => {
           console.log("Not yay: " + error);
@@ -77,6 +84,13 @@ export default {
 
 <style scoped>
 .tittel {
+  margin-top: 0.5rem;
   color: #b95a42;
+}
+.messagebox {
+  overflow: hidden;
+}
+.btn {
+  margin-top: 0.5rem;
 }
 </style>
