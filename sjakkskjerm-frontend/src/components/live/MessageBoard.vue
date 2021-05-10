@@ -9,6 +9,7 @@
           class="messages"
           :message="message"
           :delete-button="false"
+          :overflowable="true"
           @deleteMessageAcknowledged="fetchMessage"
         />
       </div>

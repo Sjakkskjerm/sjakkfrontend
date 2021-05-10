@@ -1,6 +1,8 @@
 <template>
-  <div class="message-card">
-    <p class="message">{{ message.message }}</p>
+  <div class="message-card" :class="{ important: important, overflowable: overflowable}">
+    <p class="message">
+      {{ message.message }}
+    </p>
     <div v-if="deleteButton">
       <button
         v-if="
@@ -31,15 +33,28 @@ export default {
       type: Boolean,
       required: false,
       default: true
+    },
+    overflowable: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   emits: {
     deleteMessageAcknowledged: null
   },
+  data() {
+    return {
+      important: false
+    };
+  },
   computed: {
     ...mapGetters("auth", {
       gettersAuthData: "getAuthData"
     })
+  },
+  mounted() {
+    this.setImportance();
   },
   methods: {
     deleteMsg() {
@@ -54,6 +69,11 @@ export default {
         .catch(reason => {
           console.log("Not OK: " + reason);
         });
+    },
+    setImportance() {
+      if (this.message.importance.toString().toLowerCase() == "viktig") {
+        this.important = true;
+      }
     }
   }
 };
@@ -64,17 +84,25 @@ export default {
   padding: 0.5rem;
   margin: 0 0.2em 0.5em 0.2em;
   text-align: left;
-  overflow: auto;
+  /* overflow: auto; */
   border-style: solid;
   border-width: 0.15rem;
   border-radius: 0.26rem;
   box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2);
 }
 
+.overflowable {
+  overflow: auto;
+}
+
 .message {
   margin: 0%;
   padding: 0%;
   float: left;
+}
+
+.important {
+  background-color: rgb(230, 100, 100);
 }
 
 .delete-message-button {
