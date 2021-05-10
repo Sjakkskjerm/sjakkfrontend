@@ -1,5 +1,5 @@
 <template>
-  <div :id="boardId"></div>
+  <div :id="boardId" class="board"></div>
 </template>
 
 <script>
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       board: null,
+      drawInterval: 0,
       boardId: Math.random()
         .toString(36)
         .substring(7)
@@ -1342,6 +1343,11 @@ export default {
     } // end constructor
 
     this.board = constructor(this.boardId, this.$props.fen);
+
+    this.startDrawInterval(500);
+  },
+  unmounted() {
+    this.stopDrawInterval();
   },
   methods: {
     position(fen) {
@@ -1353,6 +1359,17 @@ export default {
       } else {
         this.board.position(fen, true);
       }
+    },
+    resize() {
+      this.board.resize();
+    },
+    startDrawInterval(drawInterval) {
+      this.drawInterval = setInterval(() => {
+        this.resize();
+      }, drawInterval);
+    },
+    stopDrawInterval() {
+      clearInterval(this.drawInterval);
     }
   }
 };
@@ -1413,5 +1430,45 @@ export default {
 .numeric-fc462 {
   top: 2px;
   left: 2px;
+}
+
+.board {
+  float: center;
+}
+
+@media (min-width: 1024px) {
+  .board {
+    width: 250px;
+  }
+}
+
+@media (min-width: 1175px) {
+  .board {
+    width: 275px;
+  }
+}
+
+@media (min-width: 1225px) {
+  .board {
+    width: 300px;
+  }
+}
+
+@media (min-width: 1350px) {
+  .board {
+    width: 315px;
+  }
+}
+
+@media (min-width: 1520px) {
+  .board {
+    width: 350px;
+  }
+}
+
+@media (min-width: 1750px) {
+  .board {
+    width: 400px;
+  }
 }
 </style>

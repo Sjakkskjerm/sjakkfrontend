@@ -88,11 +88,10 @@ export default {
         });
     },
     deleteTournament() {
-      const deleteTournamentURL =
-        "/tournaments/delete/?tournamentid=" + this.id;
+      const deleteTournamentURL = "/tournaments/delete?tournamentid=" + this.id;
       AuthoService.delete(deleteTournamentURL)
         .then(() => {
-          this.$router.push("/");
+          this.$router.go(-1);
         })
         .catch(error => {
           this.error = error;

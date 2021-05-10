@@ -1,11 +1,11 @@
 <template>
-  <div class="chessboardview">
-    <p v-if="playersSet" class="whiteplayer">{{ whitePlayer }}</p>
+  <div>
+    <p v-if="playersSet" class="whiteplayer text">{{ whitePlayer }}</p>
     <ChessBoard ref="board" :class="{ active: gameFinished }" fen="start" />
-    <p v-if="playersSet" class="blackplayer">{{ blackPlayer }}</p>
-    <p v-if="gamesPresent == false">Waiting for moves</p>
-    <p v-if="gameFinished">Game over - {{ result }}</p>
-    <pre> Trekk: {{ pgn.pop() }}</pre>
+    <p v-if="playersSet" class="blackplayer text">{{ blackPlayer }}</p>
+    <p v-if="gamesPresent == false" class="text">Waiting for moves</p>
+    <p v-if="gameFinished" class="text">Game over - {{ result }}</p>
+    <p class="moves text">Trekk: {{ pgn.pop() }}</p>
   </div>
 </template>
 
@@ -47,6 +47,9 @@ export default {
   computed: {
     playersSet() {
       return this.whitePlayer != "" && this.blackPlayer != "";
+    },
+    hasSeveralGames() {
+      return this.numberOfGames() > 1;
     }
   },
   mounted() {
@@ -140,20 +143,40 @@ export default {
 </script>
 
 <style scoped>
-.chessboardview {
-  width: 400px;
-  margin: 0.1rem;
-}
-
 .active {
   opacity: 0.5;
 }
 
 .whiteplayer {
   text-align: left;
+  margin-bottom: 0.9rem;
 }
 
 .blackplayer {
   text-align: right;
+  margin-bottom: 0.9rem;
+}
+
+@media (min-width: 1024px) {
+  .text {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .text {
+    font-size: 0.85rem;
+  }
+}
+@media (min-width: 1350px) {
+  .text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1520px) {
+  .text {
+    font-size: 1rem;
+  }
 }
 </style>

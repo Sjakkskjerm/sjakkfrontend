@@ -5,7 +5,7 @@
         <ChessBoardView
           v-for="game in games"
           :key="game"
-          class="board"
+          class="chessboardview"
           :game-id="game.id"
         />
       </div>
@@ -122,6 +122,10 @@ export default {
 </script>
 
 <style scoped>
+.boardmanager {
+  height: 96vh;
+}
+
 .boards {
   display: flex;
   flex-direction: row;
@@ -140,5 +144,40 @@ export default {
   transform: translate(-50%, -50%);
   background-color: #e4e4e4;
   padding: 2rem;
+}
+.chessboardview {
+  width: 400px;
+  margin: 0.1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .chessboardview {
+    width: 275px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .chessboardview {
+    width: 300px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .chessboardview {
+    width: 315px;
+  }
+}
+@media (min-width: 1350px) {
+  .chessboardview {
+    width: 350px;
+  }
+}
+
+@media (min-width: 1520px) {
+  .chessboardview {
+    width: 400px;
+  }
 }
 </style>
