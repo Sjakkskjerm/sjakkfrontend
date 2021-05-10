@@ -1,5 +1,8 @@
 <template>
-  <div class="message-card" :class="{ important: important, overflowable: overflowable}">
+  <div
+    class="message-card"
+    :class="{ important: important, overflowable: overflowable }"
+  >
     <p class="message">
       {{ message.message }}
     </p>
@@ -45,7 +48,8 @@ export default {
   },
   data() {
     return {
-      important: false
+      important: false,
+      error: null
     };
   },
   computed: {
@@ -59,15 +63,14 @@ export default {
   methods: {
     deleteMsg() {
       const messageURL = "/message/delete?messageId=" + this.message.messageId;
-      console.log(messageURL);
 
       AuthoService.delete(messageURL)
-        .then(response => {
-          console.log("OK: " + response);
+        .then(() => {
           this.$emit("deleteMessageAcknowledged");
         })
         .catch(reason => {
-          console.log("Not OK: " + reason);
+          this.error = reason;
+          console.log(reason);
         });
     },
     setImportance() {
@@ -84,7 +87,6 @@ export default {
   padding: 0.5rem;
   margin: 0 0.2em 0.5em 0.2em;
   text-align: left;
-  /* overflow: auto; */
   border-style: solid;
   border-width: 0.15rem;
   border-radius: 0.26rem;
@@ -97,12 +99,14 @@ export default {
 
 .message {
   margin: 0%;
+  margin-bottom: 5px;
   padding: 0%;
   float: left;
 }
 
 .important {
-  background-color: rgb(230, 100, 100);
+  border-color: rgb(207, 120, 39);
+  border-width: 3px;
 }
 
 .delete-message-button {

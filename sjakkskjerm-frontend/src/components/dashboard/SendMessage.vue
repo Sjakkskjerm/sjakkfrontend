@@ -82,13 +82,12 @@ export default {
         const messagesURL = "/message";
 
         AuthoService.post(messagesURL, data)
-          .then(response => {
-            console.log("Yay: " + response);
+          .then(() => {
             this.$emit("messageSentAcknowledged");
             this.v$.message.$model = "";
           })
           .catch(error => {
-            console.log("Not yay: " + error);
+            console.log(error);
             if (error.response.status == "401") {
               console.log(
                 "User not authorized to send messages to this tournament"

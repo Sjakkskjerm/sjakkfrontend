@@ -45,7 +45,8 @@ export default {
     return {
       v$: useValidate(), 
       userId:'',
-      roleId:''
+      roleId:'',
+      error: ""
     }
   },
   validations() {
@@ -74,14 +75,13 @@ export default {
       this.v$.$validate() // checks all inputs
       if (!this.v$.$error) { // if ANY fail validation
         const url ="/auth/updateRole?userId=" + this.v$.userId.$model + "&roleId=" + this.v$.roleId.$model;
-        
         AuthoService.put(url)
-          .then(response => {
-            console.log("OK: " + response)
+          .then(() => {
             alert('Rolle endret')
           })
-          .catch(reason => {
-            console.log("Not OK: " + reason);
+          .catch(error => {
+            this.error = "error";
+            console.log(error);
           })
       } else {
         alert('Kunne ikke sende forespørsel, sjekk skjemaet på nytt')

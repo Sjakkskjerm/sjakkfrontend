@@ -68,7 +68,7 @@ export default {
           this.messages = response.data;
         })
         .catch(error => {
-          console.log("Not yay: " + error);
+          console.log(error);
         });
     },
     startFetchInterval(fetchInterval) {

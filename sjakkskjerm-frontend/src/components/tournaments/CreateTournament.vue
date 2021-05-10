@@ -137,25 +137,20 @@ export default {
         endDate: this.v$.endDate.$model,
         arbiter: this.v$.arbiter.$model
       }
-      console.log(tournament);
-
       AuthoService.post(
         "http://localhost:8080/api/tournaments/createtournament",
         tournament
       )
         .then(response => {
-          console.log("response", response);
           if (response.data) {
             const path = "/dashboard/" + response.data.id;
-            console.log(path);
             this.routingToDashboard(path);
           } else {
-            console.log("feil");
             this.error = true;
           }
         })
         .catch(err => {
-          console.log("Error", err);
+          console.log(err);
           this.error = true;
         });
       this.resetForms();
