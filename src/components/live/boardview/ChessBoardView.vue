@@ -56,7 +56,7 @@ export default {
     this.game = new Chess();
     this.setBoard("start");
     this.fetchBoardPgn();
-    this.startFetchInterval(4000);
+    this.startFetchInterval(1000);
   },
   unmounted() {
     clearInterval(this.fetchInterval);

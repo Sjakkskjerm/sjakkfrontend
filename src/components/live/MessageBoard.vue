@@ -56,7 +56,7 @@ export default {
   },
   mounted() {
     this.fetchMessage();
-    this.startFetchInterval(4000);
+    this.startFetchInterval(1000);
   },
   unmounted() {
     this.stopFetchInterval();
