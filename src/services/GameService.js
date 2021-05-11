@@ -1,10 +1,10 @@
 import axios from "axios";
 
 //prod URL
-// const backendURL = "http://158.38.101.216:8080/api";
+const backendURL = "http://158.38.101.216:8080/api";
 
 //local URL
-const backendURL = "http://localhost:8080/api";
+// const backendURL = "http://localhost:8080/api";
 
 //paths/routes
 const tournaments = "/tournaments/";

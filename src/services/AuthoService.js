@@ -1,10 +1,10 @@
 import axios from "axios";
 
 //prod URL
-// const baseURL_API = "http://158.38.101.216:8080/api";
+const baseURL_API = "http://158.38.101.216:8080/api";
 
 //local URL
-const baseURL_API = "http://localhost:8080/api";
+// const baseURL_API = "http://localhost:8080/api";
 
 const instance = axios.create({
   baseURL: baseURL_API
