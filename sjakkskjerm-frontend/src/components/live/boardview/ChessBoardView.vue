@@ -74,7 +74,6 @@ export default {
       }
     },
     fetchBoardPgn() {
-      console.log("FetchBoardPgn: fetching pgn...");
       GameService.getPgn(this.gameId)
         .then(response => {
           if (response.data.pgn === null) {
@@ -90,9 +89,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(
-            "FetchBoardPGN: Error - Unable to set PGN for board: " + this.gameId
-          );
           console.log(error);
           clearInterval(this.fetchInterval);
         });

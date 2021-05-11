@@ -65,16 +65,12 @@ export default {
   },
   methods: {
     fetchGames() {
-      console.log(
-        "FetchGames: Fetching games for tournament " + this.tournamentId
-      );
       GameService.getGames(this.tournamentId)
         .then(response => {
           if (Array.isArray(response.data)) {
             this.games = response.data;
             this.gamesFectched = true;
             this.errorUserFeedbackText = "Turneringen har ingen pågående spill";
-            console.log("FetchGames: Succesfully fetched games");
           } else {
             this.error = true;
             this.errorUserFeedbackText += "We done fucked up, sry";

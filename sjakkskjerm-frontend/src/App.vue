@@ -1,41 +1,43 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="navbarSupportedContent" class="collapse navbar-collapse">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link"> Turneringer </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/about" class="nav-link"> Om </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/profil" v-if="getLoginStatus" class="nav-link">Profil</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/login" v-if="!getLoginStatus" class="nav-link">Login</router-link> 
-        </li>
-        <li class="nav-item">
-          <router-link to="/register" v-if="!getLoginStatus" class="nav-link">Registrer</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/login" v-if="getLoginStatus" v-on:click="logout()" class="nav-link">Logg ut</router-link>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbarSupportedContent" class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link to="/" class="nav-link"> Turneringer </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/about" class="nav-link"> Om </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/profil" v-if="getLoginStatus" class="nav-link">Profil</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" v-if="!getLoginStatus" class="nav-link">Login</router-link> 
+          </li>
+          <li class="nav-item">
+            <router-link to="/register" v-if="!getLoginStatus" class="nav-link">Registrer</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/login" v-if="getLoginStatus" v-on:click="logout()" class="nav-link">Logg ut</router-link>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-  <router-view />
+    <router-view />
+  </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -54,7 +56,6 @@ export default {
     logout() {
       localStorage.clear();
       this.$router.push("/login");
-      console.log("logged out");
       alert("logged out");
     }
   }
