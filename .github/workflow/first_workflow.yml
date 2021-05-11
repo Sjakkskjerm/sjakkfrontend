@@ -1,0 +1,21 @@
+name: Deployment Workflow
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  job_one:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: testing sjakkfrontend server ssh connection
+        uses: appleboy/ssh-action@master
+        with:
+          host: 158.38.101.92
+          username: martaard
+          key: ${{ secrets.SJAKKFRONTEND_SSH_SECRET }}
+          port: 22
+          script: |
+            cd sjakkskjerm/sjakkfrontend/
+            git pull origin develop
+            git status
