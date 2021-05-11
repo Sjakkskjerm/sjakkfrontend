@@ -83,7 +83,6 @@ export default {
     getTournamentsByOwner() {
       GameService.getTournamentsByOwner(this.gettersAuthData.uid)
         .then(response => {
-          console.log(response);
           this.tournaments = response.data;
         })
         .catch(error => {

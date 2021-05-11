@@ -173,10 +173,7 @@ export default {
         endDate: this.v$.endDate.$model,
         arbiter: this.v$.arbiter.$model
       };
-      AuthoService.post(
-        "http://localhost:8080/api/tournaments/createtournament",
-        tournament
-      )
+      AuthoService.post("tournaments/createtournament", tournament)
         .then(response => {
           if (response.data) {
             const path = "/dashboard/" + response.data.id;

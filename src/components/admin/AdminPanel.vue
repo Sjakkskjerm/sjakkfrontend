@@ -51,7 +51,7 @@
           >
         </div>
       </form>
-      <button :disabled="hasErrors" class="btn btn-dark" @:click="updateRole">
+      <button :disabled="hasErrors" class="btn btn-dark" @click="updateRole">
         Endre rolle
       </button>
       <br />

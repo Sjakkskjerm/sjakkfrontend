@@ -44,8 +44,6 @@ const actions = {
       console.log(err);
     });
     if (response && response.data) {
-      console.log("Response: " + response);
-      console.log("Response data: " + response.data);
       commit("saveTokenData", response.data);
       commit("setLoginStatu", "success");
     } else {
