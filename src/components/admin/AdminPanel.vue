@@ -118,6 +118,9 @@ export default {
           })
           .catch(error => {
             this.error = "error";
+            if (error.response.status == 403) {
+              alert("Kan ikke bytte din egen rolle");
+            }
             console.log(error);
           });
       } else {

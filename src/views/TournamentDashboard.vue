@@ -1,35 +1,40 @@
 <template>
-  <div v-if="gettersAuthData.role === 'ROLE_ORGANIZER' && ownerOfTournament">
-    <h1>Dashboard</h1>
-    <h2>{{ tournament.tournamentName }}</h2>
-    <h3>Sendte meldinger</h3>
-    <DashboardMessage :tournamentid="id" />
-    <div v-if="ownerOfTournament" class="delete-tournament-div">
-      <button
-        class="btn btn-dark delete-tournament-button"
-        @click="deleteTournament"
-      >
-        Slett turnering
-      </button>
-      <br />
+  <div>
+    <div v-if="adminOrOwner && ownerOfTournament">
+      <h1>Dashboard</h1>
+      <h2>{{ tournament.tournamentName }}</h2>
+      <h3>Sendte meldinger</h3>
+      <DashboardMessage :tournamentid="id" />
+      <div v-if="ownerOfTournament" class="delete-tournament-div">
+        <button
+          class="btn btn-dark delete-tournament-button"
+          @click="deleteTournament"
+        >
+          Slett turnering
+        </button>
+        <br />
+        <button
+          class="tilbakeknapp btn btn-outline-dark"
+          @click="$router.go(-1)"
+        >
+          Tilbake
+        </button>
+      </div>
+    </div>
+    <div v-if="!adminOrOwner">
+      <hr />
+      <h2>Du er ikke autorisert for denne tjenesten!</h2>
       <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">
         Tilbake
       </button>
     </div>
-  </div>
-  <div v-if="gettersAuthData.role !== 'ROLE_ORGANIZER'">
-    <hr />
-    <h2>Du er ikke autorisert for denne tjenesten!</h2>
-    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">
-      Tilbake
-    </button>
-  </div>
-  <div v-if="!ownerOfTournament">
-    <hr />
-    <h2>Du er ikke arrangør for denne turneringen!</h2>
-    <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">
-      Tilbake
-    </button>
+    <div v-if="!ownerOfTournament">
+      <hr />
+      <h2>Du er ikke arrangør for denne turneringen!</h2>
+      <button class="tilbakeknapp btn btn-outline-dark" @click="$router.go(-1)">
+        Tilbake
+      </button>
+    </div>
   </div>
 </template>
 
@@ -66,6 +71,12 @@ export default {
       } else {
         return false;
       }
+    },
+    adminOrOwner() {
+      return (
+        this.gettersAuthData.role === "ROLE_ORGANIZER" ||
+        this.gettersAuthData.role === "ROLE_ADMIN"
+      );
     },
     ...mapGetters("auth", {
       gettersAuthData: "getAuthData"
