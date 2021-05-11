@@ -1,81 +1,119 @@
 <template>
   <div>
     <h2>Logg inn</h2>
-    <hr>
+    <hr />
     <form class="needs-validation">
       <div class="mb-3">
         <label for="txtusername" class="form-label">Brukernavn</label>
-        <input type="text" placeholder="Fyll inn brukernavn" class="form-control" :class="{ 'is-invalid': v$.username.$error, 'is-valid': !v$.username.$invalid }" id="txtusername" required autofocus  v-model="v$.username.$model"/>
+        <input
+          id="txtusername"
+          v-model="v$.username.$model"
+          type="text"
+          placeholder="Fyll inn brukernavn"
+          class="form-control"
+          :class="{
+            'is-invalid': v$.username.$error,
+            'is-valid': !v$.username.$invalid
+          }"
+          required
+          autofocus
+        />
         <div v-if="v$.username.$error">
-          <span v-if="v$.username.required.$invalid" class="errortext"> Vennligst fyll inn brukernavn.</span>
-          <span v-if="v$.username.alphaNum.$invalid" class="errortext"> Symboler ikke godtatt, fyll inn gyldig brukernavn.</span>
+          <span v-if="v$.username.required.$invalid" class="errortext">
+            Vennligst fyll inn brukernavn.</span
+          >
+          <span v-if="v$.username.alphaNum.$invalid" class="errortext">
+            Symboler ikke godtatt, fyll inn gyldig brukernavn.</span
+          >
         </div>
       </div>
       <div class="mb-3">
         <label for="txtpassword" class="form-label">Passord</label>
-        <input type="password" placeholder="Fyll inn passord" class="form-control" :class="{ 'is-invalid': v$.password.$error, 'is-valid': !v$.password.$invalid }" id="txtpassword" v-model="v$.password.$model"/>
+        <input
+          id="txtpassword"
+          v-model="v$.password.$model"
+          type="password"
+          placeholder="Fyll inn passord"
+          class="form-control"
+          :class="{
+            'is-invalid': v$.password.$error,
+            'is-valid': !v$.password.$invalid
+          }"
+        />
         <div v-if="v$.password.$error">
-          <span v-if="v$.password.required.$invalid" class="errortext"> Vennligst fyll inn passord.</span>
+          <span v-if="v$.password.required.$invalid" class="errortext">
+            Vennligst fyll inn passord.</span
+          >
         </div>
       </div>
     </form>
-    <button type="submit" class="btn btn-dark" @click="sendLogin()" :disabled="this.hasErrors">Logg Inn</button>
+    <button
+      type="submit"
+      class="btn btn-dark"
+      :disabled="hasErrors"
+      @click="sendLogin()"
+    >
+      Logg Inn
+    </button>
   </div>
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex';
-import useValidate from '@vuelidate/core'
-import { minLength, required, alphaNum } from '@vuelidate/validators'
+import { mapActions, mapGetters } from "vuex";
+import useValidate from "@vuelidate/core";
+import { minLength, required, alphaNum } from "@vuelidate/validators";
 
 export default {
   data() {
     return {
       v$: useValidate(),
-      username:'',
-      password:''
-    }
-  }, 
+      username: "",
+      password: ""
+    };
+  },
   validations() {
     return {
       username: {
-        required, 
+        required,
         alphaNum,
-        minLength: minLength(1)	
+        minLength: minLength(1)
       },
       password: {
         required
       }
-    }
+    };
   },
   computed: {
-    ...mapGetters('auth', {
-      getterLoginStatus:'getLoginStatus'
+    ...mapGetters("auth", {
+      getterLoginStatus: "getLoginStatus"
     }),
     hasErrors() {
-      return this.v$.$invalid
+      return this.v$.$invalid;
     }
   },
   methods: {
-    ...mapActions('auth', {
-      actionLogin:'login'
+    ...mapActions("auth", {
+      actionLogin: "login"
     }),
     sendLogin() {
-      this.v$.$validate() 
-      if (!this.v$.$error) { 
-        this.login()
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        this.login();
       } else {
-        alert('Kunne ikke sende forespørsel')
+        alert("Kunne ikke sende forespørsel");
       }
     },
     async login() {
-      await this.actionLogin({username:this.v$.username.$model, password:this.v$.password.$model});
-      if (this.getterLoginStatus == 'success') {
+      await this.actionLogin({
+        username: this.v$.username.$model,
+        password: this.v$.password.$model
+      });
+      if (this.getterLoginStatus == "success") {
         this.$router.push("/profil");
       } else {
-        alert('failed to login')
+        alert("failed to login");
       }
-    },
+    }
   }
 };
 </script>

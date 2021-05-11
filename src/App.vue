@@ -21,16 +21,28 @@
             <router-link to="/about" class="nav-link"> Om </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/profil" v-if="getLoginStatus" class="nav-link">Profil</router-link>
+            <router-link v-if="getLoginStatus" to="/profil" class="nav-link"
+              >Profil</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/login" v-if="!getLoginStatus" class="nav-link">Login</router-link> 
+            <router-link v-if="!getLoginStatus" to="/login" class="nav-link"
+              >Login</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/register" v-if="!getLoginStatus" class="nav-link">Registrer</router-link>
+            <router-link v-if="!getLoginStatus" to="/register" class="nav-link"
+              >Registrer</router-link
+            >
           </li>
           <li class="nav-item">
-            <router-link to="/login" v-if="getLoginStatus" v-on:click="logout()" class="nav-link">Logg ut</router-link>
+            <router-link
+              v-if="getLoginStatus"
+              to="/login"
+              class="nav-link"
+              @click="logout()"
+              >Logg ut</router-link
+            >
           </li>
         </ul>
       </div>

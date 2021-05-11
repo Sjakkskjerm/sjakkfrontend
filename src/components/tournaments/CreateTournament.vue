@@ -6,18 +6,45 @@
 
       <label>Tittel</label>
       <div class="mb-3">
-        <BaseInput required autofocus v-model="v$.tournamentName.$model" placeholder="Tittel..." type="text" class="form-control" :class="{ 'is-invalid': v$.tournamentName.$error, 'is-valid': !v$.tournamentName.$invalid }"/>
+        <BaseInput
+          v-model="v$.tournamentName.$model"
+          required
+          autofocus
+          placeholder="Tittel..."
+          type="text"
+          class="form-control"
+          :class="{
+            'is-invalid': v$.tournamentName.$error,
+            'is-valid': !v$.tournamentName.$invalid
+          }"
+        />
         <div v-if="v$.tournamentName.$error">
-          <span v-if="v$.tournamentName.required.$invalid" class="errortext"> Vennligst fyll inn tittel.</span>
+          <span v-if="v$.tournamentName.required.$invalid" class="errortext">
+            Vennligst fyll inn tittel.</span
+          >
         </div>
       </div>
 
       <label>Navn på arbiter</label>
       <div class="arbiter mb-3">
-        <BaseInput required v-model="v$.arbiter.$model" placeholder="Navn..." type="text" class="form-control" :class="{ 'is-invalid': v$.arbiter.$error, 'is-valid': !v$.arbiter.$invalid }"/>
+        <BaseInput
+          v-model="v$.arbiter.$model"
+          required
+          placeholder="Navn..."
+          type="text"
+          class="form-control"
+          :class="{
+            'is-invalid': v$.arbiter.$error,
+            'is-valid': !v$.arbiter.$invalid
+          }"
+        />
         <div v-if="v$.arbiter.$error">
-          <span v-if="v$.arbiter.required.$invalid" class="errortext"> Vennligst fyll inn arbiter.</span>
-          <span v-if="v$.arbiter.alphaNum.$invalid" class="errortext"> Arbiter kan kun være alphanumerisk, ingen symboler.</span>
+          <span v-if="v$.arbiter.required.$invalid" class="errortext">
+            Vennligst fyll inn arbiter.</span
+          >
+          <span v-if="v$.arbiter.alphaNum.$invalid" class="errortext">
+            Arbiter kan kun være alphanumerisk, ingen symboler.</span
+          >
         </div>
       </div>
 
@@ -28,10 +55,15 @@
         <datepicker
           v-model="v$.startDate.$model"
           placeholder="Startdato (Klikk for å velge)"
-          :class="{ 'is-invalid': v$.startDate.$error, 'is-valid': !v$.startDate.$invalid }"
+          :class="{
+            'is-invalid': v$.startDate.$error,
+            'is-valid': !v$.startDate.$invalid
+          }"
         />
         <div v-if="v$.startDate.$error">
-          <span v-if="v$.startDate.required.$invalid" class="errortext"> Vennligst fyll inn dato.</span>
+          <span v-if="v$.startDate.required.$invalid" class="errortext">
+            Vennligst fyll inn dato.</span
+          >
         </div>
       </div>
 
@@ -40,10 +72,15 @@
         <datepicker
           v-model="v$.endDate.$model"
           placeholder="Sluttdato (Klikk for å velge)"
-          :class="{ 'is-invalid': v$.endDate.$error, 'is-valid': !v$.endDate.$invalid }"
+          :class="{
+            'is-invalid': v$.endDate.$error,
+            'is-valid': !v$.endDate.$invalid
+          }"
         />
         <div v-if="v$.endDate.$error">
-          <span v-if="v$.endDate.required.$invalid" class="errortext"> Vennligst fyll inn dato.</span>
+          <span v-if="v$.endDate.required.$invalid" class="errortext">
+            Vennligst fyll inn dato.</span
+          >
         </div>
       </div>
 
@@ -87,8 +124,8 @@ import BaseInput from "../forms/BaseInput.vue";
 import Datepicker from "vue3-datepicker";
 import AuthoService from "@/services/AuthoService.js";
 
-import useValidate from '@vuelidate/core'
-import { required,alphaNum } from '@vuelidate/validators'
+import useValidate from "@vuelidate/core";
+import { required, alphaNum } from "@vuelidate/validators";
 
 export default {
   name: "CreateTournament",
@@ -121,22 +158,21 @@ export default {
       endDate: {
         required
       }
-    }
+    };
   },
   computed: {
     hasErrors() {
-      return this.v$.$invalid
+      return this.v$.$invalid;
     }
   },
   methods: {
     sendForm() {
-
       var tournament = {
         tournamentName: this.v$.tournamentName.$model,
         startDate: this.v$.startDate.$model,
         endDate: this.v$.endDate.$model,
         arbiter: this.v$.arbiter.$model
-      }
+      };
       AuthoService.post(
         "http://localhost:8080/api/tournaments/createtournament",
         tournament
