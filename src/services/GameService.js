@@ -1,10 +1,13 @@
 import axios from "axios";
 
 //prod URL
-const backendURL = "http://158.38.101.216:8080/api";
+// const backendURL = "https://158.38.101.216:8443/api";
+
+//domain URL
+const backendURL = "https://martaard-ssprod.uials.no:8443/api";
 
 //local URL
-// const backendURL = "http://localhost:8080/api";
+// const backendURL = "https://localhost:8443/api";
 
 //paths/routes
 const tournaments = "/tournaments/";

@@ -1,10 +1,13 @@
 import axios from "axios";
 
 //prod URL
-const baseURL_API = "http://158.38.101.216:8080/api";
+// const baseURL_API = "https://158.38.101.216:8443/api";
+
+//domain URL
+const baseURL_API = "https://martaard-ssprod.uials.no:8443/api";
 
 //local URL
-// const baseURL_API = "http://localhost:8080/api";
+// const baseURL_API = "https://localhost:8443/api";
 
 const instance = axios.create({
   baseURL: baseURL_API
