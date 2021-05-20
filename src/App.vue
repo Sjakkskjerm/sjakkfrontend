@@ -18,9 +18,6 @@
             <router-link to="/" class="nav-link"> Turneringer </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/about" class="nav-link"> Om </router-link>
-          </li>
-          <li class="nav-item">
             <router-link v-if="getLoginStatus" to="/profil" class="nav-link"
               >Profil</router-link
             >
@@ -86,7 +83,7 @@ export default {
 }
 html,
 body {
-  height: 100vh;
+  /* height: 100%; */
   width: 100vw;
   margin: 0;
   padding: 0;

@@ -16,24 +16,16 @@ const routes = [
     name: "Tournaments",
     component: Tournaments,
     meta: {
-      requiredAuth: false
-    }
-  },
-  {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
-    meta: {
-      requiredAuth: false
-    }
+      requiredAuth: false,
+    },
   },
   {
     path: "/live",
     name: "Live",
     component: Tournament,
     meta: {
-      requiredAuth: false
-    }
+      requiredAuth: false,
+    },
   },
   {
     path: "/tournament/:id",
@@ -41,36 +33,36 @@ const routes = [
     props: true,
     component: Tournament,
     meta: {
-      requiredAuth: false
-    }
+      requiredAuth: false,
+    },
   },
   {
     path: "/login",
     component: Login,
     meta: {
-      requiredAuth: false
-    }
+      requiredAuth: false,
+    },
   },
   {
     path: "/profil",
     component: Profile,
     meta: {
-      requiredAuth: true
-    }
+      requiredAuth: true,
+    },
   },
   {
     path: "/register",
     component: Register,
     meta: {
-      requiredAuth: false
-    }
+      requiredAuth: false,
+    },
   },
   {
     path: "/admin/panel",
     component: AdminPanel,
     meta: {
-      requiredAuth: true
-    }
+      requiredAuth: true,
+    },
   },
   {
     path: "/dashboard/:id",
@@ -78,27 +70,27 @@ const routes = [
     props: true,
     component: TournamentDashboard,
     meta: {
-      requiredAuth: false
-    }
+      requiredAuth: false,
+    },
   },
   {
     path: "/createtournament",
     name: "Create tournaments",
     component: CreateTournament,
     meta: {
-      requiredAuth: true
-    }
+      requiredAuth: true,
+    },
   },
   {
     path: "/:pathMatch(.*)*",
     component: NotFoundComponent,
-    name: "NotFound"
-  }
+    name: "NotFound",
+  },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
@@ -108,7 +100,7 @@ router.beforeEach((to, from, next) => {
     if (access_token) {
       const data = {
         access_token: access_token,
-        refresh_token: refresh_token
+        refresh_token: refresh_token,
       };
       store.commit("auth/saveTokenData", data);
     }
