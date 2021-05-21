@@ -209,11 +209,9 @@ export default {
       if (!this.v$.$error) {
         alert("Registrering sendt");
 
-        console.log(data);
 
         GameService.register(data)
-          .then(response => {
-            console.log("Resp: " + response);
+          .then( () => {
             this.$router.push("/login");
           })
           .catch(error => {
