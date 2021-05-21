@@ -5,7 +5,7 @@
     <p v-if="playersSet" class="blackplayer text">{{ blackPlayer }}</p>
     <p v-if="gamesPresent == false" class="text">Waiting for moves</p>
     <p v-if="gameFinished" class="text">Game over - {{ result }}</p>
-    <p class="moves text">Trekk: {{ pgn.pop() }}</p>
+    <!-- <p class="moves text">Trekk: {{ pgn.pop() }}</p> -->
   </div>
 </template>
 
